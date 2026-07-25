@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status — ADOS</title>
+<meta name="description" content="Availability for every ADOS component. This page is served independently of the application so it stays reachable during an incident.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Skip to content</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="st-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <span>Status</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot ok"><i></i><b></b></span>Status</span>
+    <h1 id="st-h" class="t-section fade" data-d="140">All systems operational.</h1>
+    <p class="t-body lead fade" data-d="260">Availability for every ADOS component. This page is served independently of the application so it stays reachable during an incident.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="status-banner reveal">
+      <span class="dot ok" style="width:10px;height:10px"><i></i><b style="width:10px;height:10px"></b></span>
+      <div>
+        <p style="font-size:16px;font-weight:600;color:hsl(var(--ink))">All systems operational</p>
+        <p style="margin-top:2px;font-size:14px;color:hsl(var(--muted))">Every component below is reporting normal service.</p>
+      </div>
+    </div>
+
+    <ul class="status-list reveal" id="components"></ul>
+
+    <div class="note warn reveal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+      <p><strong style="color:hsl(var(--ink))">Not yet connected to live monitoring.</strong> These indicators are placeholders showing the components that will be tracked. Replaced by a monitoring feed before launch.</p>
+    </div>
+
+    <div class="prose reveal" style="margin-top:72px">
+      <h2>History</h2>
+      <p>No incidents reported. Confirmed incidents will be published here with description, impact and resolution, followed by a written review within 10 business days.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+<script>
+const COMPONENTS = [
+  ['Website','Marketing site and documentation.'],
+  ['Dashboard','The workspace application.'],
+  ['Public API','REST endpoints and webhook delivery.'],
+  ['Authentication','Sign-in, sessions and OAuth callbacks.'],
+  ['Agent scheduling','Queued and recurring agent work.'],
+  ['Integrations','Connectors to Google, Meta, CRM and commerce platforms.'],
+  ['Analytics processing','Ingestion and reconciliation of connected sources.'],
+  ['Notifications','Email, in-app and Slack delivery.'],
+];
+document.getElementById('components').innerHTML = COMPONENTS.map(([n,d]) => `
+  <li class="status-row">
+    <span><span class="nm">${n}</span><span class="ds">${d}</span></span>
+    <span class="st"><span class="dot ok"><i></i><b></b></span>Operational</span>
+  </li>`).join('');
+</script>
+</body>
+</html>

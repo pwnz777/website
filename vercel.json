@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/privacy", "destination": "/privacy-policy" },
+    { "source": "/terms", "destination": "/terms-of-service" },
+    { "source": "/cookies", "destination": "/cookie-policy" },
+    { "source": "/legal", "destination": "/privacy-policy" },
+    { "source": "/legal/privacy-policy", "destination": "/privacy-policy" },
+    { "source": "/legal/terms-of-service", "destination": "/terms-of-service" },
+    { "source": "/legal/cookie-policy", "destination": "/cookie-policy" },
+    { "source": "/legal/data-deletion", "destination": "/data-deletion" },
+    { "source": "/docs/api", "destination": "/api" },
+    { "source": "/docs", "destination": "/developers" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    }
+  ]
+}

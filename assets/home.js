@@ -1,0 +1,299 @@
+/* ═══════════════════════════════════════════════════════════
+   ADOS — landing page only: starfield, product preview,
+   platform tabs, capability blocks, trust grid, integration
+   network. Depends on site.js (RM, words, observeReveals).
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── hero headline ── */
+words(document.getElementById('hl1'), 'Every channel.', 120);
+words(document.getElementById('hl2'), 'One workspace.', 260);
+
+/* ── starfield ── */
+if (!RM) {
+  const c = document.getElementById('stars'), x = c.getContext('2d');
+  let ps = [], w = 0, h = 0, t = 0, run = false, f = 0;
+  const rs = () => {
+    const r = c.getBoundingClientRect(), d = Math.min(devicePixelRatio||1, 2);
+    w = r.width; h = r.height; c.width = w*d; c.height = h*d; x.setTransform(d,0,0,d,0,0);
+    const n = Math.max(8, Math.round(34 * Math.min(1, (w*h)/(1440*900))));
+    ps = Array.from({length:n}, () => ({x:Math.random()*w, y:Math.random()*h,
+      vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.28,
+      r:.8+Math.random()*1.4, a:.08+Math.random()*.2}));
+  };
+  const draw = time => {
+    if (!run) return;
+    const dt = t ? Math.min(time-t,48) : 16; t = time;
+    x.clearRect(0,0,w,h);
+    for (const p of ps) {
+      p.x += p.vx*dt*.06; p.y += p.vy*dt*.06;
+      if (p.x < -8) p.x = w+8; if (p.x > w+8) p.x = -8;
+      if (p.y < -8) p.y = h+8; if (p.y > h+8) p.y = -8;
+      x.beginPath(); x.arc(p.x,p.y,p.r,0,6.283);
+      x.fillStyle = `rgba(255,255,255,${p.a})`; x.fill();
+    }
+    f = requestAnimationFrame(draw);
+  };
+  const start = () => { if (!run) { run = true; t = 0; f = requestAnimationFrame(draw); } };
+  const stop = () => { run = false; cancelAnimationFrame(f); };
+  rs(); new ResizeObserver(rs).observe(c);
+  new IntersectionObserver(([e]) => e.isIntersecting ? start() : stop()).observe(c);
+  addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+}
+
+/* ── card tilt ── */
+const win = document.getElementById('win');
+if (!RM && matchMedia('(pointer: fine)').matches) {
+  win.addEventListener('pointermove', e => {
+    const r = win.getBoundingClientRect();
+    const px = (e.clientX-r.left)/r.width - .5, py = (e.clientY-r.top)/r.height - .5;
+    win.style.transform = `perspective(1200px) rotateX(${-py*4}deg) rotateY(${px*4}deg) translateZ(6px) scale(1.008)`;
+  });
+  win.addEventListener('pointerleave', () => win.style.transform = '');
+}
+
+/* ── preview: connections, chart, feed ── */
+const SERVICES = ['Google Ads','Meta','Analytics','HubSpot','Shopify'];
+document.getElementById('chips').innerHTML = SERVICES.map((s,i) =>
+  `<li class="chip" style="opacity:0;animation:actin .45s var(--ease-in) ${450+i*90}ms forwards">
+     <span class="dot ok"><i style="animation-delay:${i*400}ms"></i><b></b></span>${s}</li>`).join('');
+
+const SERIES = [18,22,20,27,25,31,30,36,34,41,44,42,49,53,51,58,62,66];
+const max = Math.max(...SERIES);
+const pts = SERIES.map((v,i) => `${(i/(SERIES.length-1))*100},${36-(v/max)*30}`).join(' ');
+const line = document.getElementById('sline');
+line.setAttribute('points', pts);
+document.getElementById('sfill').setAttribute('points', `0,40 ${pts} 100,40`);
+if (!RM) {
+  const L = line.getTotalLength();
+  line.style.strokeDasharray = L; line.style.strokeDashoffset = L;
+  requestAnimationFrame(() => {
+    line.style.transition = 'stroke-dashoffset 1.5s var(--ease-in) .7s';
+    line.style.strokeDashoffset = 0;
+  });
+}
+setTimeout(() => document.getElementById('sfill').style.opacity = 1, 100);
+
+/* activity stream — every item labelled by who authorised it */
+const ACT = [
+  ['Website audit completed','Website','Automated'],
+  ['Campaign draft prepared','Advertising','Needs approval'],
+  ['Analytics synchronised','Analytics','Automated'],
+  ['SEO recommendations ready','SEO','Needs approval'],
+  ['Weekly report generated','Reporting','Automated'],
+  ['CRM records reconciled','CRM','Automated'],
+];
+const feed = document.getElementById('feed');
+let cur = 2;
+const CHECK = '<svg width="10" height="10" viewBox="0 0 14 10" fill="none" stroke="hsl(var(--success))" stroke-width="3"><path d="M1 5l4 4 8-8"/></svg>';
+function renderFeed() {
+  feed.innerHTML = [0,1,2].map(o => {
+    const [l,a,m] = ACT[((cur-o)%ACT.length+ACT.length)%ACT.length];
+    const first = o === 0;
+    return `<li class="act" style="opacity:${first?1:.5}">
+      <span class="ic" style="background:${first?'hsl(var(--brand)/.15)':'hsl(var(--success)/.12)'}">
+        ${first?'<span class="spin"></span>':CHECK}</span>
+      <span class="lbl">${l}</span><span class="ag">${a}</span>
+      <span class="md ${m==='Automated'?'md-auto':'md-appr'}">${m}</span></li>`;
+  }).join('');
+}
+renderFeed();
+if (!RM) setInterval(() => { if (!document.hidden) { cur = (cur+1)%ACT.length; renderFeed(); } }, 3200);
+
+/* ── platform tabs ── */
+const VIEWS = {
+  overview: () => `
+    <div style="display:grid;gap:8px">
+      <div style="display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+        ${[['Sessions','48,210','+12.4%'],['Qualified leads','1,284','+8.1%'],['Blended CAC','$62.40','−6.2%']]
+          .map(([l,v,d]) => `<div class="lpanel"><p style="font-size:12.5px" class="muted">${l}</p>
+            <p class="metric-v">${v}</p>
+            <p style="margin-top:4px;font-size:12px;font-weight:500;color:hsl(var(--success))">${d}</p></div>`).join('')}
+      </div>
+      <div class="lpanel">
+        <p style="font-size:12.5px;font-weight:500" class="muted">Channel contribution</p>
+        ${[['Google Ads',34],['Meta',27],['Organic search',21],['Email',11],['Direct',7]]
+          .map(([n,s],i)=>`<div class="crow"><span class="nm">${n}</span>
+            <span class="bar"><b data-w="${s}" style="transition-delay:${100+i*70}ms"></b></span>
+            <span class="pc">${s}%</span></div>`).join('')}
+      </div>
+    </div>`,
+  campaigns: () => `<div style="display:grid;gap:8px">
+    ${[['Q3 launch — Search','Live','Google Ads · 4 ad groups'],
+       ['Retargeting — warm','Live','Meta · 3 audiences'],
+       ['Clinic vertical — Search','Draft','Google Ads · Awaiting approval']]
+      .map(([n,s,d])=>`<div class="lpanel" style="display:flex;align-items:center;gap:16px">
+        <span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:500">${n}</span>
+        <span style="display:block;margin-top:2px;font-size:12.5px" class="muted">${d}</span></span>
+        <span class="badge ${s==='Live'?'b-ok':'b-plan'}">${s}</span></div>`).join('')}</div>`,
+  content: () => `<div style="display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+    ${[['Pricing page — variant B','Landing page','Ready'],
+       ['How lead scoring works','Article','In review'],
+       ['Q3 launch — 12 ad variants','Creative','Ready']]
+      .map(([t,ty,s])=>`<div class="lpanel" style="display:flex;flex-direction:column">
+        <div style="display:grid;gap:6px;margin-bottom:16px" aria-hidden="true">
+          <span style="height:6px;border-radius:999px;background:hsl(var(--line))"></span>
+          <span style="height:6px;width:80%;border-radius:999px;background:hsl(var(--line))"></span>
+          <span style="height:6px;width:60%;border-radius:999px;background:hsl(var(--line))"></span></div>
+        <h3 style="font-size:14.5px;font-weight:500;line-height:1.4">${t}</h3>
+        <p style="margin-top:4px;font-size:12.5px" class="muted">${ty}</p>
+        <span class="badge ${s==='Ready'?'b-ok':'b-plan'}" style="margin-top:16px;width:fit-content">${s}</span></div>`).join('')}</div>`,
+};
+const showcase = document.getElementById('showcase');
+const tabs = [...document.querySelectorAll('.tab')];
+const tabbg = document.getElementById('tabbg');
+function moveBg(el) { tabbg.style.width = el.offsetWidth+'px'; tabbg.style.transform = `translateX(${el.offsetLeft-4}px)`; }
+function setView(el) {
+  tabs.forEach(t => { t.setAttribute('aria-selected', t===el); t.tabIndex = t===el ? 0 : -1; });
+  moveBg(el);
+  showcase.style.opacity = 0;
+  setTimeout(() => {
+    showcase.innerHTML = VIEWS[el.dataset.v]();
+    showcase.style.opacity = 1;
+    requestAnimationFrame(() => showcase.querySelectorAll('.bar b').forEach(b => b.style.width = b.dataset.w+'%'));
+  }, RM ? 0 : 180);
+}
+showcase.style.transition = 'opacity .18s var(--ease)';
+tabs.forEach((t,i) => {
+  t.addEventListener('click', () => setView(t));
+  t.addEventListener('keydown', e => {
+    const k = {ArrowRight:1, ArrowLeft:-1}[e.key];
+    if (!k) return; e.preventDefault();
+    const n = tabs[(i+k+tabs.length)%tabs.length]; setView(n); n.focus();
+  });
+});
+setView(tabs[0]);
+addEventListener('resize', () => moveBg(tabs.find(t => t.getAttribute('aria-selected')==='true')));
+
+/* ── capabilities ── */
+const CAPS = [
+  ['Create','Build websites, landing pages and content from a brief, with revisions prepared as drafts against your connected CMS.','brand',['Pages','Content','Assets'],'M3 9h18M9 21V9M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z'],
+  ['Advertise','Manage advertising workflows across supported platforms. Campaigns are created in your own accounts and stay paused until you launch them.','purple',['Campaigns','Audiences','Creative'],'M3 11l18-5v12L3 14v-3zM11.6 16.8a3 3 0 11-5.8-1.6'],
+  ['Optimize','SEO insights, reconciled analytics and performance recommendations — each one showing the evidence behind it.','cyan',['Search','Analytics','Recommendations'],'M3 3v18h18M18.7 8l-5.1 5.2-2.8-2.7L7 14.3'],
+  ['Manage','CRM synchronisation, scheduled reporting and the recurring workflows you have approved, running on their own.','brand',['Contacts','Reports','Automations'],'M14 9V5a3 3 0 00-6 0v4M5 9h14l1 12H4L5 9z'],
+];
+document.getElementById('caps').innerHTML = CAPS.map(([t,d,h,s,p]) => `
+  <li class="reveal"><article class="cap">
+    <span class="rule" style="background:hsl(var(--${h}))"></span>
+    <span class="ico" style="background:hsl(var(--${h}-50));color:hsl(var(--${h}))">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="${p}"/></svg></span>
+    <h3>${t}</h3>
+    <p class="t-body muted">${d}</p>
+    <ul class="surfaces">${s.map(x=>`<li>${x}</li>`).join('')}</ul>
+  </article></li>`).join('');
+
+/* ── trust ── */
+const TRUST = [
+  ['Security','OAuth 2.0 with scoped permissions, TLS 1.3 in transit and AES-256 at rest. Credentials are encrypted with separately managed keys.','available','M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'],
+  ['Privacy','GDPR and CCPA compliant, with a Data Processing Agreement offered to every customer. Your data is never used to train generalised models.','available','M12 2a5 5 0 015 5v3M7 10V7a5 5 0 012-4M5 10h14v11H5z'],
+  ['Role-based access','Owner, admin, operator, analyst and billing roles scoped per workspace. Every permission is explicit rather than inherited.','available','M15 7a4 4 0 11-8 0 4 4 0 018 0zM3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2'],
+  ['Audit logs','Every agent action, approval and configuration change recorded with actor, timestamp and what changed.','available','M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M9 15h6M9 11h6'],
+  ['API and webhooks','A documented REST API with signed webhooks, so ADOS fits into systems you already operate.','available','M4 17l6-6-6-6M12 19h8'],
+  ['Scalable infrastructure','Multi-zone deployment with encrypted point-in-time backups and documented recovery objectives.','available','M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z'],
+  ['Professional support','Named contacts, agreed response times and a documented escalation path for organisations on an enterprise agreement.','planned','M3 18v-6a9 9 0 0118 0v6M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z'],
+];
+document.getElementById('trust').innerHTML = TRUST.map(([t,d,s,p]) => `
+  <li class="reveal"><article class="tcard">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+      <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="${p}"/></svg></span>
+      <span class="badge ${s==='planned'?'b-plan':'b-ok'}">${s==='planned'?'Planned':'Available'}</span>
+    </div>
+    <h3 style="margin-top:24px;font-size:17px;letter-spacing:-.015em">${t}</h3>
+    <p style="margin-top:10px;font-size:15px;line-height:1.7" class="muted">${d}</p>
+  </article></li>`).join('');
+
+/* ── integration network ── */
+const NET = [
+  ['Google Ads','Campaign structure, assets and spend','brand'],
+  ['Meta','Campaigns, audiences and creative','brand'],
+  ['Google Analytics','Sessions, events and conversions','cyan'],
+  ['Search Console','Queries, impressions and positions','cyan'],
+  ['HubSpot','Contacts, deals and lifecycle stages','purple'],
+  ['Shopify','Products, orders and customers','purple'],
+  ['WordPress','Pages, posts and metadata','cyan'],
+  ['Stripe','Subscriptions and revenue records','purple'],
+  ['Business Profile','Local listings and reviews','brand'],
+  ['Slack','Approvals and notifications','brand'],
+];
+const V = 560, C = 280, R = 208;
+const nodes = NET.map(([n,d,h],i) => {
+  const a = (i/NET.length)*Math.PI*2 - Math.PI/2;
+  return {n, d, h, x: C+Math.cos(a)*R, y: C+Math.sin(a)*R};
+});
+const netLines = nodes.map((o,i) => {
+  const mx=(o.x+C)/2, my=(o.y+C)/2, dx=C-o.x, dy=C-o.y;
+  const cx=mx-dy*.14, cy=my+dx*.14;
+  return {id:i, d:`M ${o.x} ${o.y} Q ${cx} ${cy} ${C} ${C}`, h:o.h};
+});
+document.getElementById('net').innerHTML = `
+<svg viewBox="0 0 ${V} ${V}" role="list" aria-label="Services that connect into the ADOS core">
+  <defs>
+    <radialGradient id="core" cx="42%" cy="34%" r="62%">
+      <stop offset="0%" stop-color="hsl(var(--brand))"/><stop offset="55%" stop-color="hsl(var(--brand-600))"/>
+      <stop offset="100%" stop-color="hsl(var(--purple))"/></radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="hsl(var(--brand))" stop-opacity=".14"/>
+      <stop offset="100%" stop-color="hsl(var(--brand))" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="hsl(var(--line))"/>
+  <circle cx="${C}" cy="${C}" r="${R*.58}" fill="none" stroke="hsl(var(--line))" stroke-dasharray="3 7"/>
+  <circle cx="${C}" cy="${C}" r="168" fill="url(#halo)"/>
+  ${netLines.map(l => `<path id="ln${l.id}" d="${l.d}" fill="none" stroke="hsl(var(--line-strong))" stroke-width="1" stroke-linecap="round" opacity=".5" style="transition:stroke .3s,stroke-width .3s,opacity .3s"/>`).join('')}
+  ${RM ? '' : netLines.map(l => `<circle r="2.2" fill="hsl(var(--line-strong))">
+    <animateMotion dur="2.6s" repeatCount="indefinite" begin="${(l.id*.34).toFixed(2)}s" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#ln${l.id}"/></animateMotion>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.8;1" dur="2.6s" repeatCount="indefinite" begin="${(l.id*.34).toFixed(2)}s"/></circle>`).join('')}
+  ${RM ? '' : `<circle cx="${C}" cy="${C}" r="58" fill="none" stroke="hsl(var(--brand))" stroke-width="1" opacity=".45">
+    <animate attributeName="r" values="58;90" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values=".45;0" dur="3.2s" repeatCount="indefinite"/></circle>`}
+  <circle cx="${C}" cy="${C}" r="58" fill="url(#core)"/>
+  <circle cx="${C}" cy="${C}" r="58" fill="none" stroke="rgb(255 255 255/.28)"/>
+  <circle cx="${C-18}" cy="${C-22}" r="20" fill="rgb(255 255 255/.16)"/>
+  <text x="${C}" y="${C-2}" text-anchor="middle" fill="#fff" font-size="15" font-weight="600" letter-spacing=".02em">ADOS</text>
+  <text x="${C}" y="${C+16}" text-anchor="middle" fill="rgb(255 255 255/.7)" font-size="10.5">Core</text>
+  ${nodes.map((o,i) => {
+    const an = o.x > C+24 ? 'start' : o.x < C-24 ? 'end' : 'middle';
+    const dx = an==='start'?18:an==='end'?-18:0, dy = an==='middle'?(o.y<C?-18:28):4;
+    return `<g class="node" data-i="${i}" tabindex="0" role="listitem" aria-label="${o.n} — ${o.d}">
+      <circle class="hit" cx="${o.x}" cy="${o.y}" r="26"/>
+      <circle id="nd${i}" cx="${o.x}" cy="${o.y}" r="7" fill="hsl(var(--background))" stroke="hsl(var(--line-strong))" stroke-width="1.5" style="transition:r .3s,stroke .3s,stroke-width .3s"/>
+      <circle id="nc${i}" cx="${o.x}" cy="${o.y}" r="2.5" fill="hsl(var(--muted))" style="transition:fill .3s"/>
+      <text x="${o.x+dx}" y="${o.y+dy}" text-anchor="${an}">${o.n}</text></g>`;
+  }).join('')}
+</svg>
+<p class="net-detail" id="netd" aria-live="polite"><span style="color:hsl(var(--muted)/.7)">Hover a service to see what it syncs</span></p>
+<ul style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${NET.map(([n,d])=>`<li>${n} — ${d}</li>`).join('')}</ul>`;
+
+document.querySelectorAll('.node').forEach(g => {
+  const i = +g.dataset.i, o = nodes[i];
+  const on = () => {
+    g.classList.add('on');
+    document.getElementById(`ln${i}`).setAttribute('stroke', `hsl(var(--${o.h}))`);
+    document.getElementById(`ln${i}`).setAttribute('stroke-width','1.6');
+    document.getElementById(`ln${i}`).setAttribute('opacity','.9');
+    document.getElementById(`nd${i}`).setAttribute('r','9');
+    document.getElementById(`nd${i}`).setAttribute('stroke',`hsl(var(--${o.h}))`);
+    document.getElementById(`nc${i}`).setAttribute('fill',`hsl(var(--${o.h}))`);
+    document.getElementById('netd').innerHTML = `<span style="font-weight:500;color:hsl(var(--ink))">${o.n}</span> — ${o.d}`;
+  };
+  const off = () => {
+    g.classList.remove('on');
+    document.getElementById(`ln${i}`).setAttribute('stroke','hsl(var(--line-strong))');
+    document.getElementById(`ln${i}`).setAttribute('stroke-width','1');
+    document.getElementById(`ln${i}`).setAttribute('opacity','.5');
+    document.getElementById(`nd${i}`).setAttribute('r','7');
+    document.getElementById(`nd${i}`).setAttribute('stroke','hsl(var(--line-strong))');
+    document.getElementById(`nc${i}`).setAttribute('fill','hsl(var(--muted))');
+    document.getElementById('netd').innerHTML = `<span style="color:hsl(var(--muted)/.7)">Hover a service to see what it syncs</span>`;
+  };
+  g.addEventListener('pointerenter', on); g.addEventListener('focus', on);
+  g.addEventListener('pointerleave', off); g.addEventListener('blur', off);
+});
+
+/* ── CTA headline ── */
+const ctaw = document.getElementById('ctaw');
+new IntersectionObserver(([e],ob) => {
+  if (!e.isIntersecting) return; ob.disconnect();
+  words(ctaw, 'A new way to run marketing.', 0);
+}, {threshold:.3}).observe(ctaw);
+
+/* newly injected .reveal nodes */
+observeReveals();

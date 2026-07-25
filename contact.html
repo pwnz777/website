@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — ADOS</title>
+<meta name="description" content="Talk to a human. Demos are run by an engineer rather than a script. Most enterprise security reviews close in under three weeks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Skip to content</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="con-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <span>Contact</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Contact</span>
+    <h1 id="con-h" class="t-section fade" data-d="140">Talk to a human.</h1>
+    <p class="t-body lead fade" data-d="260">Demos are run by an engineer rather than a script. Most enterprise security reviews close in under three weeks.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div class="reveal">
+        <h2 class="t-subtitle">Send us a message</h2>
+        <form class="form" id="cform" novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="reason">Reason for contact</label>
+            <select id="reason" name="reason">
+              <option>Request access</option>
+              <option>Enterprise and procurement</option>
+              <option>Security review</option>
+              <option>Support</option>
+              <option>Partnerships</option>
+              <option>Press</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">How can we help</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" id="consent" required>
+            <span>I agree that ADOS may process the details above to respond to this enquiry, as described in the <a href="privacy-policy.html" style="color:hsl(var(--ink));text-decoration:underline;text-underline-offset:3px">Privacy Policy</a>.</span>
+          </label>
+          <div>
+            <button type="submit" class="btn btn-md btn-accent"><span>Send message <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></button>
+          </div>
+          <p class="form-msg" id="fmsg" role="status">
+            <svg width="16" height="16" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 5l4 4 8-8"/></svg>
+            <span>This is a local build — nothing was sent. Connect the form to a routed mailbox before launch.</span>
+          </p>
+        </form>
+      </div>
+
+      <aside class="side reveal" aria-label="Reasons for contact">
+        <h3>Reasons for contact</h3>
+        <ul style="display:grid;gap:8px;margin-top:12px">
+          <li style="font-size:14.5px;color:hsl(var(--muted))">Request access</li>
+          <li style="font-size:14.5px;color:hsl(var(--muted))">Enterprise and procurement</li>
+          <li style="font-size:14.5px;color:hsl(var(--muted))">Security review</li>
+          <li style="font-size:14.5px;color:hsl(var(--muted))">Support</li>
+          <li style="font-size:14.5px;color:hsl(var(--muted))">Partnerships</li>
+          <li style="font-size:14.5px;color:hsl(var(--muted))">Press</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-surface" aria-labelledby="ch-h">
+  <div class="container">
+    <div class="sh">
+      <span class="eyebrow-l reveal">Direct channels</span>
+      <h2 id="ch-h" class="t-section reveal">Straight to the right desk.</h2>
+    </div>
+    <div class="tbl-wrap reveal">
+      <table class="tbl">
+        <thead><tr><th>Channel</th><th>Address</th><th>For</th></tr></thead>
+        <tbody>
+          <tr><td>General enquiries</td><td class="mono"><a href="mailto:hello@ados.ai">hello@ados.ai</a></td><td>Anything that does not fit below.</td></tr>
+          <tr><td>Sales</td><td class="mono"><a href="mailto:sales@ados.ai">sales@ados.ai</a></td><td>Pricing, plans, procurement and enterprise agreements.</td></tr>
+          <tr><td>Support</td><td class="mono"><a href="mailto:support@ados.ai">support@ados.ai</a></td><td>Existing customers. One business day.</td></tr>
+          <tr><td>Partnerships</td><td class="mono"><a href="mailto:partners@ados.ai">partners@ados.ai</a></td><td>Agencies, resellers and integration partners.</td></tr>
+          <tr><td>Legal and privacy</td><td class="mono"><a href="mailto:privacy@ados.ai">privacy@ados.ai</a></td><td>Data requests, DPAs and anything for our counsel.</td></tr>
+          <tr><td>Security</td><td class="mono"><a href="mailto:security@ados.ai">security@ados.ai</a></td><td>Vulnerability reports. Acknowledged within 24 hours.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note warn reveal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+      <p><strong style="color:hsl(var(--ink))">Placeholder addresses.</strong> The mailboxes above are reserved but not yet monitored. Replace them with routed addresses before launch.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+<script>
+document.getElementById('cform').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+  if (!f.checkValidity()) { f.reportValidity(); return; }
+  document.getElementById('fmsg').classList.add('show');
+});
+</script>
+</body>
+</html>

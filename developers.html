@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Developers — ADOS</title>
+<meta name="description" content="Build on the workspace. ADOS exposes everything the dashboard does over a documented REST API, with signed webhooks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Skip to content</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="dev-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <span>Developers</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Developers</span>
+    <h1 id="dev-h" class="t-section fade" data-d="140">Build on the workspace.</h1>
+    <p class="t-body lead fade" data-d="260">ADOS exposes everything the dashboard does over a documented REST API, with signed webhooks for anything you would otherwise poll for.</p>
+    <div class="hero-cta fade" data-d="380">
+      <a href="api.html" class="btn btn-md btn-inverse"><span>API reference <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="api.html#webhooks" class="btn btn-md btn-glass"><span>Webhooks</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="sh">
+      <span class="eyebrow-l reveal">Entry points</span>
+      <h2 class="t-section reveal">What is available today.</h2>
+    </div>
+    <div class="tbl-wrap reveal">
+      <table class="tbl">
+        <thead><tr><th>Entry point</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>REST API — workspaces, connections, plans, drafts, contacts, audit log</td><td><span class="badge b-ok">Available</span></td></tr>
+          <tr><td>Webhooks — HMAC-SHA256 signed delivery with exponential backoff retry</td><td><span class="badge b-ok">Available</span></td></tr>
+          <tr><td>OAuth for partners</td><td><span class="badge b-ok">Available</span></td></tr>
+          <tr><td>Client SDKs — TypeScript and Python</td><td><span class="badge b-plan">In development</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-surface" aria-labelledby="steps-h">
+  <div class="container">
+    <div class="cols">
+      <div class="prose reveal" style="max-width:none">
+        <h2 id="steps-h" class="t-section" style="margin-top:0">Three steps to your first request</h2>
+        <ol class="steps">
+          <li>
+            <h3>Create a workspace credential</h3>
+            <p>Settings → Developers → New API key. Keys are scoped to a single workspace and shown once. Rotate at any time; the previous key stays valid for 24 hours so a deploy can overlap.</p>
+          </li>
+          <li>
+            <h3>Send it as a bearer token</h3>
+            <p>Pass the key in <code>Authorization</code> and name the workspace in <code>ADOS-Workspace</code>. A mismatch is rejected rather than silently scoped down.</p>
+          </li>
+          <li>
+            <h3>Handle rate limits</h3>
+            <p>Exceeding the limit returns <code>429</code> with <code>Retry-After</code>. Respect it; retrying immediately extends the window rather than shortening it.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="reveal">
+        <div class="code">
+          <div class="code-h"><s style="width:9px;height:9px;border-radius:50%;background:rgb(255 255 255/.12);display:inline-block"></s><span>first request</span></div>
+<pre><span class="c"># List everything waiting on a decision</span>
+curl https://api.ados.ai/v1/drafts \
+  -H <span class="s">"Authorization: Bearer $ADOS_API_KEY"</span> \
+  -H <span class="s">"ADOS-Workspace: ws_8f21c"</span> \
+  -G -d <span class="s">"status=awaiting_approval"</span></pre>
+        </div>
+        <p style="margin-top:16px;font-size:14px;line-height:1.7;color:hsl(var(--muted))">Base URL <code>https://api.ados.ai</code>. HTTPS only — plaintext is refused rather than redirected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="auth-h">
+  <div class="container">
+    <div class="sh">
+      <span class="eyebrow-l reveal">Authority</span>
+      <h2 id="auth-h" class="t-section reveal">How ADOS holds authority.</h2>
+    </div>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>Authorization Code with PKCE</h3>
+        <p>ADOS never requests, receives or stores passwords for a connected service.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Incremental scopes</h3>
+        <p>Narrowest permissions, requested at the moment the feature is connected.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Rotating refresh tokens</h3>
+        <p>Replay detection; a reused token invalidates the chain and alerts the workspace owner.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Revocable from either side</h3>
+        <p>Disconnect in ADOS or revoke at the provider. You never need our cooperation to cut off access.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

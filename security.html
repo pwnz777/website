@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security — ADOS</title>
+<meta name="description" content="ADOS is authorised to act inside your advertising, analytics and CRM accounts. Every control is marked implemented or planned.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Skip to content</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="sec-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <span>Security</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Security</span>
+    <h1 id="sec-h" class="t-section fade" data-d="140">We hold credentials for your entire marketing stack. That sets the standard.</h1>
+    <p class="t-body lead fade" data-d="260">ADOS is authorised to act inside your advertising, analytics and CRM accounts. Every control below is marked implemented or planned — we would rather be precise than impressive.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div id="controls">
+
+        <!-- Encryption -->
+        <div class="reveal" id="encryption">
+          <h2 class="t-subtitle">Encryption</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>State</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>TLS 1.3 in transit</td><td><span class="badge b-ok">Implemented</span></td><td>Modern cipher suites with forward secrecy. HSTS with preload; TLS 1.0 and 1.1 disabled.</td></tr>
+                <tr><td>AES-256 at rest</td><td><span class="badge b-ok">Implemented</span></td><td>Databases, object storage and backups, with keys rotated on a fixed schedule.</td></tr>
+                <tr><td>Envelope-encrypted credentials</td><td><span class="badge b-ok">Implemented</span></td><td>Per-tenant data keys wrapped by a master key in a managed key service, stored separately from application data.</td></tr>
+                <tr><td>Customer-managed keys</td><td><span class="badge b-plan">Planned</span></td><td>Bring-your-own-key for organisations that require keys under their own control.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Authentication -->
+        <div class="reveal" id="authentication" style="margin-top:64px">
+          <h2 class="t-subtitle">Authentication</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>State</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>OAuth 2.0 with PKCE</td><td><span class="badge b-ok">Implemented</span></td><td>Authorization Code flow. ADOS never requests, receives or stores passwords.</td></tr>
+                <tr><td>Refresh token rotation</td><td><span class="badge b-ok">Implemented</span></td><td>Rotates on every use with replay detection. A reused token invalidates the chain.</td></tr>
+                <tr><td>Multi-factor authentication</td><td><span class="badge b-ok">Implemented</span></td><td>Available on all accounts, enforceable workspace-wide. Hardware-backed for production access.</td></tr>
+                <tr><td>SAML and OIDC SSO</td><td><span class="badge b-plan">Planned</span></td><td>Federated sign-in with SCIM provisioning.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Access control -->
+        <div class="reveal" id="access" style="margin-top:64px">
+          <h2 class="t-subtitle">Access control</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>State</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>Role-based access control</td><td><span class="badge b-ok">Implemented</span></td><td>Owner, admin, operator, analyst, billing — scoped per workspace.</td></tr>
+                <tr><td>Tenant isolation</td><td><span class="badge b-ok">Implemented</span></td><td>Row-level enforcement at the query layer.</td></tr>
+                <tr><td>Immutable audit logging</td><td><span class="badge b-ok">Implemented</span></td><td>Append-only, with actor, timestamp, source address and payload diff.</td></tr>
+                <tr><td>Least-privilege internal access</td><td><span class="badge b-ok">Implemented</span></td><td>Reviewed quarterly, revoked within four hours of a role change.</td></tr>
+                <tr><td>Audit log streaming</td><td><span class="badge b-plan">Planned</span></td><td>Continuous export to your own SIEM.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Infrastructure -->
+        <div class="reveal" id="infrastructure" style="margin-top:64px">
+          <h2 class="t-subtitle">Infrastructure</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>State</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>Private networking</td><td><span class="badge b-ok">Implemented</span></td><td>No publicly reachable databases. Infrastructure as code, peer reviewed.</td></tr>
+                <tr><td>Multi-zone deployment</td><td><span class="badge b-ok">Implemented</span></td><td>Application and data tiers across multiple availability zones.</td></tr>
+                <tr><td>Encrypted backups</td><td><span class="badge b-ok">Implemented</span></td><td>Point-in-time recovery over 35 days, replicated to a separate region.</td></tr>
+                <tr><td>Tested disaster recovery</td><td><span class="badge b-ok">Implemented</span></td><td>5-minute RPO, 4-hour RTO, validated twice yearly.</td></tr>
+                <tr><td>Regional data residency</td><td><span class="badge b-plan">Planned</span></td><td>EU, US or UK processing per workspace.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Monitoring -->
+        <div class="reveal" id="monitoring" style="margin-top:64px">
+          <h2 class="t-subtitle">Monitoring and response</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>State</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>Continuous vulnerability scanning</td><td><span class="badge b-ok">Implemented</span></td><td>Critical remediated within 7 days, high within 30.</td></tr>
+                <tr><td>Anomaly detection</td><td><span class="badge b-ok">Implemented</span></td><td>Authentication, agent behaviour and API usage monitored with automated alerting.</td></tr>
+                <tr><td>Incident response plan</td><td><span class="badge b-ok">Implemented</span></td><td>Documented severity, on-call rotation, escalation and communication.</td></tr>
+                <tr><td>Independent penetration testing</td><td><span class="badge b-plan">Planned</span></td><td>Annual third-party assessment, summary available under NDA.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Compliance -->
+        <div class="reveal" id="compliance" style="margin-top:64px">
+          <h2 class="t-subtitle">Compliance</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Framework</th><th>State</th></tr></thead>
+              <tbody>
+                <tr><td>GDPR</td><td><span class="badge b-ok">Implemented</span></td></tr>
+                <tr><td>CCPA / CPRA</td><td><span class="badge b-ok">Implemented</span></td></tr>
+                <tr><td>Google API Services User Data Policy</td><td><span class="badge b-ok">Implemented</span></td></tr>
+                <tr><td>SOC 2 Type II</td><td><span class="badge b-plan">Planned — not yet awarded</span></td></tr>
+                <tr><td>ISO/IEC 27001</td><td><span class="badge b-plan">Planned — not yet awarded</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Best practices -->
+        <div class="reveal prose" id="practices" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Best practices we recommend on your side</h2>
+          <ul class="bullets">
+            <li>Enforce multi-factor authentication for every member of your workspace.</li>
+            <li>Grant the narrowest role that lets each person do their job, and review membership quarterly.</li>
+            <li>Set spend caps and approval gates that match your organisation’s risk tolerance, not ours.</li>
+            <li>Connect service accounts rather than personal accounts, so access survives someone leaving.</li>
+            <li>Review the audit log after any change to connected accounts or agent configuration.</li>
+            <li>Revoke connections you no longer use — an unused integration is still an open door.</li>
+          </ul>
+        </div>
+
+        <!-- Responsible disclosure -->
+        <div class="reveal prose" id="disclosure" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Responsible disclosure</h2>
+          <div class="grid-2" style="margin-top:24px">
+            <div class="card">
+              <h3>We commit to</h3>
+              <ul class="bullets" style="margin-top:14px">
+                <li>Acknowledgement within 24 hours.</li>
+                <li>Assessment and remediation timeline within 5 business days.</li>
+                <li>Progress updates every 10 business days.</li>
+                <li>Public credit where wanted.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Out of scope</h3>
+              <ul class="bullets" style="margin-top:14px">
+                <li>Testing against accounts you do not own.</li>
+                <li>Denial-of-service.</li>
+                <li>Social engineering.</li>
+                <li>Scanner output with no demonstrated impact.</li>
+              </ul>
+            </div>
+          </div>
+          <p style="margin-top:24px">Report to <a href="mailto:security@ados.ai" style="color:hsl(var(--brand));font-family:var(--mono);font-size:.95em">security@ados.ai</a>. Also published at <code>/.well-known/security.txt</code> per RFC 9116.</p>
+        </div>
+
+      </div>
+
+      <aside class="side reveal" aria-label="On this page">
+        <h3>On this page</h3>
+        <a href="#encryption">Encryption</a>
+        <a href="#authentication">Authentication</a>
+        <a href="#access">Access control</a>
+        <a href="#infrastructure">Infrastructure</a>
+        <a href="#monitoring">Monitoring and response</a>
+        <a href="#compliance">Compliance</a>
+        <a href="#practices">Best practices</a>
+        <a href="#disclosure">Responsible disclosure</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="contact.html" class="btn btn-sm btn-outline" style="width:100%"><span>Request a security review</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

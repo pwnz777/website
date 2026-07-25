@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Deletion — ADOS</title>
+<meta name="description" content="How to request deletion, revoke connected access, what happens immediately, and what is retained and why.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Skip to content</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="dd-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <span>Legal</span> <span>/</span> <span>Data Deletion</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Legal</span>
+    <h1 id="dd-h" class="t-section fade" data-d="140">Data Deletion</h1>
+    <p class="t-body lead fade" data-d="260">How to request deletion, how to revoke access at each provider, what happens immediately, and what is retained and why.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div>
+        <div class="legal-banner reveal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p><strong>Pending legal review.</strong> This document is drafted and structured but has not been signed off by counsel. Section bodies are finalised before launch.</p>
+        </div>
+
+        <div class="reveal" id="sections">
+          <h2 class="t-subtitle">Sections</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th style="width:64px">§</th><th>Section</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">1</td><td>How to request deletion</td></tr>
+                <tr><td class="mono">2</td><td>Revoking connected access — Google, Meta and other providers, with per-provider instructions</td></tr>
+                <tr><td class="mono">3</td><td>What happens immediately</td></tr>
+                <tr><td class="mono">4</td><td>Recovery window</td></tr>
+                <tr><td class="mono">5</td><td>Retention timelines</td></tr>
+                <tr><td class="mono">6</td><td>What is retained and why</td></tr>
+                <tr><td class="mono">7</td><td>Export before you delete</td></tr>
+                <tr><td class="mono">8</td><td>Data held by connected services</td></tr>
+                <tr><td class="mono">9</td><td>Support</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal prose" id="before" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Before you delete</h2>
+          <ul class="bullets">
+            <li><strong>Export first.</strong> Settings, then Data export, produces a complete archive of contacts, campaign history, generated material, configuration and audit logs in JSON and CSV. The encrypted download is available for seven days.</li>
+            <li><strong>Your accounts keep their work.</strong> Campaigns and pages live in your own accounts and remain under your control — ADOS simply stops managing them.</li>
+            <li><strong>Workspace data stays exportable for 30 days</strong> after cancellation.</li>
+            <li><strong>Tokens go immediately.</strong> OAuth access and refresh tokens are destroyed on disconnection or deletion.</li>
+          </ul>
+          <p style="margin-top:24px">Requests and questions: <a href="mailto:privacy@ados.ai" style="color:hsl(var(--brand));font-family:var(--mono);font-size:.95em">privacy@ados.ai</a></p>
+        </div>
+
+        <div class="reveal" id="retention" style="margin-top:64px">
+          <h2 class="t-subtitle">Retention timelines</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Category</th><th>Period</th></tr></thead>
+              <tbody>
+                <tr><td>OAuth access and refresh tokens</td><td>Destroyed immediately on disconnection or deletion</td></tr>
+                <tr><td>Account and workspace records</td><td>Life of the account plus 30 days</td></tr>
+                <tr><td>Campaign, analytics and CRM data</td><td>25 months, then aggregated irreversibly</td></tr>
+                <tr><td>Application and security logs</td><td>12 months</td></tr>
+                <tr><td>Audit logs</td><td>12 months (longer under an enterprise agreement)</td></tr>
+                <tr><td>Consent records</td><td>24 months from the consent event</td></tr>
+                <tr><td>Invoices and financial records</td><td>7 years, as required by tax law</td></tr>
+                <tr><td>Encrypted backups</td><td>35-day rolling window</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side reveal" aria-label="Legal documents">
+        <h3>Legal</h3>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="cookie-policy.html">Cookie Policy</a>
+        <a href="data-deletion.html" style="color:hsl(var(--ink));font-weight:500">Data Deletion</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <h3>On this page</h3>
+        <a href="#sections">Sections</a>
+        <a href="#before">Before you delete</a>
+        <a href="#retention">Retention timelines</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

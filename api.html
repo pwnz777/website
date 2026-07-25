@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API — ADOS</title>
+<meta name="description" content="A REST API for everything the workspace can do. Predictable resource URLs, JSON bodies, standard HTTP verbs and conventional status codes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Skip to content</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="api-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <a href="developers.html">Developers</a> <span>/</span> <span>API</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>API</span>
+    <h1 id="api-h" class="t-section fade" data-d="140">A REST API for everything the workspace can do.</h1>
+    <p class="t-body lead fade" data-d="260">Predictable resource URLs, JSON bodies, standard HTTP verbs and conventional status codes. Base URL <code style="background:rgb(255 255 255/.08);border-color:rgb(255 255 255/.14);color:#fff">https://api.ados.ai</code>. HTTPS only — plaintext is refused rather than redirected, so a misconfigured client fails loudly instead of leaking a key.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div>
+        <div class="reveal" id="quickstart">
+          <h2 class="t-subtitle">Request and response</h2>
+          <div class="code">
+            <div class="code-h"><span>request</span></div>
+<pre>curl https://api.ados.ai/v1/drafts \
+  -H <span class="s">"Authorization: Bearer $ADOS_API_KEY"</span> \
+  -H <span class="s">"ADOS-Workspace: ws_8f21c"</span> \
+  -G -d <span class="s">"status=awaiting_approval"</span></pre>
+          </div>
+          <div class="code" style="margin-top:12px">
+            <div class="code-h"><span>200 OK</span></div>
+<pre>{
+  <span class="k">"object"</span>: <span class="s">"list"</span>,
+  <span class="k">"has_more"</span>: false,
+  <span class="k">"data"</span>: [
+    {
+      <span class="k">"id"</span>: <span class="s">"drf_2f91ab"</span>,
+      <span class="k">"type"</span>: <span class="s">"campaign"</span>,
+      <span class="k">"agent"</span>: <span class="s">"advertising"</span>,
+      <span class="k">"status"</span>: <span class="s">"awaiting_approval"</span>,
+      <span class="k">"created_at"</span>: <span class="s">"2026-07-24T09:14:22Z"</span>,
+      <span class="k">"summary"</span>: <span class="s">"Search campaign — 4 ad groups, 18 assets"</span>
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+
+        <div class="reveal" id="endpoints" style="margin-top:64px">
+          <h2 class="t-subtitle">Endpoints</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">GET</td><td class="mono">/v1/workspaces</td><td>List workspaces available to the credential.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/workspaces</td><td>Create a workspace and seed it from a brief.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/connections</td><td>List connected services and their granted scopes.</td></tr>
+                <tr><td class="mono">DELETE</td><td class="mono">/v1/connections/:id</td><td>Revoke a connection and destroy stored credentials.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/drafts</td><td>List drafts awaiting approval, filtered by agent or type.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/drafts/:id/approve</td><td>Approve a draft and release it for execution.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/drafts/:id/reject</td><td>Reject a draft with an optional reason.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/contacts</td><td>Query contacts with lifecycle stage and source attribution.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/reports/:id</td><td>Retrieve a generated report as JSON or PDF.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/audit</td><td>Paginated, immutable audit log for a workspace.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="webhooks" style="margin-top:64px">
+          <h2 class="t-subtitle">Webhooks</h2>
+          <p style="margin-top:16px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Every delivery carries an HMAC-SHA256 signature in <code>ADOS-Signature</code>. Verify it before trusting the payload — an unsigned webhook endpoint is an open write API. Failed deliveries retry with exponential backoff for 24 hours.</p>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Event</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">draft.created</td><td>An agent has prepared work that needs a decision.</td></tr>
+                <tr><td class="mono">draft.approved</td><td>A draft was approved and released for execution.</td></tr>
+                <tr><td class="mono">draft.rejected</td><td>A draft was rejected, with the reason if one was given.</td></tr>
+                <tr><td class="mono">connection.authorised</td><td>A service was connected to the workspace.</td></tr>
+                <tr><td class="mono">connection.revoked</td><td>A connection was removed, from either side.</td></tr>
+                <tr><td class="mono">report.generated</td><td>A scheduled report is ready to retrieve.</td></tr>
+                <tr><td class="mono">agent.error</td><td>An agent could not complete its work and stopped.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="limits" style="margin-top:64px">
+          <h2 class="t-subtitle">Rate limits</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Plan</th><th>Sustained</th><th>Burst</th></tr></thead>
+              <tbody>
+                <tr><td>Scale</td><td>1,000 req/min per workspace</td><td>2,000</td></tr>
+                <tr><td>Enterprise</td><td>Negotiated</td><td>Negotiated</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note warn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+            <p><strong style="color:hsl(var(--ink))">Provisional.</strong> Final limits published before general availability.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side reveal" aria-label="On this page">
+        <h3>On this page</h3>
+        <a href="#quickstart">Request and response</a>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#webhooks">Webhooks</a>
+        <a href="#limits">Rate limits</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="developers.html" class="btn btn-sm btn-outline" style="width:100%"><span>Developer overview</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+</body>
+</html>
