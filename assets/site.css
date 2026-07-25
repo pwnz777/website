@@ -74,8 +74,11 @@ header.site.solid{background:hsl(var(--ink-900)/.7);backdrop-filter:blur(24px);b
 .logo-mark b{position:absolute;inset:0;border-radius:9px;opacity:.6;transition:opacity .5s;
   background:radial-gradient(circle at 50% 50%,hsl(var(--brand)/.55) 0%,transparent 62%)}
 .logo:hover .logo-mark b{opacity:1}
-.logo-mark s{position:relative;width:6px;height:6px;border-radius:50%;background:#fff;
-  box-shadow:0 0 12px hsl(var(--brand)/.9)}
+.logo-mark svg{position:relative;width:19px;height:19px;color:#fff;
+  filter:drop-shadow(0 0 6px hsl(var(--brand)/.5))}
+.logo-mark .arcs{opacity:.92;transform-box:view-box;transform-origin:center;
+  transition:transform .8s var(--ease),opacity .5s}
+.logo:hover .logo-mark .arcs,.f-logo:hover .logo-mark .arcs{transform:rotate(120deg);opacity:1}
 .nav-links{display:none;align-items:center;gap:2px;margin-left:auto}
 @media(min-width:1024px){.nav-links{display:flex}}
 .nav-link{position:relative;padding:8px 12px;border-radius:999px;font-size:15px;color:rgb(255 255 255/.65);
@@ -147,6 +150,7 @@ header.site.solid{background:hsl(var(--ink-900)/.7);backdrop-filter:blur(24px);b
 .dot.ok i{background:hsl(var(--success)/.6)}.dot.ok b{background:hsl(var(--success))}
 @keyframes ring{0%{transform:scale(.85);opacity:.55}100%{transform:scale(1.5);opacity:0}}
 h1.hero-h{margin-top:32px;color:#fff}
+h1.hero-h .block{display:block}
 .accent-grad{background:linear-gradient(100deg,hsl(var(--brand)/.95),hsl(var(--purple)/.95) 48%,hsl(var(--cyan)/.95));
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-body{margin:28px auto 0;max-width:46rem;color:rgb(255 255 255/.6)}
@@ -169,6 +173,18 @@ h1.hero-h{margin-top:32px;color:#fff}
 /* word reveal */
 .wr{display:inline-block;opacity:0;transform:translateY(.4em);filter:blur(8px)}
 .wr.in{opacity:1;transform:none;filter:blur(0);transition:opacity .7s var(--ease-in),transform .7s var(--ease-in),filter .7s var(--ease-in)}
+
+/* letter reveal — one glyph at a time, finer than the word stagger */
+.lt{display:inline-block;opacity:0;transform:translateY(.42em) scale(.92);filter:blur(10px)}
+.lt.in{opacity:1;transform:none;filter:blur(0);
+  transition:opacity .5s var(--ease-in),transform .5s var(--ease-in),filter .5s var(--ease-in)}
+.lt.sp{white-space:pre}
+/* a few glyphs keep breathing after the line has landed */
+.lt.pulse{animation:lift 7s var(--ease) infinite;animation-delay:var(--pd,0s)}
+@keyframes lift{0%,70%,100%{transform:none}78%{transform:translateY(-.075em)}86%{transform:none}}
+/* slow highlight drifting across the gradient line */
+.accent-grad{background-size:230% 100%;animation:sweep 16s var(--ease) infinite}
+@keyframes sweep{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .fade{opacity:0;transform:translateY(16px)}
 .fade.in{opacity:1;transform:none;transition:opacity .7s var(--ease-in),transform .7s var(--ease-in)}
 .reveal{opacity:0;transform:translateY(18px);filter:blur(8px)}
@@ -234,12 +250,14 @@ section.sec{position:relative;overflow:hidden;padding:96px 0}
 .sh p{margin-top:20px}
 
 /* tabs */
-.tabs{display:inline-flex;align-items:center;gap:4px;border:1px solid hsl(var(--line));
+/* position:relative is load-bearing — it makes .tabs the containing block for
+   .tab-bg. Without it the pill resolves against the blurred .reveal wrapper. */
+.tabs{position:relative;display:inline-flex;align-items:center;gap:4px;border:1px solid hsl(var(--line));
   background:hsl(var(--surface));border-radius:999px;padding:4px;margin-top:48px}
 .tab{position:relative;border:0;background:none;border-radius:999px;padding:8px 16px;font-size:15px;
   color:hsl(var(--muted));cursor:pointer;font-family:var(--sans);transition:color .3s}
 .tab[aria-selected=true]{color:hsl(var(--ink))}
-.tab-bg{position:absolute;inset:0;border-radius:999px;background:hsl(var(--background));
+.tab-bg{position:absolute;top:4px;bottom:4px;left:0;width:0;border-radius:999px;background:hsl(var(--background));
   box-shadow:0 1px 2px rgb(15 23 42/.04),0 8px 24px -12px rgb(15 23 42/.1);
   transition:transform .35s var(--ease),width .35s var(--ease)}
 .tab span{position:relative}
@@ -453,5 +471,5 @@ footer.site{border-top:1px solid hsl(var(--line));background:hsl(var(--backgroun
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   html{scroll-behavior:auto}
-  .reveal,.wr,.fade{opacity:1!important;transform:none!important;filter:none!important}
+  .reveal,.wr,.fade,.lt{opacity:1!important;transform:none!important;filter:none!important}
 }

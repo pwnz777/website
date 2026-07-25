@@ -36,7 +36,17 @@ const FOOT = [
 /* current page as a bare slug — works for /about.html (file://) and /about (Vercel cleanUrls) */
 const slug = p => (p.split('/').pop() || 'index').toLowerCase().replace(/\.html$/, '') || 'index';
 const PAGE = slug(location.pathname);
-const LOGO = '<span class="logo-mark"><i></i><b></b><s></s></span>ADOS';
+/* Mark: three arcs converging on a solid core — the same idea as the
+   integration network on the landing page, at 28px. */
+const LOGO = `<span class="logo-mark" aria-hidden="true"><i></i><b></b>
+  <svg viewBox="0 0 32 32" fill="none">
+    <g class="arcs" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M16 5.5a10.5 10.5 0 0 1 9.09 5.25"/>
+      <path d="M25.09 21.25a10.5 10.5 0 0 1-9.09 5.25"/>
+      <path d="M6.91 21.25a10.5 10.5 0 0 1 0-10.5"/>
+    </g>
+    <circle cx="16" cy="16" r="3.6" fill="currentColor"/>
+  </svg></span>ADOS`;
 
 /* ── header ── */
 function buildHeader() {
@@ -180,6 +190,23 @@ function words(el, text, base) {
   el.innerHTML = text.split(' ').map(w => `<span class="wr">${w}</span>`).join(' ');
   [...el.querySelectorAll('.wr')].forEach((s,i) =>
     setTimeout(() => s.classList.add('in'), RM ? 0 : base + i*45));
+}
+
+/* ── letter-by-letter reveal; `sparks` letters keep a slow lift afterwards ── */
+function letters(el, text, base, sparks = []) {
+  el.innerHTML = [...text]
+    .map(ch => ch === ' ' ? '<span class="lt sp"> </span>' : `<span class="lt">${ch}</span>`)
+    .join('');
+  const all = [...el.querySelectorAll('.lt')];
+  all.forEach((s,i) => setTimeout(() => s.classList.add('in'), RM ? 0 : base + i*38));
+  if (RM) return;
+  /* wait for the entrance transition, or the animation fights it for `transform` */
+  setTimeout(() => sparks.forEach((idx,n) => {
+    const s = all[idx];
+    if (!s) return;
+    s.style.setProperty('--pd', `${n*1.6}s`);
+    s.classList.add('pulse');
+  }), base + all.length*38 + 700);
 }
 
 /* ── boot ── */

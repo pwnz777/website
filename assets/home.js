@@ -4,9 +4,10 @@
    network. Depends on site.js (RM, words, observeReveals).
    ═══════════════════════════════════════════════════════════ */
 
-/* ── hero headline ── */
+/* ── hero headline: words on the first line, glyphs on the accent line ──
+   sparks = O, w, e — the letters that keep breathing once the line lands */
 words(document.getElementById('hl1'), 'Every channel.', 120);
-words(document.getElementById('hl2'), 'One workspace.', 260);
+letters(document.getElementById('hl2'), 'One workspace.', 300, [0, 4, 12]);
 
 /* ── starfield ── */
 if (!RM) {
@@ -141,7 +142,16 @@ const VIEWS = {
 const showcase = document.getElementById('showcase');
 const tabs = [...document.querySelectorAll('.tab')];
 const tabbg = document.getElementById('tabbg');
-function moveBg(el) { tabbg.style.width = el.offsetWidth+'px'; tabbg.style.transform = `translateX(${el.offsetLeft-4}px)`; }
+/* measured from live rects, not offsetLeft — offsetParent and the pill's
+   containing block are not the same element once an ancestor is filtered */
+function moveBg(el) {
+  const strip = el.parentElement.getBoundingClientRect();
+  const border = parseFloat(getComputedStyle(el.parentElement).borderLeftWidth) || 0;
+  const r = el.getBoundingClientRect();
+  tabbg.style.width = r.width + 'px';
+  tabbg.style.transform = `translateX(${r.left - strip.left - border}px)`;
+}
+const currentTab = () => tabs.find(t => t.getAttribute('aria-selected') === 'true') || tabs[0];
 function setView(el) {
   tabs.forEach(t => { t.setAttribute('aria-selected', t===el); t.tabIndex = t===el ? 0 : -1; });
   moveBg(el);
@@ -162,7 +172,9 @@ tabs.forEach((t,i) => {
   });
 });
 setView(tabs[0]);
-addEventListener('resize', () => moveBg(tabs.find(t => t.getAttribute('aria-selected')==='true')));
+addEventListener('resize', () => moveBg(currentTab()));
+/* webfont swap changes tab widths — re-measure once Inter is in */
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => moveBg(currentTab()));
 
 /* ── capabilities ── */
 const CAPS = [
