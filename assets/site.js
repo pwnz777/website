@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════════
-   ADOS — shared shell: header, mobile nav, footer, cookies,
+   ATNOS — shared shell: header, mobile nav, footer, cookies,
    scroll reveal. Injected on every page so the markup for the
    chrome lives in exactly one place.
    ═══════════════════════════════════════════════════════════ */
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ── navigation model (mirrors ADOS-site-content) ── */
+/* ── navigation model (mirrors ADOS-site-content, the source document) ── */
 const NAV = [
   {label:'Product', href:'index.html#platform', flyout:[
     ['Overview','index.html','What the platform does today.'],
@@ -36,17 +36,14 @@ const FOOT = [
 /* current page as a bare slug — works for /about.html (file://) and /about (Vercel cleanUrls) */
 const slug = p => (p.split('/').pop() || 'index').toLowerCase().replace(/\.html$/, '') || 'index';
 const PAGE = slug(location.pathname);
-/* Mark: three arcs converging on a solid core — the same idea as the
-   integration network on the landing page, at 28px. */
+/* Mark: an A drawn as one unbroken stroke, its crossbar replaced by the
+   core everything reports into. Legible down to 16px. */
 const LOGO = `<span class="logo-mark" aria-hidden="true"><i></i><b></b>
   <svg viewBox="0 0 32 32" fill="none">
-    <g class="arcs" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-      <path d="M16 5.5a10.5 10.5 0 0 1 9.09 5.25"/>
-      <path d="M25.09 21.25a10.5 10.5 0 0 1-9.09 5.25"/>
-      <path d="M6.91 21.25a10.5 10.5 0 0 1 0-10.5"/>
-    </g>
-    <circle cx="16" cy="16" r="3.6" fill="currentColor"/>
-  </svg></span>ADOS`;
+    <path class="mk-a" d="M6.2 25.8 14.9 7.3a1.25 1.25 0 0 1 2.2 0l8.7 18.5"
+      stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle class="mk-core" cx="16" cy="19.4" r="3.05" fill="currentColor"/>
+  </svg></span>ATNOS`;
 
 /* ── header ── */
 function buildHeader() {
@@ -121,16 +118,16 @@ function buildFooter() {
         <p style="margin-top:16px;max-width:20rem;font-size:15px;line-height:1.7" class="muted">
           Autonomous AI Marketing Platform. Connect the services you already use and run marketing operations from one workspace.</p>
         <address style="margin-top:24px;font-style:normal;font-size:14px;line-height:1.7" class="muted">
-          <span style="display:block;color:hsl(var(--ink))">ADOS Technologies Inc.</span>
+          <span style="display:block;color:hsl(var(--ink))">ATNOS Technologies Inc.</span>
           1 Market Street, Suite 3600<br>San Francisco, CA 94105<br>
-          <a href="mailto:hello@ados.ai" style="color:hsl(var(--ink));text-underline-offset:4px">hello@ados.ai</a></address>
+          <a href="mailto:hello@atnos.ai" style="color:hsl(var(--ink));text-underline-offset:4px">hello@atnos.ai</a></address>
       </div>
       ${FOOT.map(([h,ls]) => `<nav aria-labelledby="f-${h}"><h2 class="f-h" id="f-${h}">${h}</h2>
         <ul>${ls.map(([l,u])=>`<li><a href="${u}" class="f-l">${l}</a></li>`).join('')}</ul></nav>`).join('')}
     </div>
     <div style="height:1px;background:hsl(var(--line))"></div>
     <div class="f-bot">
-      <p>© 2026 ADOS Technologies Inc. All rights reserved.</p>
+      <p>© 2026 ATNOS Technologies Inc. All rights reserved.</p>
       <div class="f-util">
         <a href="privacy-policy.html">All policies</a>
         <a href="data-deletion.html">Data deletion</a>
@@ -155,7 +152,7 @@ function buildCookies() {
   cookieEl.setAttribute('aria-label','Cookie consent');
   cookieEl.innerHTML = `
   <div class="cookie-in">
-    <h2 style="font-size:16px;letter-spacing:-.015em">Cookies on ados.ai</h2>
+    <h2 style="font-size:16px;letter-spacing:-.015em">Cookies on atnos.ai</h2>
     <p style="margin-top:8px;max-width:42rem;font-size:14.5px;line-height:1.7;color:hsl(var(--muted))">
       Essential cookies keep the site secure and working. With your permission we also use analytics, functional and marketing cookies. You can change this at any time from Cookie settings in the footer.
       <a href="cookie-policy.html" style="font-weight:500;color:hsl(var(--ink));text-decoration:underline;text-underline-offset:4px">Cookie Policy</a>
@@ -168,10 +165,10 @@ function buildCookies() {
   </div>`;
   document.body.appendChild(cookieEl);
   cookieEl.querySelectorAll('[data-ck]').forEach(b => b.addEventListener('click', () => {
-    sessionStorage.setItem('ados-consent','1');
+    sessionStorage.setItem('atnos-consent','1');
     cookieEl.classList.remove('show');
   }));
-  if (!sessionStorage.getItem('ados-consent')) setTimeout(() => cookieEl.classList.add('show'), 1200);
+  if (!sessionStorage.getItem('atnos-consent')) setTimeout(() => cookieEl.classList.add('show'), 1200);
 }
 
 /* ── scroll reveal ── */

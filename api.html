@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>API — ADOS</title>
+<title>API — ATNOS</title>
 <meta name="description" content="A REST API for everything the workspace can do. Predictable resource URLs, JSON bodies, standard HTTP verbs and conventional status codes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=2">
+<link rel="stylesheet" href="assets/site.css?v=3">
 </head>
 <body>
 
@@ -29,7 +29,7 @@
     <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <a href="developers.html">Developers</a> <span>/</span> <span>API</span></p>
     <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>API</span>
     <h1 id="api-h" class="t-section fade" data-d="140">A REST API for everything the workspace can do.</h1>
-    <p class="t-body lead fade" data-d="260">Predictable resource URLs, JSON bodies, standard HTTP verbs and conventional status codes. Base URL <code style="background:rgb(255 255 255/.08);border-color:rgb(255 255 255/.14);color:#fff">https://api.ados.ai</code>. HTTPS only — plaintext is refused rather than redirected, so a misconfigured client fails loudly instead of leaking a key.</p>
+    <p class="t-body lead fade" data-d="260">Predictable resource URLs, JSON bodies, standard HTTP verbs and conventional status codes. Base URL <code style="background:rgb(255 255 255/.08);border-color:rgb(255 255 255/.14);color:#fff">https://api.atnos.ai</code>. HTTPS only — plaintext is refused rather than redirected, so a misconfigured client fails loudly instead of leaking a key.</p>
   </div>
 </section>
 
@@ -41,9 +41,9 @@
           <h2 class="t-subtitle">Request and response</h2>
           <div class="code">
             <div class="code-h"><span>request</span></div>
-<pre>curl https://api.ados.ai/v1/drafts \
-  -H <span class="s">"Authorization: Bearer $ADOS_API_KEY"</span> \
-  -H <span class="s">"ADOS-Workspace: ws_8f21c"</span> \
+<pre>curl https://api.atnos.ai/v1/drafts \
+  -H <span class="s">"Authorization: Bearer $ATNOS_API_KEY"</span> \
+  -H <span class="s">"ATNOS-Workspace: ws_8f21c"</span> \
   -G -d <span class="s">"status=awaiting_approval"</span></pre>
           </div>
           <div class="code" style="margin-top:12px">
@@ -88,7 +88,7 @@
 
         <div class="reveal" id="webhooks" style="margin-top:64px">
           <h2 class="t-subtitle">Webhooks</h2>
-          <p style="margin-top:16px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Every delivery carries an HMAC-SHA256 signature in <code>ADOS-Signature</code>. Verify it before trusting the payload — an unsigned webhook endpoint is an open write API. Failed deliveries retry with exponential backoff for 24 hours.</p>
+          <p style="margin-top:16px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Every delivery carries an HMAC-SHA256 signature in <code>ATNOS-Signature</code>. Verify it before trusting the payload — an unsigned webhook endpoint is an open write API. Failed deliveries retry with exponential backoff for 24 hours.</p>
           <div class="tbl-wrap">
             <table class="tbl">
               <thead><tr><th>Event</th><th>Meaning</th></tr></thead>
@@ -139,6 +139,6 @@
 </main>
 
 <footer id="ftr"></footer>
-<script src="assets/site.js?v=2"></script>
+<script src="assets/site.js?v=3"></script>
 </body>
 </html>

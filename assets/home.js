@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   ADOS — landing page only: starfield, product preview,
+   ATNOS — landing page only: starfield, product preview,
    platform tabs, capability blocks, trust grid, integration
    network. Depends on site.js (RM, words, observeReveals).
    ═══════════════════════════════════════════════════════════ */
@@ -199,7 +199,7 @@ const TRUST = [
   ['Privacy','GDPR and CCPA compliant, with a Data Processing Agreement offered to every customer. Your data is never used to train generalised models.','available','M12 2a5 5 0 015 5v3M7 10V7a5 5 0 012-4M5 10h14v11H5z'],
   ['Role-based access','Owner, admin, operator, analyst and billing roles scoped per workspace. Every permission is explicit rather than inherited.','available','M15 7a4 4 0 11-8 0 4 4 0 018 0zM3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2'],
   ['Audit logs','Every agent action, approval and configuration change recorded with actor, timestamp and what changed.','available','M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M9 15h6M9 11h6'],
-  ['API and webhooks','A documented REST API with signed webhooks, so ADOS fits into systems you already operate.','available','M4 17l6-6-6-6M12 19h8'],
+  ['API and webhooks','A documented REST API with signed webhooks, so ATNOS fits into systems you already operate.','available','M4 17l6-6-6-6M12 19h8'],
   ['Scalable infrastructure','Multi-zone deployment with encrypted point-in-time backups and documented recovery objectives.','available','M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z'],
   ['Professional support','Named contacts, agreed response times and a documented escalation path for organisations on an enterprise agreement.','planned','M3 18v-6a9 9 0 0118 0v6M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z'],
 ];
@@ -237,7 +237,7 @@ const netLines = nodes.map((o,i) => {
   return {id:i, d:`M ${o.x} ${o.y} Q ${cx} ${cy} ${C} ${C}`, h:o.h};
 });
 document.getElementById('net').innerHTML = `
-<svg viewBox="0 0 ${V} ${V}" role="list" aria-label="Services that connect into the ADOS core">
+<svg viewBox="0 0 ${V} ${V}" role="list" aria-label="Services that connect into the ATNOS core">
   <defs>
     <radialGradient id="core" cx="42%" cy="34%" r="62%">
       <stop offset="0%" stop-color="hsl(var(--brand))"/><stop offset="55%" stop-color="hsl(var(--brand-600))"/>
@@ -259,7 +259,7 @@ document.getElementById('net').innerHTML = `
   <circle cx="${C}" cy="${C}" r="58" fill="url(#core)"/>
   <circle cx="${C}" cy="${C}" r="58" fill="none" stroke="rgb(255 255 255/.28)"/>
   <circle cx="${C-18}" cy="${C-22}" r="20" fill="rgb(255 255 255/.16)"/>
-  <text x="${C}" y="${C-2}" text-anchor="middle" fill="#fff" font-size="15" font-weight="600" letter-spacing=".02em">ADOS</text>
+  <text x="${C}" y="${C-2}" text-anchor="middle" fill="#fff" font-size="15" font-weight="600" letter-spacing=".02em">ATNOS</text>
   <text x="${C}" y="${C+16}" text-anchor="middle" fill="rgb(255 255 255/.7)" font-size="10.5">Core</text>
   ${nodes.map((o,i) => {
     const an = o.x > C+24 ? 'start' : o.x < C-24 ? 'end' : 'middle';

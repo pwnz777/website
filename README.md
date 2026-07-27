@@ -1,4 +1,4 @@
-# ADOS — local static site
+# ATNOS — local static site
 
 Built from two sources:
 
@@ -12,7 +12,7 @@ No build step, no dependencies. Open `index.html` in a browser.
 Double-click `index.html`, or serve the folder if you prefer a real origin:
 
 ```bash
-npx serve "C:/PROJECTS CLAUDE/Website ADOS"
+npx serve "C:/PROJECTS CLAUDE/Website ATNOS"
 ```
 
 Everything works from `file://` too — the shared chrome is injected by JavaScript rather than fetched as partials, precisely so it does.
@@ -27,7 +27,7 @@ Everything works from `file://` too — the shared chrome is injected by JavaScr
 | `contact.html` | `/contact` | Contact form, six reasons, six direct channels |
 | `support.html` | `/support` | Knowledge-base topics, six FAQs |
 | `status.html` | `/status` | Eight components, incident history |
-| `developers.html` | `/developers` | Entry points, three steps to a first request, how ADOS holds authority |
+| `developers.html` | `/developers` | Entry points, three steps to a first request, how ATNOS holds authority |
 | `api.html` | `/docs/api` | Request/response, ten endpoints, seven webhook events, rate limits |
 | `pricing.html` | `/pricing` (header link) | Scale and Enterprise, included-on-every-plan |
 | `privacy-policy.html` | `/legal/privacy-policy` | Thirteen sections, retention schedule |

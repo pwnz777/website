@@ -1,4 +1,4 @@
-/* ═══════════════ ADOS — design tokens ═══════════════ */
+/* ═══════════════ ATNOS — design tokens ═══════════════ */
 :root{
   --background:0 0% 100%; --surface:220 20% 97%;
   --ink:222 47% 11%; --ink-900:240 6% 6%; --muted:215 16% 47%;
@@ -76,9 +76,11 @@ header.site.solid{background:hsl(var(--ink-900)/.7);backdrop-filter:blur(24px);b
 .logo:hover .logo-mark b{opacity:1}
 .logo-mark svg{position:relative;width:19px;height:19px;color:#fff;
   filter:drop-shadow(0 0 6px hsl(var(--brand)/.5))}
-.logo-mark .arcs{opacity:.92;transform-box:view-box;transform-origin:center;
-  transition:transform .8s var(--ease),opacity .5s}
-.logo:hover .logo-mark .arcs,.f-logo:hover .logo-mark .arcs{transform:rotate(120deg);opacity:1}
+.logo-mark .mk-a{opacity:.94;transition:opacity .5s}
+.logo-mark .mk-core{transform-box:fill-box;transform-origin:center;
+  transition:transform .45s var(--ease)}
+.logo:hover .logo-mark .mk-a,.f-logo:hover .logo-mark .mk-a{opacity:1}
+.logo:hover .logo-mark .mk-core,.f-logo:hover .logo-mark .mk-core{transform:scale(1.3)}
 .nav-links{display:none;align-items:center;gap:2px;margin-left:auto}
 @media(min-width:1024px){.nav-links{display:flex}}
 .nav-link{position:relative;padding:8px 12px;border-radius:999px;font-size:15px;color:rgb(255 255 255/.65);
@@ -151,7 +153,10 @@ header.site.solid{background:hsl(var(--ink-900)/.7);backdrop-filter:blur(24px);b
 @keyframes ring{0%{transform:scale(.85);opacity:.55}100%{transform:scale(1.5);opacity:0}}
 h1.hero-h{margin-top:32px;color:#fff}
 h1.hero-h .block{display:block}
-.accent-grad{background:linear-gradient(100deg,hsl(var(--brand)/.95),hsl(var(--purple)/.95) 48%,hsl(var(--cyan)/.95));
+/* Lighter than the brand tokens on purpose: these sit as text on --ink-900,
+   where hsl(221 83% 53%) only reaches ~3.6:1. These stops hold 6.5:1+ across
+   the whole sweep. */
+.accent-grad{background:linear-gradient(100deg,hsl(221 90% 68%),hsl(262 90% 74%) 46%,hsl(189 94% 60%));
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-body{margin:28px auto 0;max-width:46rem;color:rgb(255 255 255/.6)}
 .hero-cta{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
@@ -182,8 +187,9 @@ h1.hero-h .block{display:block}
 /* a few glyphs keep breathing after the line has landed */
 .lt.pulse{animation:lift 7s var(--ease) infinite;animation-delay:var(--pd,0s)}
 @keyframes lift{0%,70%,100%{transform:none}78%{transform:translateY(-.075em)}86%{transform:none}}
-/* slow highlight drifting across the gradient line */
-.accent-grad{background-size:230% 100%;animation:sweep 16s var(--ease) infinite}
+/* slow highlight drifting across the gradient line — kept short so the line
+   never sits on a single hue long enough to lose contrast */
+.accent-grad{background-size:160% 100%;animation:sweep 16s var(--ease) infinite}
 @keyframes sweep{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .fade{opacity:0;transform:translateY(16px)}
 .fade.in{opacity:1;transform:none;transition:opacity .7s var(--ease-in),transform .7s var(--ease-in)}
