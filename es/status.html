@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estado — ATNOS</title>
+<meta name="description" content="Disponibilidad de cada componente de ATNOS. Esta página se sirve de forma independiente de la aplicación para seguir accesible durante un incidente.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://atnos.ai/status">
+<link rel="alternate" hreflang="es" href="https://atnos.ai/es/status">
+<link rel="alternate" hreflang="x-default" href="https://atnos.ai/status">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=5">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Ir al contenido</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="st-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Inicio</a> <span>/</span> <span>Estado</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot ok"><i></i><b></b></span>Estado</span>
+    <h1 id="st-h" class="t-section fade" data-d="140">Todos los sistemas operativos.</h1>
+    <p class="t-body lead fade" data-d="260">Disponibilidad de cada componente de ATNOS. Esta página se sirve de forma independiente de la aplicación para seguir accesible durante un incidente.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="status-banner reveal">
+      <span class="dot ok" style="width:10px;height:10px"><i></i><b style="width:10px;height:10px"></b></span>
+      <div>
+        <p style="font-size:16px;font-weight:600;color:hsl(var(--ink))">Todos los sistemas operativos</p>
+        <p style="margin-top:2px;font-size:14px;color:hsl(var(--muted))">Todos los componentes de abajo reportan servicio normal.</p>
+      </div>
+    </div>
+
+    <ul class="status-list reveal" id="components"></ul>
+
+    <div class="note warn reveal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+      <p><strong style="color:hsl(var(--ink))">Todavía sin monitorización en vivo.</strong> Estos indicadores son provisionales y muestran los componentes que se van a vigilar. Se sustituyen por un feed de monitorización antes del lanzamiento.</p>
+    </div>
+
+    <div class="prose reveal" style="margin-top:72px">
+      <h2>Historial</h2>
+      <p>Sin incidentes registrados. Los incidentes confirmados se publicarán aquí con descripción, impacto y resolución, seguidos de una revisión escrita en un plazo de 10 días hábiles.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="../assets/site.js?v=5"></script>
+<script>
+const COMPONENTS = [
+  ['Sitio web','Web de marketing y documentación.'],
+  ['Panel','La aplicación del espacio de trabajo.'],
+  ['API pública','Endpoints REST y entrega de webhooks.'],
+  ['Autenticación','Inicio de sesión, sesiones y callbacks de OAuth.'],
+  ['Planificación de agentes','Trabajo de agentes en cola y recurrente.'],
+  ['Integraciones','Conectores a Google, Meta, CRM y plataformas de comercio.'],
+  ['Procesamiento de analítica','Ingesta y conciliación de las fuentes conectadas.'],
+  ['Notificaciones','Entrega por email, en la app y en Slack.'],
+];
+document.getElementById('components').innerHTML = COMPONENTS.map(([n,d]) => `
+  <li class="status-row">
+    <span><span class="nm">${n}</span><span class="ds">${d}</span></span>
+    <span class="st"><span class="dot ok"><i></i><b></b></span>Operativo</span>
+  </li>`).join('');
+</script>
+</body>
+</html>

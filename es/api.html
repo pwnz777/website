@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API — ATNOS</title>
+<meta name="description" content="Una API REST para todo lo que hace el espacio de trabajo. URLs de recurso predecibles, cuerpos JSON, verbos HTTP estándar y códigos de estado convencionales.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://atnos.ai/api">
+<link rel="alternate" hreflang="es" href="https://atnos.ai/es/api">
+<link rel="alternate" hreflang="x-default" href="https://atnos.ai/api">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=5">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Ir al contenido</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="api-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Inicio</a> <span>/</span> <a href="developers.html">Desarrolladores</a> <span>/</span> <span>API</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>API</span>
+    <h1 id="api-h" class="t-section fade" data-d="140">Una API REST para todo lo que hace el espacio de trabajo.</h1>
+    <p class="t-body lead fade" data-d="260">URLs de recurso predecibles, cuerpos JSON, verbos HTTP estándar y códigos de estado convencionales. URL base <code style="background:rgb(255 255 255/.08);border-color:rgb(255 255 255/.14);color:#fff">https://api.atnos.ai</code>. Solo HTTPS: el texto plano se rechaza en lugar de redirigirse, para que un cliente mal configurado falle de forma ruidosa en vez de filtrar una clave.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div>
+        <div class="reveal" id="quickstart">
+          <h2 class="t-subtitle">Petición y respuesta</h2>
+          <div class="code">
+            <div class="code-h"><span>petición</span></div>
+<pre>curl https://api.atnos.ai/v1/drafts \
+  -H <span class="s">"Authorization: Bearer $ATNOS_API_KEY"</span> \
+  -H <span class="s">"ATNOS-Workspace: ws_8f21c"</span> \
+  -G -d <span class="s">"status=awaiting_approval"</span></pre>
+          </div>
+          <div class="code" style="margin-top:12px">
+            <div class="code-h"><span>200 OK</span></div>
+<pre>{
+  <span class="k">"object"</span>: <span class="s">"list"</span>,
+  <span class="k">"has_more"</span>: false,
+  <span class="k">"data"</span>: [
+    {
+      <span class="k">"id"</span>: <span class="s">"drf_2f91ab"</span>,
+      <span class="k">"type"</span>: <span class="s">"campaign"</span>,
+      <span class="k">"agent"</span>: <span class="s">"advertising"</span>,
+      <span class="k">"status"</span>: <span class="s">"awaiting_approval"</span>,
+      <span class="k">"created_at"</span>: <span class="s">"2026-07-24T09:14:22Z"</span>,
+      <span class="k">"summary"</span>: <span class="s">"Campaña de búsqueda — 4 grupos de anuncios, 18 recursos"</span>
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+
+        <div class="reveal" id="endpoints" style="margin-top:64px">
+          <h2 class="t-subtitle">Endpoints</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Método</th><th>Ruta</th><th>Descripción</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">GET</td><td class="mono">/v1/workspaces</td><td>Lista los espacios de trabajo disponibles para la credencial.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/workspaces</td><td>Crea un espacio de trabajo y lo inicializa a partir de un brief.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/connections</td><td>Lista los servicios conectados y los permisos concedidos.</td></tr>
+                <tr><td class="mono">DELETE</td><td class="mono">/v1/connections/:id</td><td>Revoca una conexión y destruye las credenciales guardadas.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/drafts</td><td>Lista los borradores pendientes de aprobación, filtrados por agente o tipo.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/drafts/:id/approve</td><td>Aprueba un borrador y lo libera para su ejecución.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/drafts/:id/reject</td><td>Rechaza un borrador, con motivo opcional.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/contacts</td><td>Consulta contactos con etapa del ciclo y atribución de origen.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/reports/:id</td><td>Recupera un informe generado en JSON o PDF.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/audit</td><td>Registro de auditoría inmutable y paginado del espacio de trabajo.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="webhooks" style="margin-top:64px">
+          <h2 class="t-subtitle">Webhooks</h2>
+          <p style="margin-top:16px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Cada entrega lleva una firma HMAC-SHA256 en <code>ATNOS-Signature</code>. Verifícala antes de confiar en el contenido: un endpoint de webhook sin firma es una API de escritura abierta. Las entregas fallidas se reintentan con retroceso exponencial durante 24 horas.</p>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Evento</th><th>Significado</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">draft.created</td><td>Un agente ha preparado trabajo que necesita una decisión.</td></tr>
+                <tr><td class="mono">draft.approved</td><td>Un borrador fue aprobado y liberado para ejecución.</td></tr>
+                <tr><td class="mono">draft.rejected</td><td>Un borrador fue rechazado, con el motivo si se indicó.</td></tr>
+                <tr><td class="mono">connection.authorised</td><td>Se conectó un servicio al espacio de trabajo.</td></tr>
+                <tr><td class="mono">connection.revoked</td><td>Se eliminó una conexión, desde cualquiera de los dos lados.</td></tr>
+                <tr><td class="mono">report.generated</td><td>Un informe programado está listo para recuperarse.</td></tr>
+                <tr><td class="mono">agent.error</td><td>Un agente no pudo completar su trabajo y se detuvo.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="limits" style="margin-top:64px">
+          <h2 class="t-subtitle">Límites de tasa</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Plan</th><th>Sostenido</th><th>Pico</th></tr></thead>
+              <tbody>
+                <tr><td>Scale</td><td>1.000 pet./min por espacio de trabajo</td><td>2.000</td></tr>
+                <tr><td>Enterprise</td><td>Negociado</td><td>Negociado</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note warn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+            <p><strong style="color:hsl(var(--ink))">Provisional.</strong> Los límites definitivos se publican antes de la disponibilidad general.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side reveal" aria-label="En esta página">
+        <h3>En esta página</h3>
+        <a href="#quickstart">Petición y respuesta</a>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#webhooks">Webhooks</a>
+        <a href="#limits">Límites de tasa</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="developers.html" class="btn btn-sm btn-outline" style="width:100%"><span>Guía para desarrolladores</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="../assets/site.js?v=5"></script>
+</body>
+</html>

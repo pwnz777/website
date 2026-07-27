@@ -90,6 +90,15 @@ header.site.solid{background:hsl(var(--ink-900)/.7);backdrop-filter:blur(24px);b
   transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
 .nav-link:hover::after,.nav-link[aria-current=page]::after{transform:scaleX(1)}
 .nav-cta{display:flex;align-items:center;gap:8px;margin-left:16px}
+/* language pill — same height as the small buttons next to it */
+.lang-pill{display:inline-flex;align-items:center;justify-content:center;height:36px;
+  padding:0 12px;border-radius:999px;border:1px solid rgb(255 255 255/.14);background:rgb(255 255 255/.05);
+  font-size:13px;font-weight:600;letter-spacing:.06em;color:rgb(255 255 255/.75);
+  transition:background-color .3s,border-color .3s,color .3s}
+.lang-pill:hover{background:rgb(255 255 255/.1);border-color:rgb(255 255 255/.28);color:#fff}
+.lang-pill span{display:inline-flex;align-items:center;gap:6px}
+.lang-pill svg{opacity:.8}
+.mobile-menu .mm-cta .btn-glass span{gap:6px}
 .burger{margin-left:auto;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;
   border:1px solid rgb(255 255 255/.12);color:rgb(255 255 255/.8);background:none;cursor:pointer;transition:border-color .3s,color .3s}
 .burger:hover{border-color:rgb(255 255 255/.25);color:#fff}

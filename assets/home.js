@@ -1,14 +1,129 @@
 /* ═══════════════════════════════════════════════════════════
    ATNOS — landing page only: starfield, product preview,
    platform tabs, capability blocks, trust grid, integration
-   network. Depends on site.js (RM, words, observeReveals).
+   network. Depends on site.js (RM, LANG, words, letters,
+   observeReveals).
+
+   All landing copy lives in HC below, keyed by locale, so the
+   Spanish landing page is the same markup with a different table.
    ═══════════════════════════════════════════════════════════ */
+const HC = {
+  en: {
+    h1:'Every channel.', h2:'One workspace.', sparks:[0,6,11],
+    cta:'A new way to run marketing.',
+    act:[
+      ['Website audit completed','Website','Automated'],
+      ['Campaign draft prepared','Advertising','Needs approval'],
+      ['Analytics synchronised','Analytics','Automated'],
+      ['SEO recommendations ready','SEO','Needs approval'],
+      ['Weekly report generated','Reporting','Automated'],
+      ['CRM records reconciled','CRM','Automated'],
+    ],
+    auto:'Automated',
+    metrics:[['Sessions','48,210','+12.4%'],['Qualified leads','1,284','+8.1%'],['Blended CAC','$62.40','−6.2%']],
+    contribution:'Channel contribution',
+    channels:[['Google Ads',34],['Meta',27],['Organic search',21],['Email',11],['Direct',7]],
+    campaigns:[['Q3 launch — Search','Live','Google Ads · 4 ad groups'],
+      ['Retargeting — warm','Live','Meta · 3 audiences'],
+      ['Clinic vertical — Search','Draft','Google Ads · Awaiting approval']],
+    live:'Live', draft:'Draft',
+    content:[['Pricing page — variant B','Landing page','Ready'],
+      ['How lead scoring works','Article','In review'],
+      ['Q3 launch — 12 ad variants','Creative','Ready']],
+    ready:'Ready',
+    caps:[
+      ['Create','Build websites, landing pages and content from a brief, with revisions prepared as drafts against your connected CMS.','brand',['Pages','Content','Assets']],
+      ['Advertise','Manage advertising workflows across supported platforms. Campaigns are created in your own accounts and stay paused until you launch them.','purple',['Campaigns','Audiences','Creative']],
+      ['Optimize','SEO insights, reconciled analytics and performance recommendations — each one showing the evidence behind it.','cyan',['Search','Analytics','Recommendations']],
+      ['Manage','CRM synchronisation, scheduled reporting and the recurring workflows you have approved, running on their own.','brand',['Contacts','Reports','Automations']],
+    ],
+    trust:[
+      ['Security','OAuth 2.0 with scoped permissions, TLS 1.3 in transit and AES-256 at rest. Credentials are encrypted with separately managed keys.','available'],
+      ['Privacy','GDPR and CCPA compliant, with a Data Processing Agreement offered to every customer. Your data is never used to train generalised models.','available'],
+      ['Role-based access','Owner, admin, operator, analyst and billing roles scoped per workspace. Every permission is explicit rather than inherited.','available'],
+      ['Audit logs','Every agent action, approval and configuration change recorded with actor, timestamp and what changed.','available'],
+      ['API and webhooks','A documented REST API with signed webhooks, so ATNOS fits into systems you already operate.','available'],
+      ['Scalable infrastructure','Multi-zone deployment with encrypted point-in-time backups and documented recovery objectives.','available'],
+      ['Professional support','Named contacts, agreed response times and a documented escalation path for organisations on an enterprise agreement.','planned'],
+    ],
+    availableLbl:'Available', plannedLbl:'Planned',
+    net:[
+      ['Google Ads','Campaign structure, assets and spend','brand'],
+      ['Meta','Campaigns, audiences and creative','brand'],
+      ['Google Analytics','Sessions, events and conversions','cyan'],
+      ['Search Console','Queries, impressions and positions','cyan'],
+      ['HubSpot','Contacts, deals and lifecycle stages','purple'],
+      ['Shopify','Products, orders and customers','purple'],
+      ['WordPress','Pages, posts and metadata','cyan'],
+      ['Stripe','Subscriptions and revenue records','purple'],
+      ['Business Profile','Local listings and reviews','brand'],
+      ['Slack','Approvals and notifications','brand'],
+    ],
+    netHint:'Hover a service to see what it syncs',
+    netAria:'Services that connect into the ATNOS core',
+  },
+  es: {
+    h1:'Cada canal.', h2:'Un solo espacio.', sparks:[0,5,9],
+    cta:'Una nueva forma de hacer marketing.',
+    act:[
+      ['Auditoría del sitio completada','Sitio web','Automático'],
+      ['Borrador de campaña preparado','Publicidad','Requiere aprobación'],
+      ['Analítica sincronizada','Analítica','Automático'],
+      ['Recomendaciones SEO listas','SEO','Requiere aprobación'],
+      ['Informe semanal generado','Informes','Automático'],
+      ['Registros de CRM conciliados','CRM','Automático'],
+    ],
+    auto:'Automático',
+    metrics:[['Sesiones','48.210','+12,4 %'],['Leads cualificados','1.284','+8,1 %'],['CAC combinado','62,40 $','−6,2 %']],
+    contribution:'Contribución por canal',
+    channels:[['Google Ads',34],['Meta',27],['Búsqueda orgánica',21],['Email',11],['Directo',7]],
+    campaigns:[['Lanzamiento Q3 — Búsqueda','Activa','Google Ads · 4 grupos de anuncios'],
+      ['Retargeting — audiencia templada','Activa','Meta · 3 audiencias'],
+      ['Vertical clínicas — Búsqueda','Borrador','Google Ads · Pendiente de aprobación']],
+    live:'Activa', draft:'Borrador',
+    content:[['Página de precios — variante B','Landing page','Lista'],
+      ['Cómo funciona el lead scoring','Artículo','En revisión'],
+      ['Lanzamiento Q3 — 12 variantes','Creatividades','Lista']],
+    ready:'Lista',
+    caps:[
+      ['Crear','Crea sitios, landing pages y contenido a partir de un brief, con las revisiones preparadas como borradores en tu propio CMS.','brand',['Páginas','Contenido','Recursos']],
+      ['Anunciar','Gestiona flujos de publicidad en las plataformas soportadas. Las campañas se crean en tus propias cuentas y quedan en pausa hasta que tú las lances.','purple',['Campañas','Audiencias','Creatividades']],
+      ['Optimizar','SEO, analítica conciliada y recomendaciones de rendimiento: cada una muestra la evidencia en la que se apoya.','cyan',['Búsqueda','Analítica','Recomendaciones']],
+      ['Gestionar','Sincronización de CRM, informes programados y los flujos recurrentes que hayas aprobado, funcionando solos.','brand',['Contactos','Informes','Automatizaciones']],
+    ],
+    trust:[
+      ['Seguridad','OAuth 2.0 con permisos acotados, TLS 1.3 en tránsito y AES-256 en reposo. Las credenciales se cifran con claves gestionadas por separado.','available'],
+      ['Privacidad','Cumple GDPR y CCPA, con un Acuerdo de Tratamiento de Datos disponible para cada cliente. Tus datos nunca se usan para entrenar modelos generalistas.','available'],
+      ['Acceso por roles','Roles de propietario, administrador, operador, analista y facturación, acotados por espacio de trabajo. Cada permiso es explícito, no heredado.','available'],
+      ['Registros de auditoría','Cada acción de un agente, cada aprobación y cada cambio de configuración quedan registrados con autor, fecha y qué cambió.','available'],
+      ['API y webhooks','Una API REST documentada con webhooks firmados, para que ATNOS encaje en los sistemas que ya operas.','available'],
+      ['Infraestructura escalable','Despliegue multizona con copias cifradas de recuperación puntual y objetivos de recuperación documentados.','available'],
+      ['Soporte profesional','Contactos asignados, tiempos de respuesta acordados y una ruta de escalado documentada para organizaciones con acuerdo empresarial.','planned'],
+    ],
+    availableLbl:'Disponible', plannedLbl:'Previsto',
+    net:[
+      ['Google Ads','Estructura de campañas, recursos e inversión','brand'],
+      ['Meta','Campañas, audiencias y creatividades','brand'],
+      ['Google Analytics','Sesiones, eventos y conversiones','cyan'],
+      ['Search Console','Consultas, impresiones y posiciones','cyan'],
+      ['HubSpot','Contactos, negocios y etapas del ciclo','purple'],
+      ['Shopify','Productos, pedidos y clientes','purple'],
+      ['WordPress','Páginas, entradas y metadatos','cyan'],
+      ['Stripe','Suscripciones y registros de ingresos','purple'],
+      ['Business Profile','Fichas locales y reseñas','brand'],
+      ['Slack','Aprobaciones y notificaciones','brand'],
+    ],
+    netHint:'Pasa el cursor por un servicio para ver qué sincroniza',
+    netAria:'Servicios que se conectan al núcleo de ATNOS',
+  },
+};
+const H = HC[LANG];
 
 /* ── hero headline: both lines reveal glyph by glyph ──
-   The breathing letters (E, c, e) sit on the white line: the accent line is
-   painted through background-clip:text, where a composited glyph goes blank. */
-letters(document.getElementById('hl1'), 'Every channel.', 120, [0, 6, 11]);
-letters(document.getElementById('hl2'), 'One workspace.', 700);
+   The breathing letters sit on the white line: the accent line is painted
+   through background-clip:text, where a composited glyph goes blank. */
+letters(document.getElementById('hl1'), H.h1, 120, H.sparks);
+letters(document.getElementById('hl2'), H.h2, 700);
 
 /* ── starfield ── */
 if (!RM) {
@@ -76,69 +191,53 @@ if (!RM) {
 setTimeout(() => document.getElementById('sfill').style.opacity = 1, 100);
 
 /* activity stream — every item labelled by who authorised it */
-const ACT = [
-  ['Website audit completed','Website','Automated'],
-  ['Campaign draft prepared','Advertising','Needs approval'],
-  ['Analytics synchronised','Analytics','Automated'],
-  ['SEO recommendations ready','SEO','Needs approval'],
-  ['Weekly report generated','Reporting','Automated'],
-  ['CRM records reconciled','CRM','Automated'],
-];
 const feed = document.getElementById('feed');
 let cur = 2;
 const CHECK = '<svg width="10" height="10" viewBox="0 0 14 10" fill="none" stroke="hsl(var(--success))" stroke-width="3"><path d="M1 5l4 4 8-8"/></svg>';
 function renderFeed() {
   feed.innerHTML = [0,1,2].map(o => {
-    const [l,a,m] = ACT[((cur-o)%ACT.length+ACT.length)%ACT.length];
+    const [l,a,m] = H.act[((cur-o)%H.act.length+H.act.length)%H.act.length];
     const first = o === 0;
     return `<li class="act" style="opacity:${first?1:.5}">
       <span class="ic" style="background:${first?'hsl(var(--brand)/.15)':'hsl(var(--success)/.12)'}">
         ${first?'<span class="spin"></span>':CHECK}</span>
       <span class="lbl">${l}</span><span class="ag">${a}</span>
-      <span class="md ${m==='Automated'?'md-auto':'md-appr'}">${m}</span></li>`;
+      <span class="md ${m===H.auto?'md-auto':'md-appr'}">${m}</span></li>`;
   }).join('');
 }
 renderFeed();
-if (!RM) setInterval(() => { if (!document.hidden) { cur = (cur+1)%ACT.length; renderFeed(); } }, 3200);
+if (!RM) setInterval(() => { if (!document.hidden) { cur = (cur+1)%H.act.length; renderFeed(); } }, 3200);
 
 /* ── platform tabs ── */
 const VIEWS = {
   overview: () => `
     <div style="display:grid;gap:8px">
       <div style="display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
-        ${[['Sessions','48,210','+12.4%'],['Qualified leads','1,284','+8.1%'],['Blended CAC','$62.40','−6.2%']]
-          .map(([l,v,d]) => `<div class="lpanel"><p style="font-size:12.5px" class="muted">${l}</p>
+        ${H.metrics.map(([l,v,d]) => `<div class="lpanel"><p style="font-size:12.5px" class="muted">${l}</p>
             <p class="metric-v">${v}</p>
             <p style="margin-top:4px;font-size:12px;font-weight:500;color:hsl(var(--success))">${d}</p></div>`).join('')}
       </div>
       <div class="lpanel">
-        <p style="font-size:12.5px;font-weight:500" class="muted">Channel contribution</p>
-        ${[['Google Ads',34],['Meta',27],['Organic search',21],['Email',11],['Direct',7]]
-          .map(([n,s],i)=>`<div class="crow"><span class="nm">${n}</span>
+        <p style="font-size:12.5px;font-weight:500" class="muted">${H.contribution}</p>
+        ${H.channels.map(([n,s],i)=>`<div class="crow"><span class="nm">${n}</span>
             <span class="bar"><b data-w="${s}" style="transition-delay:${100+i*70}ms"></b></span>
             <span class="pc">${s}%</span></div>`).join('')}
       </div>
     </div>`,
   campaigns: () => `<div style="display:grid;gap:8px">
-    ${[['Q3 launch — Search','Live','Google Ads · 4 ad groups'],
-       ['Retargeting — warm','Live','Meta · 3 audiences'],
-       ['Clinic vertical — Search','Draft','Google Ads · Awaiting approval']]
-      .map(([n,s,d])=>`<div class="lpanel" style="display:flex;align-items:center;gap:16px">
+    ${H.campaigns.map(([n,s,d])=>`<div class="lpanel" style="display:flex;align-items:center;gap:16px">
         <span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:500">${n}</span>
         <span style="display:block;margin-top:2px;font-size:12.5px" class="muted">${d}</span></span>
-        <span class="badge ${s==='Live'?'b-ok':'b-plan'}">${s}</span></div>`).join('')}</div>`,
+        <span class="badge ${s===H.live?'b-ok':'b-plan'}">${s}</span></div>`).join('')}</div>`,
   content: () => `<div style="display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-    ${[['Pricing page — variant B','Landing page','Ready'],
-       ['How lead scoring works','Article','In review'],
-       ['Q3 launch — 12 ad variants','Creative','Ready']]
-      .map(([t,ty,s])=>`<div class="lpanel" style="display:flex;flex-direction:column">
+    ${H.content.map(([t,ty,s])=>`<div class="lpanel" style="display:flex;flex-direction:column">
         <div style="display:grid;gap:6px;margin-bottom:16px" aria-hidden="true">
           <span style="height:6px;border-radius:999px;background:hsl(var(--line))"></span>
           <span style="height:6px;width:80%;border-radius:999px;background:hsl(var(--line))"></span>
           <span style="height:6px;width:60%;border-radius:999px;background:hsl(var(--line))"></span></div>
         <h3 style="font-size:14.5px;font-weight:500;line-height:1.4">${t}</h3>
         <p style="margin-top:4px;font-size:12.5px" class="muted">${ty}</p>
-        <span class="badge ${s==='Ready'?'b-ok':'b-plan'}" style="margin-top:16px;width:fit-content">${s}</span></div>`).join('')}</div>`,
+        <span class="badge ${s===H.ready?'b-ok':'b-plan'}" style="margin-top:16px;width:fit-content">${s}</span></div>`).join('')}</div>`,
 };
 const showcase = document.getElementById('showcase');
 const tabs = [...document.querySelectorAll('.tab')];
@@ -178,58 +277,46 @@ addEventListener('resize', () => moveBg(currentTab()));
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => moveBg(currentTab()));
 
 /* ── capabilities ── */
-const CAPS = [
-  ['Create','Build websites, landing pages and content from a brief, with revisions prepared as drafts against your connected CMS.','brand',['Pages','Content','Assets'],'M3 9h18M9 21V9M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z'],
-  ['Advertise','Manage advertising workflows across supported platforms. Campaigns are created in your own accounts and stay paused until you launch them.','purple',['Campaigns','Audiences','Creative'],'M3 11l18-5v12L3 14v-3zM11.6 16.8a3 3 0 11-5.8-1.6'],
-  ['Optimize','SEO insights, reconciled analytics and performance recommendations — each one showing the evidence behind it.','cyan',['Search','Analytics','Recommendations'],'M3 3v18h18M18.7 8l-5.1 5.2-2.8-2.7L7 14.3'],
-  ['Manage','CRM synchronisation, scheduled reporting and the recurring workflows you have approved, running on their own.','brand',['Contacts','Reports','Automations'],'M14 9V5a3 3 0 00-6 0v4M5 9h14l1 12H4L5 9z'],
+const CAP_ICON = [
+  'M3 9h18M9 21V9M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z',
+  'M3 11l18-5v12L3 14v-3zM11.6 16.8a3 3 0 11-5.8-1.6',
+  'M3 3v18h18M18.7 8l-5.1 5.2-2.8-2.7L7 14.3',
+  'M14 9V5a3 3 0 00-6 0v4M5 9h14l1 12H4L5 9z',
 ];
-document.getElementById('caps').innerHTML = CAPS.map(([t,d,h,s,p]) => `
+document.getElementById('caps').innerHTML = H.caps.map(([t,d,h,s],i) => `
   <li class="reveal"><article class="cap">
     <span class="rule" style="background:hsl(var(--${h}))"></span>
     <span class="ico" style="background:hsl(var(--${h}-50));color:hsl(var(--${h}))">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="${p}"/></svg></span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="${CAP_ICON[i]}"/></svg></span>
     <h3>${t}</h3>
     <p class="t-body muted">${d}</p>
     <ul class="surfaces">${s.map(x=>`<li>${x}</li>`).join('')}</ul>
   </article></li>`).join('');
 
 /* ── trust ── */
-const TRUST = [
-  ['Security','OAuth 2.0 with scoped permissions, TLS 1.3 in transit and AES-256 at rest. Credentials are encrypted with separately managed keys.','available','M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'],
-  ['Privacy','GDPR and CCPA compliant, with a Data Processing Agreement offered to every customer. Your data is never used to train generalised models.','available','M12 2a5 5 0 015 5v3M7 10V7a5 5 0 012-4M5 10h14v11H5z'],
-  ['Role-based access','Owner, admin, operator, analyst and billing roles scoped per workspace. Every permission is explicit rather than inherited.','available','M15 7a4 4 0 11-8 0 4 4 0 018 0zM3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2'],
-  ['Audit logs','Every agent action, approval and configuration change recorded with actor, timestamp and what changed.','available','M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M9 15h6M9 11h6'],
-  ['API and webhooks','A documented REST API with signed webhooks, so ATNOS fits into systems you already operate.','available','M4 17l6-6-6-6M12 19h8'],
-  ['Scalable infrastructure','Multi-zone deployment with encrypted point-in-time backups and documented recovery objectives.','available','M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z'],
-  ['Professional support','Named contacts, agreed response times and a documented escalation path for organisations on an enterprise agreement.','planned','M3 18v-6a9 9 0 0118 0v6M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z'],
+const TRUST_ICON = [
+  'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  'M12 2a5 5 0 015 5v3M7 10V7a5 5 0 012-4M5 10h14v11H5z',
+  'M15 7a4 4 0 11-8 0 4 4 0 018 0zM3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2',
+  'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M9 15h6M9 11h6',
+  'M4 17l6-6-6-6M12 19h8',
+  'M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z',
+  'M3 18v-6a9 9 0 0118 0v6M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z',
 ];
-document.getElementById('trust').innerHTML = TRUST.map(([t,d,s,p]) => `
+document.getElementById('trust').innerHTML = H.trust.map(([t,d,s],i) => `
   <li class="reveal"><article class="tcard">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
-      <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="${p}"/></svg></span>
-      <span class="badge ${s==='planned'?'b-plan':'b-ok'}">${s==='planned'?'Planned':'Available'}</span>
+      <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="${TRUST_ICON[i]}"/></svg></span>
+      <span class="badge ${s==='planned'?'b-plan':'b-ok'}">${s==='planned'?H.plannedLbl:H.availableLbl}</span>
     </div>
     <h3 style="margin-top:24px;font-size:17px;letter-spacing:-.015em">${t}</h3>
     <p style="margin-top:10px;font-size:15px;line-height:1.7" class="muted">${d}</p>
   </article></li>`).join('');
 
 /* ── integration network ── */
-const NET = [
-  ['Google Ads','Campaign structure, assets and spend','brand'],
-  ['Meta','Campaigns, audiences and creative','brand'],
-  ['Google Analytics','Sessions, events and conversions','cyan'],
-  ['Search Console','Queries, impressions and positions','cyan'],
-  ['HubSpot','Contacts, deals and lifecycle stages','purple'],
-  ['Shopify','Products, orders and customers','purple'],
-  ['WordPress','Pages, posts and metadata','cyan'],
-  ['Stripe','Subscriptions and revenue records','purple'],
-  ['Business Profile','Local listings and reviews','brand'],
-  ['Slack','Approvals and notifications','brand'],
-];
 const V = 560, C = 280, R = 208;
-const nodes = NET.map(([n,d,h],i) => {
-  const a = (i/NET.length)*Math.PI*2 - Math.PI/2;
+const nodes = H.net.map(([n,d,h],i) => {
+  const a = (i/H.net.length)*Math.PI*2 - Math.PI/2;
   return {n, d, h, x: C+Math.cos(a)*R, y: C+Math.sin(a)*R};
 });
 const netLines = nodes.map((o,i) => {
@@ -238,7 +325,7 @@ const netLines = nodes.map((o,i) => {
   return {id:i, d:`M ${o.x} ${o.y} Q ${cx} ${cy} ${C} ${C}`, h:o.h};
 });
 document.getElementById('net').innerHTML = `
-<svg viewBox="0 0 ${V} ${V}" role="list" aria-label="Services that connect into the ATNOS core">
+<svg viewBox="0 0 ${V} ${V}" role="list" aria-label="${H.netAria}">
   <defs>
     <radialGradient id="core" cx="42%" cy="34%" r="62%">
       <stop offset="0%" stop-color="hsl(var(--brand))"/><stop offset="55%" stop-color="hsl(var(--brand-600))"/>
@@ -272,8 +359,8 @@ document.getElementById('net').innerHTML = `
       <text x="${o.x+dx}" y="${o.y+dy}" text-anchor="${an}">${o.n}</text></g>`;
   }).join('')}
 </svg>
-<p class="net-detail" id="netd" aria-live="polite"><span style="color:hsl(var(--muted)/.7)">Hover a service to see what it syncs</span></p>
-<ul style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${NET.map(([n,d])=>`<li>${n} — ${d}</li>`).join('')}</ul>`;
+<p class="net-detail" id="netd" aria-live="polite"><span style="color:hsl(var(--muted)/.7)">${H.netHint}</span></p>
+<ul style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${H.net.map(([n,d])=>`<li>${n} — ${d}</li>`).join('')}</ul>`;
 
 document.querySelectorAll('.node').forEach(g => {
   const i = +g.dataset.i, o = nodes[i];
@@ -295,7 +382,7 @@ document.querySelectorAll('.node').forEach(g => {
     document.getElementById(`nd${i}`).setAttribute('r','7');
     document.getElementById(`nd${i}`).setAttribute('stroke','hsl(var(--line-strong))');
     document.getElementById(`nc${i}`).setAttribute('fill','hsl(var(--muted))');
-    document.getElementById('netd').innerHTML = `<span style="color:hsl(var(--muted)/.7)">Hover a service to see what it syncs</span>`;
+    document.getElementById('netd').innerHTML = `<span style="color:hsl(var(--muted)/.7)">${H.netHint}</span>`;
   };
   g.addEventListener('pointerenter', on); g.addEventListener('focus', on);
   g.addEventListener('pointerleave', off); g.addEventListener('blur', off);
@@ -305,7 +392,7 @@ document.querySelectorAll('.node').forEach(g => {
 const ctaw = document.getElementById('ctaw');
 new IntersectionObserver(([e],ob) => {
   if (!e.isIntersecting) return; ob.disconnect();
-  words(ctaw, 'A new way to run marketing.', 0);
+  words(ctaw, H.cta, 0);
 }, {threshold:.3}).observe(ctaw);
 
 /* newly injected .reveal nodes */

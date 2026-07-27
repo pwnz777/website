@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desarrolladores — ATNOS</title>
+<meta name="description" content="Construye sobre el espacio de trabajo. ATNOS expone por una API REST documentada todo lo que hace el panel, con webhooks firmados.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://atnos.ai/developers">
+<link rel="alternate" hreflang="es" href="https://atnos.ai/es/developers">
+<link rel="alternate" hreflang="x-default" href="https://atnos.ai/developers">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=5">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Ir al contenido</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="dev-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Inicio</a> <span>/</span> <span>Desarrolladores</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Desarrolladores</span>
+    <h1 id="dev-h" class="t-section fade" data-d="140">Construye sobre el espacio de trabajo.</h1>
+    <p class="t-body lead fade" data-d="260">ATNOS expone por una API REST documentada todo lo que hace el panel, con webhooks firmados para cualquier cosa que si no tendrías que consultar por sondeo.</p>
+    <div class="hero-cta fade" data-d="380">
+      <a href="api.html" class="btn btn-md btn-inverse"><span>Referencia de API <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="api.html#webhooks" class="btn btn-md btn-glass"><span>Webhooks</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="sh">
+      <span class="eyebrow-l reveal">Puntos de entrada</span>
+      <h2 class="t-section reveal">Lo que está disponible hoy.</h2>
+    </div>
+    <div class="tbl-wrap reveal">
+      <table class="tbl">
+        <thead><tr><th>Punto de entrada</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>API REST — espacios de trabajo, conexiones, planes, borradores, contactos, registro de auditoría</td><td><span class="badge b-ok">Disponible</span></td></tr>
+          <tr><td>Webhooks — entrega firmada con HMAC-SHA256 y reintentos con retroceso exponencial</td><td><span class="badge b-ok">Disponible</span></td></tr>
+          <tr><td>OAuth para socios</td><td><span class="badge b-ok">Disponible</span></td></tr>
+          <tr><td>SDK de cliente — TypeScript y Python</td><td><span class="badge b-plan">En desarrollo</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-surface" aria-labelledby="steps-h">
+  <div class="container">
+    <div class="cols">
+      <div class="prose reveal" style="max-width:none">
+        <h2 id="steps-h" class="t-section" style="margin-top:0">Tres pasos hasta tu primera petición</h2>
+        <ol class="steps">
+          <li>
+            <h3>Crea una credencial del espacio de trabajo</h3>
+            <p>Ajustes → Desarrolladores → Nueva clave de API. Las claves están acotadas a un único espacio de trabajo y se muestran una sola vez. Puedes rotarlas cuando quieras; la anterior sigue válida 24 horas para que un despliegue pueda solaparse.</p>
+          </li>
+          <li>
+            <h3>Envíala como bearer token</h3>
+            <p>Pasa la clave en <code>Authorization</code> e indica el espacio de trabajo en <code>ATNOS-Workspace</code>. Si no coinciden, la petición se rechaza en lugar de reducir permisos en silencio.</p>
+          </li>
+          <li>
+            <h3>Gestiona los límites de tasa</h3>
+            <p>Superar el límite devuelve <code>429</code> con <code>Retry-After</code>. Respétalo: reintentar de inmediato alarga la ventana en lugar de acortarla.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="reveal">
+        <div class="code">
+          <div class="code-h"><s style="width:9px;height:9px;border-radius:50%;background:rgb(255 255 255/.12);display:inline-block"></s><span>primera petición</span></div>
+<pre><span class="c"># Lista todo lo que espera una decisión</span>
+curl https://api.atnos.ai/v1/drafts \
+  -H <span class="s">"Authorization: Bearer $ATNOS_API_KEY"</span> \
+  -H <span class="s">"ATNOS-Workspace: ws_8f21c"</span> \
+  -G -d <span class="s">"status=awaiting_approval"</span></pre>
+        </div>
+        <p style="margin-top:16px;font-size:14px;line-height:1.7;color:hsl(var(--muted))">URL base <code>https://api.atnos.ai</code>. Solo HTTPS: el texto plano se rechaza en lugar de redirigirse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="auth-h">
+  <div class="container">
+    <div class="sh">
+      <span class="eyebrow-l reveal">Autoridad</span>
+      <h2 id="auth-h" class="t-section reveal">Cómo sostiene ATNOS la autorización.</h2>
+    </div>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>Código de autorización con PKCE</h3>
+        <p>ATNOS nunca solicita, recibe ni almacena contraseñas de un servicio conectado.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Permisos incrementales</h3>
+        <p>Los permisos más estrechos, pedidos en el momento en que se conecta la función.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Tokens de refresco rotativos</h3>
+        <p>Con detección de reutilización: un token reutilizado invalida la cadena y avisa al propietario del espacio de trabajo.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Revocable desde ambos lados</h3>
+        <p>Desconecta en ATNOS o revoca en el proveedor. Nunca necesitas nuestra colaboración para cortar el acceso.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="../assets/site.js?v=5"></script>
+</body>
+</html>

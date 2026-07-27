@@ -1,0 +1,16 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "doodle-crash",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "C:\\Users\\MSI\\AppData\\Local\\Temp\\claude\\C--PROJECTS-CLAUDE-Website-ADOS\\a2cfef89-d9b2-4c95-aecb-1446cd723007\\scratchpad\\serve.ps1",
+        "-Port", "8124"
+      ],
+      "port": 8124
+    }
+  ]
+}

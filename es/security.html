@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seguridad — ATNOS</title>
+<meta name="description" content="ATNOS está autorizado a actuar dentro de tus cuentas de publicidad, analítica y CRM. Cada control está marcado como implementado o previsto.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://atnos.ai/security">
+<link rel="alternate" hreflang="es" href="https://atnos.ai/es/security">
+<link rel="alternate" hreflang="x-default" href="https://atnos.ai/security">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=5">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Ir al contenido</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="sec-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Inicio</a> <span>/</span> <span>Seguridad</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Seguridad</span>
+    <h1 id="sec-h" class="t-section fade" data-d="140">Custodiamos las credenciales de todo tu stack de marketing. Eso marca el listón.</h1>
+    <p class="t-body lead fade" data-d="260">ATNOS está autorizado a actuar dentro de tus cuentas de publicidad, analítica y CRM. Cada control de abajo está marcado como implementado o previsto: preferimos ser precisos antes que impresionantes.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div id="controls">
+
+        <div class="reveal" id="encryption">
+          <h2 class="t-subtitle">Cifrado</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>Estado</th><th>Detalle</th></tr></thead>
+              <tbody>
+                <tr><td>TLS 1.3 en tránsito</td><td><span class="badge b-ok">Implementado</span></td><td>Suites de cifrado modernas con confidencialidad directa. HSTS con preload; TLS 1.0 y 1.1 deshabilitados.</td></tr>
+                <tr><td>AES-256 en reposo</td><td><span class="badge b-ok">Implementado</span></td><td>Bases de datos, almacenamiento de objetos y copias de seguridad, con rotación de claves en un calendario fijo.</td></tr>
+                <tr><td>Credenciales con cifrado de sobre</td><td><span class="badge b-ok">Implementado</span></td><td>Claves de datos por inquilino envueltas por una clave maestra en un servicio gestionado de claves, guardadas aparte de los datos de la aplicación.</td></tr>
+                <tr><td>Claves gestionadas por el cliente</td><td><span class="badge b-plan">Previsto</span></td><td>Bring-your-own-key para organizaciones que necesitan las claves bajo su propio control.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="authentication" style="margin-top:64px">
+          <h2 class="t-subtitle">Autenticación</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>Estado</th><th>Detalle</th></tr></thead>
+              <tbody>
+                <tr><td>OAuth 2.0 con PKCE</td><td><span class="badge b-ok">Implementado</span></td><td>Flujo de código de autorización. ATNOS nunca solicita, recibe ni almacena contraseñas.</td></tr>
+                <tr><td>Rotación de tokens de refresco</td><td><span class="badge b-ok">Implementado</span></td><td>Rotan en cada uso con detección de reutilización. Un token reutilizado invalida toda la cadena.</td></tr>
+                <tr><td>Autenticación multifactor</td><td><span class="badge b-ok">Implementado</span></td><td>Disponible en todas las cuentas y exigible para todo el espacio de trabajo. Respaldada por hardware para el acceso a producción.</td></tr>
+                <tr><td>SSO con SAML y OIDC</td><td><span class="badge b-plan">Previsto</span></td><td>Inicio de sesión federado con aprovisionamiento SCIM.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="access" style="margin-top:64px">
+          <h2 class="t-subtitle">Control de acceso</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>Estado</th><th>Detalle</th></tr></thead>
+              <tbody>
+                <tr><td>Control de acceso por roles</td><td><span class="badge b-ok">Implementado</span></td><td>Propietario, administrador, operador, analista y facturación, acotados por espacio de trabajo.</td></tr>
+                <tr><td>Aislamiento entre inquilinos</td><td><span class="badge b-ok">Implementado</span></td><td>Aplicado a nivel de fila en la capa de consultas.</td></tr>
+                <tr><td>Registro de auditoría inmutable</td><td><span class="badge b-ok">Implementado</span></td><td>Solo de anexado, con autor, fecha, dirección de origen y diferencia del contenido.</td></tr>
+                <tr><td>Mínimo privilegio interno</td><td><span class="badge b-ok">Implementado</span></td><td>Revisado cada trimestre y revocado en menos de cuatro horas tras un cambio de rol.</td></tr>
+                <tr><td>Exportación continua de auditoría</td><td><span class="badge b-plan">Previsto</span></td><td>Envío continuo a tu propio SIEM.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="infrastructure" style="margin-top:64px">
+          <h2 class="t-subtitle">Infraestructura</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>Estado</th><th>Detalle</th></tr></thead>
+              <tbody>
+                <tr><td>Red privada</td><td><span class="badge b-ok">Implementado</span></td><td>Ninguna base de datos accesible desde internet. Infraestructura como código, revisada por pares.</td></tr>
+                <tr><td>Despliegue multizona</td><td><span class="badge b-ok">Implementado</span></td><td>Capas de aplicación y de datos repartidas en varias zonas de disponibilidad.</td></tr>
+                <tr><td>Copias de seguridad cifradas</td><td><span class="badge b-ok">Implementado</span></td><td>Recuperación a un punto en el tiempo durante 35 días, replicada a otra región.</td></tr>
+                <tr><td>Recuperación ante desastres probada</td><td><span class="badge b-ok">Implementado</span></td><td>RPO de 5 minutos, RTO de 4 horas, validado dos veces al año.</td></tr>
+                <tr><td>Residencia regional de datos</td><td><span class="badge b-plan">Previsto</span></td><td>Procesamiento en la UE, EE. UU. o Reino Unido según el espacio de trabajo.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="monitoring" style="margin-top:64px">
+          <h2 class="t-subtitle">Supervisión y respuesta</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Control</th><th>Estado</th><th>Detalle</th></tr></thead>
+              <tbody>
+                <tr><td>Análisis continuo de vulnerabilidades</td><td><span class="badge b-ok">Implementado</span></td><td>Las críticas se corrigen en 7 días; las altas, en 30.</td></tr>
+                <tr><td>Detección de anomalías</td><td><span class="badge b-ok">Implementado</span></td><td>Autenticación, comportamiento de los agentes y uso de la API con alertas automáticas.</td></tr>
+                <tr><td>Plan de respuesta a incidentes</td><td><span class="badge b-ok">Implementado</span></td><td>Severidades documentadas, guardia rotativa, escalado y comunicación.</td></tr>
+                <tr><td>Pruebas de intrusión independientes</td><td><span class="badge b-plan">Previsto</span></td><td>Evaluación anual por un tercero, con resumen disponible bajo NDA.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="compliance" style="margin-top:64px">
+          <h2 class="t-subtitle">Cumplimiento</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Marco</th><th>Estado</th></tr></thead>
+              <tbody>
+                <tr><td>GDPR</td><td><span class="badge b-ok">Implementado</span></td></tr>
+                <tr><td>CCPA / CPRA</td><td><span class="badge b-ok">Implementado</span></td></tr>
+                <tr><td>Política de Datos de Usuario de los Servicios de API de Google<br><span style="font-weight:400;font-size:13.5px;color:hsl(var(--muted))">Incluidos los requisitos de Uso Limitado — ver <a href="oauth.html#limited-use" style="color:hsl(var(--brand))">Acceso conectado</a></span></td><td><span class="badge b-ok">Implementado</span></td></tr>
+                <tr><td>SOC 2 Tipo II</td><td><span class="badge b-plan">Previsto — aún no concedido</span></td></tr>
+                <tr><td>ISO/IEC 27001</td><td><span class="badge b-plan">Previsto — aún no concedido</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal prose" id="practices" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Buenas prácticas que recomendamos de tu lado</h2>
+          <ul class="bullets">
+            <li>Exige autenticación multifactor a todos los miembros de tu espacio de trabajo.</li>
+            <li>Concede el rol más estrecho que permita a cada persona hacer su trabajo, y revisa los miembros cada trimestre.</li>
+            <li>Fija topes de gasto y puertas de aprobación acordes al riesgo que acepta tu organización, no el nuestro.</li>
+            <li>Conecta cuentas de servicio en lugar de cuentas personales, para que el acceso sobreviva a la marcha de alguien.</li>
+            <li>Revisa el registro de auditoría tras cualquier cambio en las cuentas conectadas o en la configuración de los agentes.</li>
+            <li>Revoca las conexiones que ya no uses: una integración sin uso sigue siendo una puerta abierta.</li>
+          </ul>
+        </div>
+
+        <div class="reveal prose" id="disclosure" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Divulgación responsable</h2>
+          <div class="grid-2" style="margin-top:24px">
+            <div class="card">
+              <h3>Nos comprometemos a</h3>
+              <ul class="bullets" style="margin-top:14px">
+                <li>Acuse de recibo en 24 horas.</li>
+                <li>Evaluación y plazo de corrección en 5 días hábiles.</li>
+                <li>Actualizaciones de avance cada 10 días hábiles.</li>
+                <li>Crédito público a quien lo desee.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Fuera de alcance</h3>
+              <ul class="bullets" style="margin-top:14px">
+                <li>Pruebas contra cuentas que no sean tuyas.</li>
+                <li>Denegación de servicio.</li>
+                <li>Ingeniería social.</li>
+                <li>Salida de escáneres sin impacto demostrado.</li>
+              </ul>
+            </div>
+          </div>
+          <p style="margin-top:24px">Escribe a <a href="mailto:security@atnos.ai" style="color:hsl(var(--brand));font-family:var(--mono);font-size:.95em">security@atnos.ai</a>. También publicado en <code>/.well-known/security.txt</code> según la RFC 9116.</p>
+        </div>
+
+      </div>
+
+      <aside class="side reveal" aria-label="En esta página">
+        <h3>En esta página</h3>
+        <a href="#encryption">Cifrado</a>
+        <a href="#authentication">Autenticación</a>
+        <a href="#access">Control de acceso</a>
+        <a href="#infrastructure">Infraestructura</a>
+        <a href="#monitoring">Supervisión y respuesta</a>
+        <a href="#compliance">Cumplimiento</a>
+        <a href="#practices">Buenas prácticas</a>
+        <a href="#disclosure">Divulgación responsable</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <h3>Relacionado</h3>
+        <a href="oauth.html">Acceso conectado</a>
+        <a href="privacy-policy.html">Política de Privacidad</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="contact.html" class="btn btn-sm btn-outline" style="width:100%"><span>Solicitar revisión de seguridad</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="../assets/site.js?v=5"></script>
+</body>
+</html>

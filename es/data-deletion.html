@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eliminación de Datos — ATNOS</title>
+<meta name="description" content="Cómo solicitar la eliminación, cómo revocar el acceso conectado, qué ocurre de inmediato y qué se conserva y por qué.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://atnos.ai/data-deletion">
+<link rel="alternate" hreflang="es" href="https://atnos.ai/es/data-deletion">
+<link rel="alternate" hreflang="x-default" href="https://atnos.ai/data-deletion">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=5">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Ir al contenido</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="dd-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Inicio</a> <span>/</span> <span>Legal</span> <span>/</span> <span>Eliminación de Datos</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Legal</span>
+    <h1 id="dd-h" class="t-section fade" data-d="140">Eliminación de Datos</h1>
+    <p class="t-body lead fade" data-d="260">Cómo solicitar la eliminación, cómo revocar el acceso en cada proveedor, qué ocurre de inmediato y qué se conserva y por qué.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div>
+        <div class="legal-banner reveal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p><strong>Pendiente de revisión legal.</strong> Este documento está redactado y estructurado, pero aún no lo han aprobado los abogados. El cuerpo de cada sección se cierra antes del lanzamiento.</p>
+        </div>
+
+        <div class="reveal" id="sections">
+          <h2 class="t-subtitle">Secciones</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th style="width:64px">§</th><th>Sección</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">1</td><td>Cómo solicitar la eliminación</td></tr>
+                <tr><td class="mono">2</td><td>Revocar el acceso conectado — Google, Meta y otros proveedores, con instrucciones para cada uno</td></tr>
+                <tr><td class="mono">3</td><td>Qué ocurre de inmediato</td></tr>
+                <tr><td class="mono">4</td><td>Ventana de recuperación</td></tr>
+                <tr><td class="mono">5</td><td>Plazos de conservación</td></tr>
+                <tr><td class="mono">6</td><td>Qué se conserva y por qué</td></tr>
+                <tr><td class="mono">7</td><td>Exporta antes de borrar</td></tr>
+                <tr><td class="mono">8</td><td>Datos en poder de los servicios conectados</td></tr>
+                <tr><td class="mono">9</td><td>Soporte</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal prose" id="how" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Cómo solicitar la eliminación</h2>
+          <ol class="steps">
+            <li>
+              <h3>Bórralo desde el espacio de trabajo</h3>
+              <p>Ajustes → Espacio de trabajo → Eliminar espacio de trabajo. La eliminación empieza de inmediato: los tokens OAuth guardados se destruyen, todos los agentes programados se detienen y las acciones en cola se cancelan en lugar de completarse.</p>
+            </li>
+            <li>
+              <h3>O escríbenos</h3>
+              <p>Envía la solicitud desde el email de la cuenta a <a href="mailto:privacy@atnos.ai" style="color:hsl(var(--brand))">privacy@atnos.ai</a> indicando el nombre del espacio de trabajo. Confirmamos la solicitud, verificamos que controlas la cuenta y completamos la eliminación en un plazo de 30 días.</p>
+            </li>
+            <li>
+              <h3>Revoca también en el proveedor</h3>
+              <p>Borrar en ATNOS destruye nuestra copia de los tokens. Revocar en el proveedor es el paso independiente de refuerzo: las instrucciones por proveedor están en <a href="oauth.html#revoke" style="color:hsl(var(--brand))">Acceso conectado</a>. Para Google: <a href="https://myaccount.google.com/permissions" rel="noopener" style="color:hsl(var(--brand))">myaccount.google.com/permissions</a>. Para Meta: Configuración y privacidad → Configuración → Apps y sitios web.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="reveal prose" id="immediately" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Qué ocurre de inmediato y qué espera</h2>
+          <div class="tbl-wrap" style="margin-top:24px">
+            <table class="tbl">
+              <thead><tr><th>Elemento</th><th>Cuándo desaparece</th></tr></thead>
+              <tbody>
+                <tr><td>Tokens OAuth de acceso y de refresco</td><td>De inmediato, al desconectar o eliminar</td></tr>
+                <tr><td>Trabajo de agentes en curso y programado</td><td>De inmediato: las acciones en cola se cancelan, no se completan</td></tr>
+                <tr><td>Registros del espacio de trabajo, borradores y material generado</td><td>Exportables durante 30 días y después eliminados</td></tr>
+                <tr><td>Campañas y páginas en tus propias cuentas</td><td>No se tocan: siguen siendo tuyas, ATNOS solo deja de gestionarlas</td></tr>
+                <tr><td>Copias de seguridad cifradas</td><td>Se descartan dentro de la ventana de 35 días</td></tr>
+                <tr><td>Facturas y registros financieros</td><td>Se conservan 7 años, como exige la ley fiscal</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal prose" id="before" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Antes de borrar</h2>
+          <ul class="bullets">
+            <li><strong>Exporta primero.</strong> Ajustes y luego Exportar datos genera un archivo completo con contactos, historial de campañas, material generado, configuración y registros de auditoría en JSON y CSV. La descarga cifrada está disponible durante siete días.</li>
+            <li><strong>Tus cuentas conservan su trabajo.</strong> Las campañas y las páginas viven en tus propias cuentas y siguen bajo tu control: ATNOS solo deja de gestionarlas.</li>
+            <li><strong>Los datos del espacio de trabajo siguen exportables 30 días</strong> tras la cancelación.</li>
+            <li><strong>Los tokens desaparecen de inmediato.</strong> Los tokens OAuth de acceso y de refresco se destruyen al desconectar o eliminar.</li>
+          </ul>
+          <p style="margin-top:24px">Solicitudes y dudas: <a href="mailto:privacy@atnos.ai" style="color:hsl(var(--brand));font-family:var(--mono);font-size:.95em">privacy@atnos.ai</a></p>
+        </div>
+
+        <div class="reveal" id="retention" style="margin-top:64px">
+          <h2 class="t-subtitle">Plazos de conservación</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Categoría</th><th>Plazo</th></tr></thead>
+              <tbody>
+                <tr><td>Tokens OAuth de acceso y de refresco</td><td>Destruidos de inmediato al desconectar o eliminar</td></tr>
+                <tr><td>Registros de cuenta y espacio de trabajo</td><td>Vida de la cuenta más 30 días</td></tr>
+                <tr><td>Datos de campañas, analítica y CRM</td><td>25 meses, después agregados de forma irreversible</td></tr>
+                <tr><td>Registros de aplicación y de seguridad</td><td>12 meses</td></tr>
+                <tr><td>Registros de auditoría</td><td>12 meses (más con acuerdo empresarial)</td></tr>
+                <tr><td>Registros de consentimiento</td><td>24 meses desde el consentimiento</td></tr>
+                <tr><td>Facturas y registros financieros</td><td>7 años, como exige la ley fiscal</td></tr>
+                <tr><td>Copias de seguridad cifradas</td><td>Ventana móvil de 35 días</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side reveal" aria-label="Documentos legales">
+        <h3>Legal</h3>
+        <a href="privacy-policy.html">Política de Privacidad</a>
+        <a href="terms-of-service.html">Términos del Servicio</a>
+        <a href="cookie-policy.html">Política de Cookies</a>
+        <a href="data-deletion.html" style="color:hsl(var(--ink));font-weight:500">Eliminación de Datos</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <h3>En esta página</h3>
+        <a href="#sections">Secciones</a>
+        <a href="#how">Cómo solicitar la eliminación</a>
+        <a href="#immediately">Qué ocurre de inmediato</a>
+        <a href="#before">Antes de borrar</a>
+        <a href="#retention">Plazos de conservación</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="oauth.html#revoke">Revocar el acceso conectado</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="../assets/site.js?v=5"></script>
+</body>
+</html>

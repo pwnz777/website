@@ -2,44 +2,116 @@
    ATNOS — shared shell: header, mobile nav, footer, cookies,
    scroll reveal. Injected on every page so the markup for the
    chrome lives in exactly one place.
+
+   Bilingual: the Spanish site is a mirror under /es/ with the same
+   filenames, so link targets are shared and only labels are per-locale.
+   Locale comes from <html lang>, never from the URL, so a page dropped
+   in the wrong folder shows its own language rather than guessing.
    ═══════════════════════════════════════════════════════════ */
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const LANG = (document.documentElement.lang || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
 
-/* ── navigation model (mirrors ADOS-site-content, the source document) ── */
+/* ── one href table for both locales ── */
+const HREF = {
+  overview:'index.html', platform:'index.html#platform', integrations:'index.html#integrations',
+  enterprise:'security.html', pricing:'pricing.html', security:'security.html',
+  docs:'developers.html', api:'api.html', apiHooks:'api.html#webhooks', oauth:'oauth.html',
+  support:'support.html', status:'status.html', about:'about.html', contact:'contact.html',
+  privacy:'privacy-policy.html', terms:'terms-of-service.html', cookies:'cookie-policy.html',
+  deletion:'data-deletion.html', disclosure:'security.html#disclosure',
+  supportCenter:'support.html', contactUs:'contact.html', systemStatus:'status.html',
+};
+
 const NAV = [
-  {label:'Product', href:'index.html#platform', flyout:[
-    ['Overview','index.html','What the platform does today.'],
-    ['Integrations','index.html#integrations','Connect the services you already use.'],
-    ['Enterprise','security.html','Roles, isolation, audit and support.'],
-  ]},
-  {label:'Pricing', href:'pricing.html'},
-  {label:'Security', href:'security.html'},
-  {label:'Resources', href:'developers.html', flyout:[
-    ['Documentation','developers.html','Concepts, setup and workspace guides.'],
-    ['API Reference','api.html','Endpoints, authentication and webhooks.'],
-    ['Connected access','oauth.html','What each connection asks for, and how to revoke it.'],
-    ['Support','support.html','Answers and how to reach a person.'],
-    ['Status','status.html','Live availability of every service.'],
-  ]},
-  {label:'About', href:'about.html'},
-  {label:'Contact', href:'contact.html'},
+  {id:'product', href:HREF.platform, flyout:['overview','integrations','enterprise']},
+  {id:'pricing', href:HREF.pricing},
+  {id:'security', href:HREF.security},
+  {id:'resources', href:HREF.docs, flyout:['docs','api','oauth','support','status']},
+  {id:'about', href:HREF.about},
+  {id:'contact', href:HREF.contact},
 ];
 
-/* Every entry resolves to a real page. A dead link in the footer is a
-   finding in an OAuth verification review, not a cosmetic issue — Blog and
-   Careers are out until those pages exist. */
 const FOOT = [
-  ['Product',[['Overview','index.html'],['Integrations','index.html#integrations'],['Pricing','pricing.html'],['Enterprise','security.html']]],
-  ['Resources',[['Documentation','developers.html'],['Help Center','support.html'],['Status','status.html']]],
-  ['Developers',[['API Documentation','api.html'],['Webhooks','api.html#webhooks'],['Responsible Disclosure','security.html#disclosure']]],
-  ['Company',[['About','about.html'],['Contact','contact.html']]],
-  ['Support',[['Support Center','support.html'],['Contact us','contact.html'],['System status','status.html']]],
-  ['Legal',[['Privacy Policy','privacy-policy.html'],['Terms of Service','terms-of-service.html'],['Cookie Policy','cookie-policy.html'],['Connected access','oauth.html'],['Data Deletion','data-deletion.html']]],
+  ['colProduct', ['overview','integrations','pricing','enterprise']],
+  ['colResources', ['docs','support','status']],
+  ['colDevelopers', ['api','apiHooks','disclosure']],
+  ['colCompany', ['about','contact']],
+  ['colSupport', ['supportCenter','contactUs','systemStatus']],
+  ['colLegal', ['privacy','terms','cookies','oauth','deletion']],
 ];
+
+/* ── copy ── */
+const STR = {
+  en: {
+    product:'Product', pricing:'Pricing', security:'Security', resources:'Resources',
+    about:'About', contact:'Contact',
+    overview:['Overview','What the platform does today.'],
+    integrations:['Integrations','Connect the services you already use.'],
+    enterprise:['Enterprise','Roles, isolation, audit and support.'],
+    docs:['Documentation','Concepts, setup and workspace guides.'],
+    api:['API Reference','Endpoints, authentication and webhooks.'],
+    oauth:['Connected access','What each connection asks for, and how to revoke it.'],
+    support:['Support','Answers and how to reach a person.'],
+    status:['Status','Live availability of every service.'],
+    apiHooks:['Webhooks'], disclosure:['Responsible Disclosure'],
+    privacy:['Privacy Policy'], terms:['Terms of Service'], cookies:['Cookie Policy'],
+    deletion:['Data Deletion'], supportCenter:['Support Center'], contactUs:['Contact us'],
+    systemStatus:['System status'],
+    colProduct:'Product', colResources:'Resources', colDevelopers:'Developers',
+    colCompany:'Company', colSupport:'Support', colLegal:'Legal',
+    signIn:'Sign in', startFree:'Start free', openNav:'Open navigation', primaryNav:'Primary',
+    blurb:'Autonomous AI Marketing Platform. Connect the services you already use and run marketing operations from one workspace.',
+    rights:'© 2026 ATNOS Technologies Inc. All rights reserved.',
+    allPolicies:'All policies', dataDeletion:'Data deletion', cookieSettings:'Cookie settings',
+    operational:'All systems operational',
+    ck: {
+      region:'Cookie consent', title:'Cookies on atnos.ai',
+      body:'Essential cookies keep the site secure and working. With your permission we also use analytics, functional and marketing cookies. You can change this at any time from Cookie settings in the footer.',
+      policy:'Cookie Policy', accept:'Accept all', reject:'Reject non-essential', custom:'Customize',
+    },
+    langLabel:'Idioma: cambiar a español', langShort:'ES',
+  },
+  es: {
+    product:'Producto', pricing:'Precios', security:'Seguridad', resources:'Recursos',
+    about:'Nosotros', contact:'Contacto',
+    overview:['Visión general','Lo que la plataforma hace hoy.'],
+    integrations:['Integraciones','Conecta los servicios que ya usas.'],
+    enterprise:['Empresas','Roles, aislamiento, auditoría y soporte.'],
+    docs:['Documentación','Conceptos, configuración y guías del espacio de trabajo.'],
+    api:['Referencia de API','Endpoints, autenticación y webhooks.'],
+    oauth:['Acceso conectado','Qué pide cada conexión y cómo revocarla.'],
+    support:['Soporte','Respuestas y cómo hablar con una persona.'],
+    status:['Estado','Disponibilidad en vivo de cada servicio.'],
+    apiHooks:['Webhooks'], disclosure:['Divulgación responsable'],
+    privacy:['Política de Privacidad'], terms:['Términos del Servicio'], cookies:['Política de Cookies'],
+    deletion:['Eliminación de Datos'], supportCenter:['Centro de soporte'], contactUs:['Escríbenos'],
+    systemStatus:['Estado del sistema'],
+    colProduct:'Producto', colResources:'Recursos', colDevelopers:'Desarrolladores',
+    colCompany:'Compañía', colSupport:'Soporte', colLegal:'Legal',
+    signIn:'Iniciar sesión', startFree:'Empezar gratis', openNav:'Abrir navegación', primaryNav:'Principal',
+    blurb:'Plataforma autónoma de marketing con IA. Conecta los servicios que ya usas y opera todo el marketing desde un solo espacio de trabajo.',
+    rights:'© 2026 ATNOS Technologies Inc. Todos los derechos reservados.',
+    allPolicies:'Todas las políticas', dataDeletion:'Eliminación de datos', cookieSettings:'Preferencias de cookies',
+    operational:'Todos los sistemas operativos',
+    ck: {
+      region:'Consentimiento de cookies', title:'Cookies en atnos.ai',
+      body:'Las cookies esenciales mantienen el sitio seguro y funcionando. Con tu permiso también usamos cookies analíticas, funcionales y de marketing. Puedes cambiarlo cuando quieras desde Preferencias de cookies en el pie de página.',
+      policy:'Política de Cookies', accept:'Aceptar todas', reject:'Rechazar las no esenciales', custom:'Personalizar',
+    },
+    langLabel:'Language: switch to English', langShort:'EN',
+  },
+};
+const T = STR[LANG];
+const label = id => Array.isArray(T[id]) ? T[id][0] : T[id];
+const hint = id => Array.isArray(T[id]) ? (T[id][1] || '') : '';
 
 /* current page as a bare slug — works for /about.html (file://) and /about (Vercel cleanUrls) */
 const slug = p => (p.split('/').pop() || 'index').toLowerCase().replace(/\.html$/, '') || 'index';
 const PAGE = slug(location.pathname);
+/* the same page in the other language: /es/ mirrors the root filenames */
+const OTHER = LANG === 'es' ? `../${PAGE}.html` : `es/${PAGE}.html`;
+const HOME = LANG === 'es' ? 'index.html' : 'index.html';
+
 /* Mark: an A drawn as one unbroken stroke, its crossbar replaced by the
    core everything reports into. Legible down to 16px. */
 const LOGO = `<span class="logo-mark" aria-hidden="true"><i></i><b></b>
@@ -49,45 +121,50 @@ const LOGO = `<span class="logo-mark" aria-hidden="true"><i></i><b></b>
     <circle class="mk-core" cx="16" cy="19.4" r="3.05" fill="currentColor"/>
   </svg></span>ATNOS`;
 
+const GLOBE = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+  <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18"/></svg>`;
+const langBtn = cls => `<a href="${OTHER}" class="${cls}" lang="${LANG === 'es' ? 'en' : 'es'}"
+  aria-label="${T.langLabel}" title="${T.langLabel}"><span>${GLOBE}${T.langShort}</span></a>`;
+
 /* ── header ── */
 function buildHeader() {
   const host = document.getElementById('hdr');
   if (!host) return;
+  const hit = h => slug(h.split('#')[0]) === PAGE;
   const link = it => {
-    /* a section is current when its own page or one of its flyout pages is open */
-    const hit = h => slug(h.split('#')[0]) === PAGE;
-    const active = hit(it.href) || (it.flyout || []).some(([,h]) => hit(h)) ? ' aria-current="page"' : '';
-    if (!it.flyout) return `<a href="${it.href}" class="nav-link"${active}>${it.label}</a>`;
+    const active = hit(it.href) || (it.flyout || []).some(id => hit(HREF[id])) ? ' aria-current="page"' : '';
+    if (!it.flyout) return `<a href="${it.href}" class="nav-link"${active}>${label(it.id)}</a>`;
     return `<span class="has-flyout">
-      <a href="${it.href}" class="nav-link"${active}>${it.label}
+      <a href="${it.href}" class="nav-link"${active}>${label(it.id)}
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="opacity:.6"><path d="M6 9l6 6 6-6"/></svg>
       </a>
-      <span class="flyout">${it.flyout.map(([t,h,d]) =>
-        `<a href="${h}"><span class="fl-t">${t}</span><span class="fl-d">${d}</span></a>`).join('')}</span>
+      <span class="flyout">${it.flyout.map(id =>
+        `<a href="${HREF[id]}"><span class="fl-t">${label(id)}</span><span class="fl-d">${hint(id)}</span></a>`).join('')}</span>
     </span>`;
   };
   host.className = 'site';
   host.innerHTML = `
-  <nav class="container nav" aria-label="Primary">
-    <a href="index.html" class="logo">${LOGO}</a>
+  <nav class="container nav" aria-label="${T.primaryNav}">
+    <a href="${HOME}" class="logo">${LOGO}</a>
     <div class="nav-links">
       ${NAV.map(link).join('')}
       <span class="nav-cta">
-        <a href="contact.html" class="btn btn-sm btn-ghost-inv"><span>Sign in</span></a>
-        <a href="contact.html" class="btn btn-sm btn-inverse"><span>Start free</span></a>
+        ${langBtn('lang-pill')}
+        <a href="${HREF.contact}" class="btn btn-sm btn-ghost-inv"><span>${T.signIn}</span></a>
+        <a href="${HREF.contact}" class="btn btn-sm btn-inverse"><span>${T.startFree}</span></a>
       </span>
     </div>
-    <button class="burger" aria-label="Open navigation" aria-expanded="false" id="burger">
+    <button class="burger" aria-label="${T.openNav}" aria-expanded="false" id="burger">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
   </nav>
   <div class="mobile-menu" id="mmenu">
     <div class="container">
-      ${NAV.flatMap(it => it.flyout ? it.flyout.map(([t,h]) => [t,h]) : [[it.label,it.href]])
+      ${NAV.flatMap(it => it.flyout ? it.flyout.map(id => [label(id), HREF[id]]) : [[label(it.id), it.href]])
            .map(([t,h]) => `<a href="${h}">${t}</a>`).join('')}
       <div class="mm-cta">
-        <a href="contact.html" class="btn btn-sm btn-glass" style="flex:1"><span>Sign in</span></a>
-        <a href="contact.html" class="btn btn-sm btn-inverse" style="flex:1"><span>Start free</span></a>
+        ${langBtn('btn btn-sm btn-glass')}
+        <a href="${HREF.contact}" class="btn btn-sm btn-inverse" style="flex:1"><span>${T.startFree}</span></a>
       </div>
     </div>
   </div>`;
@@ -121,25 +198,24 @@ function buildFooter() {
   <div class="container">
     <div class="f-grid">
       <div>
-        <a href="index.html" class="f-logo">${LOGO}</a>
-        <p style="margin-top:16px;max-width:20rem;font-size:15px;line-height:1.7" class="muted">
-          Autonomous AI Marketing Platform. Connect the services you already use and run marketing operations from one workspace.</p>
+        <a href="${HOME}" class="f-logo">${LOGO}</a>
+        <p style="margin-top:16px;max-width:20rem;font-size:15px;line-height:1.7" class="muted">${T.blurb}</p>
         <address style="margin-top:24px;font-style:normal;font-size:14px;line-height:1.7" class="muted">
           <span style="display:block;color:hsl(var(--ink))">ATNOS Technologies Inc.</span>
           1 Market Street, Suite 3600<br>San Francisco, CA 94105<br>
           <a href="mailto:hello@atnos.ai" style="color:hsl(var(--ink));text-underline-offset:4px">hello@atnos.ai</a></address>
       </div>
-      ${FOOT.map(([h,ls]) => `<nav aria-labelledby="f-${h}"><h2 class="f-h" id="f-${h}">${h}</h2>
-        <ul>${ls.map(([l,u])=>`<li><a href="${u}" class="f-l">${l}</a></li>`).join('')}</ul></nav>`).join('')}
+      ${FOOT.map(([col,ids]) => `<nav aria-labelledby="f-${col}"><h2 class="f-h" id="f-${col}">${T[col]}</h2>
+        <ul>${ids.map(id=>`<li><a href="${HREF[id]}" class="f-l">${label(id)}</a></li>`).join('')}</ul></nav>`).join('')}
     </div>
     <div style="height:1px;background:hsl(var(--line))"></div>
     <div class="f-bot">
-      <p>© 2026 ATNOS Technologies Inc. All rights reserved.</p>
+      <p>${T.rights}</p>
       <div class="f-util">
-        <a href="privacy-policy.html">All policies</a>
-        <a href="data-deletion.html">Data deletion</a>
-        <button type="button" id="ckopen">Cookie settings</button>
-        <a href="status.html" style="display:inline-flex;align-items:center;gap:8px"><span class="dot ok"><i></i><b></b></span>All systems operational</a>
+        <a href="${HREF.privacy}">${T.allPolicies}</a>
+        <a href="${HREF.deletion}">${T.dataDeletion}</a>
+        <button type="button" id="ckopen">${T.cookieSettings}</button>
+        <a href="${HREF.status}" style="display:inline-flex;align-items:center;gap:8px"><span class="dot ok"><i></i><b></b></span>${T.operational}</a>
       </div>
     </div>
   </div>`;
@@ -156,18 +232,18 @@ function buildCookies() {
   cookieEl.className = 'cookie';
   cookieEl.id = 'cookie';
   cookieEl.setAttribute('role','region');
-  cookieEl.setAttribute('aria-label','Cookie consent');
+  cookieEl.setAttribute('aria-label', T.ck.region);
   cookieEl.innerHTML = `
   <div class="cookie-in">
-    <h2 style="font-size:16px;letter-spacing:-.015em">Cookies on atnos.ai</h2>
+    <h2 style="font-size:16px;letter-spacing:-.015em">${T.ck.title}</h2>
     <p style="margin-top:8px;max-width:42rem;font-size:14.5px;line-height:1.7;color:hsl(var(--muted))">
-      Essential cookies keep the site secure and working. With your permission we also use analytics, functional and marketing cookies. You can change this at any time from Cookie settings in the footer.
-      <a href="cookie-policy.html" style="font-weight:500;color:hsl(var(--ink));text-decoration:underline;text-underline-offset:4px">Cookie Policy</a>
+      ${T.ck.body}
+      <a href="${HREF.cookies}" style="font-weight:500;color:hsl(var(--ink));text-decoration:underline;text-underline-offset:4px">${T.ck.policy}</a>
     </p>
     <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:8px">
-      <button class="btn btn-sm btn-accent" data-ck><span>Accept all</span></button>
-      <button class="btn btn-sm btn-outline" data-ck><span>Reject non-essential</span></button>
-      <button class="btn btn-sm btn-ghost" data-ck><span>Customize</span></button>
+      <button class="btn btn-sm btn-accent" data-ck><span>${T.ck.accept}</span></button>
+      <button class="btn btn-sm btn-outline" data-ck><span>${T.ck.reject}</span></button>
+      <button class="btn btn-sm btn-ghost" data-ck><span>${T.ck.custom}</span></button>
     </div>
   </div>`;
   document.body.appendChild(cookieEl);
