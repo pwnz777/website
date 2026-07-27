@@ -107,10 +107,28 @@ const hint = id => Array.isArray(T[id]) ? (T[id][1] || '') : '';
 
 /* current page as a bare slug — works for /about.html (file://) and /about (Vercel cleanUrls) */
 const slug = p => (p.split('/').pop() || 'index').toLowerCase().replace(/\.html$/, '') || 'index';
-const PAGE = slug(location.pathname);
+/* the locale folder is not part of the page identity: /es/about is still `about` */
+const PAGE = slug(location.pathname.replace(/\/es(?=\/|$)/, ''));
+
+/* Vercel canonicalises /es/ to /es, so on the Spanish home page the relative
+   base is the site root and every relative link would land on its English
+   twin. Detect that one case and re-point links into the folder. */
+const DIR = location.pathname.replace(/[^/]*$/, '');
+const NEEDS_ES = LANG === 'es' && !/\/es\/$/.test(DIR);
+const L = href => NEEDS_ES && !/^([a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(href) ? 'es/' + href : href;
+
 /* the same page in the other language: /es/ mirrors the root filenames */
-const OTHER = LANG === 'es' ? `../${PAGE}.html` : `es/${PAGE}.html`;
-const HOME = LANG === 'es' ? 'index.html' : 'index.html';
+const OTHER = LANG === 'es' ? (NEEDS_ES ? `${PAGE}.html` : `../${PAGE}.html`) : `es/${PAGE}.html`;
+const HOME = L('index.html');
+
+/* static links written into the page markup need the same treatment */
+function localiseStaticLinks() {
+  if (!NEEDS_ES) return;
+  document.querySelectorAll('a[href]').forEach(a => {
+    const h = a.getAttribute('href');
+    if (h !== L(h)) a.setAttribute('href', L(h));
+  });
+}
 
 /* Mark: an A drawn as one unbroken stroke, its crossbar replaced by the
    core everything reports into. Legible down to 16px. */
@@ -133,13 +151,13 @@ function buildHeader() {
   const hit = h => slug(h.split('#')[0]) === PAGE;
   const link = it => {
     const active = hit(it.href) || (it.flyout || []).some(id => hit(HREF[id])) ? ' aria-current="page"' : '';
-    if (!it.flyout) return `<a href="${it.href}" class="nav-link"${active}>${label(it.id)}</a>`;
+    if (!it.flyout) return `<a href="${L(it.href)}" class="nav-link"${active}>${label(it.id)}</a>`;
     return `<span class="has-flyout">
-      <a href="${it.href}" class="nav-link"${active}>${label(it.id)}
+      <a href="${L(it.href)}" class="nav-link"${active}>${label(it.id)}
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="opacity:.6"><path d="M6 9l6 6 6-6"/></svg>
       </a>
       <span class="flyout">${it.flyout.map(id =>
-        `<a href="${HREF[id]}"><span class="fl-t">${label(id)}</span><span class="fl-d">${hint(id)}</span></a>`).join('')}</span>
+        `<a href="${L(HREF[id])}"><span class="fl-t">${label(id)}</span><span class="fl-d">${hint(id)}</span></a>`).join('')}</span>
     </span>`;
   };
   host.className = 'site';
@@ -150,8 +168,8 @@ function buildHeader() {
       ${NAV.map(link).join('')}
       <span class="nav-cta">
         ${langBtn('lang-pill')}
-        <a href="${HREF.contact}" class="btn btn-sm btn-ghost-inv"><span>${T.signIn}</span></a>
-        <a href="${HREF.contact}" class="btn btn-sm btn-inverse"><span>${T.startFree}</span></a>
+        <a href="${L(HREF.contact)}" class="btn btn-sm btn-ghost-inv"><span>${T.signIn}</span></a>
+        <a href="${L(HREF.contact)}" class="btn btn-sm btn-inverse"><span>${T.startFree}</span></a>
       </span>
     </div>
     <button class="burger" aria-label="${T.openNav}" aria-expanded="false" id="burger">
@@ -161,10 +179,10 @@ function buildHeader() {
   <div class="mobile-menu" id="mmenu">
     <div class="container">
       ${NAV.flatMap(it => it.flyout ? it.flyout.map(id => [label(id), HREF[id]]) : [[label(it.id), it.href]])
-           .map(([t,h]) => `<a href="${h}">${t}</a>`).join('')}
+           .map(([t,h]) => `<a href="${L(h)}">${t}</a>`).join('')}
       <div class="mm-cta">
         ${langBtn('btn btn-sm btn-glass')}
-        <a href="${HREF.contact}" class="btn btn-sm btn-inverse" style="flex:1"><span>${T.startFree}</span></a>
+        <a href="${L(HREF.contact)}" class="btn btn-sm btn-inverse" style="flex:1"><span>${T.startFree}</span></a>
       </div>
     </div>
   </div>`;
@@ -206,16 +224,16 @@ function buildFooter() {
           <a href="mailto:hello@atnos.ai" style="color:hsl(var(--ink));text-underline-offset:4px">hello@atnos.ai</a></address>
       </div>
       ${FOOT.map(([col,ids]) => `<nav aria-labelledby="f-${col}"><h2 class="f-h" id="f-${col}">${T[col]}</h2>
-        <ul>${ids.map(id=>`<li><a href="${HREF[id]}" class="f-l">${label(id)}</a></li>`).join('')}</ul></nav>`).join('')}
+        <ul>${ids.map(id=>`<li><a href="${L(HREF[id])}" class="f-l">${label(id)}</a></li>`).join('')}</ul></nav>`).join('')}
     </div>
     <div style="height:1px;background:hsl(var(--line))"></div>
     <div class="f-bot">
       <p>${T.rights}</p>
       <div class="f-util">
-        <a href="${HREF.privacy}">${T.allPolicies}</a>
-        <a href="${HREF.deletion}">${T.dataDeletion}</a>
+        <a href="${L(HREF.privacy)}">${T.allPolicies}</a>
+        <a href="${L(HREF.deletion)}">${T.dataDeletion}</a>
         <button type="button" id="ckopen">${T.cookieSettings}</button>
-        <a href="${HREF.status}" style="display:inline-flex;align-items:center;gap:8px"><span class="dot ok"><i></i><b></b></span>${T.operational}</a>
+        <a href="${L(HREF.status)}" style="display:inline-flex;align-items:center;gap:8px"><span class="dot ok"><i></i><b></b></span>${T.operational}</a>
       </div>
     </div>
   </div>`;
@@ -238,7 +256,7 @@ function buildCookies() {
     <h2 style="font-size:16px;letter-spacing:-.015em">${T.ck.title}</h2>
     <p style="margin-top:8px;max-width:42rem;font-size:14.5px;line-height:1.7;color:hsl(var(--muted))">
       ${T.ck.body}
-      <a href="${HREF.cookies}" style="font-weight:500;color:hsl(var(--ink));text-decoration:underline;text-underline-offset:4px">${T.ck.policy}</a>
+      <a href="${L(HREF.cookies)}" style="font-weight:500;color:hsl(var(--ink));text-decoration:underline;text-underline-offset:4px">${T.ck.policy}</a>
     </p>
     <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:8px">
       <button class="btn btn-sm btn-accent" data-ck><span>${T.ck.accept}</span></button>
@@ -296,6 +314,9 @@ function letters(el, text, base, sparks = []) {
 }
 
 /* ── boot ── */
+/* first, so it only ever touches links written in the page markup:
+   the generated chrome already runs its hrefs through L() */
+localiseStaticLinks();
 buildHeader();
 buildFooter();
 buildCookies();
