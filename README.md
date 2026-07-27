@@ -35,6 +35,16 @@ Everything works from `file://` too — the shared chrome is injected by JavaScr
 | `cookie-policy.html` | `/legal/cookie-policy` | Eight sections, four cookie categories |
 | `data-deletion.html` | `/legal/data-deletion` | Nine sections, before-you-delete, retention timelines |
 
+## Languages
+
+English lives at the root, Spanish mirrors it under `es/` with the same filenames — `es/security.html` is the twin of `security.html`. Link targets are therefore shared; only the labels differ.
+
+- Locale is read from `<html lang>`, never from the URL.
+- Shell copy (header, footer, cookie banner) lives in `STR` in `assets/site.js`; landing copy lives in `HC` in `assets/home.js`. Adding a third locale means adding one key to each.
+- The globe pill in the header and the mobile menu switches to the same page in the other language.
+- `hreflang` tags point at `https://atnos.ai/…`; update them if the domain changes.
+- Vercel serves `/es/` as `/es`, which would make relative links resolve from the root. `site.js` re-points them; see the localiser near the top of the file.
+
 ## Assets
 
 - `assets/site.css` — tokens and every component, one stylesheet for all pages.
