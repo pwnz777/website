@@ -12,7 +12,9 @@
     { "source": "/legal/cookie-policy", "destination": "/cookie-policy" },
     { "source": "/legal/data-deletion", "destination": "/data-deletion" },
     { "source": "/docs/api", "destination": "/api" },
-    { "source": "/docs", "destination": "/developers" }
+    { "source": "/docs", "destination": "/developers" },
+    { "source": "/scopes", "destination": "/oauth" },
+    { "source": "/connected-access", "destination": "/oauth" }
   ],
   "headers": [
     {

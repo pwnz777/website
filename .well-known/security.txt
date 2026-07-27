@@ -1,0 +1,7 @@
+# ATNOS — security contact, per RFC 9116
+# Expires must be refreshed before the date below or scanners will flag it.
+Contact: mailto:security@atnos.ai
+Expires: 2027-07-26T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://atnos.ai/.well-known/security.txt
+Policy: https://atnos.ai/security#disclosure

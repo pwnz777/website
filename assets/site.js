@@ -17,6 +17,7 @@ const NAV = [
   {label:'Resources', href:'developers.html', flyout:[
     ['Documentation','developers.html','Concepts, setup and workspace guides.'],
     ['API Reference','api.html','Endpoints, authentication and webhooks.'],
+    ['Connected access','oauth.html','What each connection asks for, and how to revoke it.'],
     ['Support','support.html','Answers and how to reach a person.'],
     ['Status','status.html','Live availability of every service.'],
   ]},
@@ -24,13 +25,16 @@ const NAV = [
   {label:'Contact', href:'contact.html'},
 ];
 
+/* Every entry resolves to a real page. A dead link in the footer is a
+   finding in an OAuth verification review, not a cosmetic issue — Blog and
+   Careers are out until those pages exist. */
 const FOOT = [
   ['Product',[['Overview','index.html'],['Integrations','index.html#integrations'],['Pricing','pricing.html'],['Enterprise','security.html']]],
-  ['Resources',[['Documentation','developers.html'],['Blog','#'],['Help Center','support.html'],['Status','status.html']]],
+  ['Resources',[['Documentation','developers.html'],['Help Center','support.html'],['Status','status.html']]],
   ['Developers',[['API Documentation','api.html'],['Webhooks','api.html#webhooks'],['Responsible Disclosure','security.html#disclosure']]],
-  ['Company',[['About','about.html'],['Careers','#'],['Contact','contact.html']]],
+  ['Company',[['About','about.html'],['Contact','contact.html']]],
   ['Support',[['Support Center','support.html'],['Contact us','contact.html'],['System status','status.html']]],
-  ['Legal',[['Privacy Policy','privacy-policy.html'],['Terms of Service','terms-of-service.html'],['Cookie Policy','cookie-policy.html'],['Security','security.html'],['Data Deletion','data-deletion.html']]],
+  ['Legal',[['Privacy Policy','privacy-policy.html'],['Terms of Service','terms-of-service.html'],['Cookie Policy','cookie-policy.html'],['Connected access','oauth.html'],['Data Deletion','data-deletion.html']]],
 ];
 
 /* current page as a bare slug — works for /about.html (file://) and /about (Vercel cleanUrls) */
@@ -69,7 +73,7 @@ function buildHeader() {
     <div class="nav-links">
       ${NAV.map(link).join('')}
       <span class="nav-cta">
-        <a href="#" class="btn btn-sm btn-ghost-inv"><span>Sign in</span></a>
+        <a href="contact.html" class="btn btn-sm btn-ghost-inv"><span>Sign in</span></a>
         <a href="contact.html" class="btn btn-sm btn-inverse"><span>Start free</span></a>
       </span>
     </div>
@@ -82,16 +86,19 @@ function buildHeader() {
       ${NAV.flatMap(it => it.flyout ? it.flyout.map(([t,h]) => [t,h]) : [[it.label,it.href]])
            .map(([t,h]) => `<a href="${h}">${t}</a>`).join('')}
       <div class="mm-cta">
-        <a href="#" class="btn btn-sm btn-glass" style="flex:1"><span>Sign in</span></a>
+        <a href="contact.html" class="btn btn-sm btn-glass" style="flex:1"><span>Sign in</span></a>
         <a href="contact.html" class="btn btn-sm btn-inverse" style="flex:1"><span>Start free</span></a>
       </div>
     </div>
   </div>`;
 
   const burger = document.getElementById('burger'), mm = document.getElementById('mmenu');
-  burger.addEventListener('click', () => {
-    const open = mm.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open);
+  const setMenu = open => { mm.classList.toggle('open', open); burger.setAttribute('aria-expanded', open); };
+  burger.addEventListener('click', () => setMenu(!mm.classList.contains('open')));
+  mm.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', e => {
+    if (e.key !== 'Escape' || !mm.classList.contains('open')) return;
+    setMenu(false); burger.focus();
   });
 
   /* condense with hysteresis */

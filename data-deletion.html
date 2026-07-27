@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Data Deletion — ATNOS</title>
 <meta name="description" content="How to request deletion, revoke connected access, what happens immediately, and what is retained and why.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=3">
+<link rel="stylesheet" href="assets/site.css?v=4">
 </head>
 <body>
 
@@ -62,6 +63,41 @@
           </div>
         </div>
 
+        <div class="reveal prose" id="how" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">How to request deletion</h2>
+          <ol class="steps">
+            <li>
+              <h3>Delete from the workspace</h3>
+              <p>Settings → Workspace → Delete workspace. Deletion starts immediately: stored OAuth access and refresh tokens are destroyed, every scheduled agent stops, and queued actions are cancelled rather than completed.</p>
+            </li>
+            <li>
+              <h3>Or write to us</h3>
+              <p>Send the request from the email address on the account to <a href="mailto:privacy@atnos.ai" style="color:hsl(var(--brand))">privacy@atnos.ai</a> with the workspace name. We confirm the request, verify you control the account, and complete deletion within 30 days.</p>
+            </li>
+            <li>
+              <h3>Revoke at the provider as well</h3>
+              <p>Deleting in ATNOS destroys our copy of the tokens. Revoking at the provider is the independent belt-and-braces step — per-provider instructions are on <a href="oauth.html#revoke" style="color:hsl(var(--brand))">Connected access</a>. For Google: <a href="https://myaccount.google.com/permissions" rel="noopener" style="color:hsl(var(--brand))">myaccount.google.com/permissions</a>. For Meta: Settings &amp; privacy → Settings → Apps and websites.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="reveal prose" id="immediately" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">What happens immediately, and what waits</h2>
+          <div class="tbl-wrap" style="margin-top:24px">
+            <table class="tbl">
+              <thead><tr><th>Item</th><th>When it goes</th></tr></thead>
+              <tbody>
+                <tr><td>OAuth access and refresh tokens</td><td>Immediately, on disconnection or deletion</td></tr>
+                <tr><td>Running and scheduled agent work</td><td>Immediately — queued actions are cancelled, not completed</td></tr>
+                <tr><td>Workspace records, drafts, generated material</td><td>Exportable for 30 days, then removed</td></tr>
+                <tr><td>Campaigns and pages in your own accounts</td><td>Never touched — they stay yours, ATNOS simply stops managing them</td></tr>
+                <tr><td>Encrypted backups</td><td>Roll off within the 35-day backup window</td></tr>
+                <tr><td>Invoices and financial records</td><td>Retained 7 years, as tax law requires</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <div class="reveal prose" id="before" style="margin-top:64px;max-width:none">
           <h2 class="t-subtitle">Before you delete</h2>
           <ul class="bullets">
@@ -102,8 +138,12 @@
         <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
         <h3>On this page</h3>
         <a href="#sections">Sections</a>
+        <a href="#how">How to request deletion</a>
+        <a href="#immediately">What happens immediately</a>
         <a href="#before">Before you delete</a>
         <a href="#retention">Retention timelines</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="oauth.html#revoke">Revoking connected access</a>
       </aside>
     </div>
   </div>
@@ -112,6 +152,6 @@
 </main>
 
 <footer id="ftr"></footer>
-<script src="assets/site.js?v=3"></script>
+<script src="assets/site.js?v=4"></script>
 </body>
 </html>

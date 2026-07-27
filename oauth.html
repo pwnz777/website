@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connected access — ATNOS</title>
+<meta name="description" content="What ATNOS asks for when you connect a service, why each permission is needed, what it writes back, and how to revoke access at any time.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=4">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Skip to content</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="oa-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Home</a> <span>/</span> <span>Connected access</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Connected access</span>
+    <h1 id="oa-h" class="t-section fade" data-d="140">What ATNOS asks for, and why.</h1>
+    <p class="t-body lead fade" data-d="260">ATNOS acts inside accounts that belong to you. Every connection is authorised through the provider's own consent screen, scoped to the narrowest permissions the features you enable require, and revocable from either side at any time.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div>
+
+        <div class="reveal prose" id="how" style="max-width:none">
+          <h2 class="t-subtitle">How authorisation works</h2>
+          <ul class="bullets">
+            <li><strong>Authorization Code with PKCE.</strong> ATNOS never requests, receives or stores passwords for a connected service.</li>
+            <li><strong>Incremental scopes.</strong> Permissions are requested at the moment a feature is connected, not up front, and only the narrowest set that feature needs.</li>
+            <li><strong>Rotating refresh tokens.</strong> Tokens rotate on every use with replay detection; a reused token invalidates the chain and alerts the workspace owner.</li>
+            <li><strong>Revocable from either side.</strong> Disconnect in ATNOS or revoke at the provider. You never need our cooperation to cut off access.</li>
+            <li><strong>Tokens are envelope-encrypted.</strong> Per-tenant data keys wrapped by a master key in a managed key service, stored separately from application data, and destroyed immediately on disconnection.</li>
+          </ul>
+        </div>
+
+        <div class="reveal" id="scopes" style="margin-top:64px">
+          <h2 class="t-subtitle">What each connection accesses</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Service</th><th>Reads</th><th>Writes</th><th>Typical scope</th></tr></thead>
+              <tbody>
+                <tr><td>Google Ads</td><td>Campaign structure, assets and spend</td><td>Campaign drafts, paused until you launch them</td><td class="mono">adwords</td></tr>
+                <tr><td>Google Analytics</td><td>Sessions, events and conversions</td><td>Nothing — read only</td><td class="mono">analytics.readonly</td></tr>
+                <tr><td>Search Console</td><td>Queries, impressions and positions</td><td>Nothing — read only</td><td class="mono">webmasters.readonly</td></tr>
+                <tr><td>Business Profile</td><td>Local listings and reviews</td><td>Listing edits you approve</td><td class="mono">business.manage</td></tr>
+                <tr><td>Meta</td><td>Campaigns, audiences and creative</td><td>Campaign drafts, paused until you launch them</td><td class="mono">ads_read, ads_management</td></tr>
+                <tr><td>HubSpot</td><td>Contacts, deals and lifecycle stages</td><td>Contact and lifecycle updates you approve</td><td class="mono">crm.objects.contacts.read</td></tr>
+                <tr><td>Shopify</td><td>Products, orders and customers</td><td>Nothing — read only</td><td class="mono">read_products, read_orders</td></tr>
+                <tr><td>WordPress</td><td>Pages, posts and metadata</td><td>Drafts against your CMS, published only on approval</td><td class="mono">site credentials</td></tr>
+                <tr><td>Stripe</td><td>Subscriptions and revenue records</td><td>Nothing — read only</td><td class="mono">restricted read key</td></tr>
+                <tr><td>Slack</td><td>Channel and user directory</td><td>Approval requests and notifications</td><td class="mono">chat:write</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note warn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+            <p><strong style="color:hsl(var(--ink))">Confirm the scope column before submitting for verification.</strong> The identifiers above describe the access each feature needs. They must match, exactly, what your OAuth client actually requests — a review fails on a mismatch between this page and the consent screen.</p>
+          </div>
+        </div>
+
+        <div class="reveal prose" id="limited-use" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Google API Services User Data Policy</h2>
+          <p>ATNOS's use and transfer of information received from Google APIs to any other app adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+          <p>Concretely, data received from Google APIs is used only to provide and improve the features you have enabled in your workspace. It is not transferred to third parties except as needed to provide those features, to comply with applicable law, or as part of a merger or acquisition. It is not used for advertising, and it is not used to train generalised models. No human reads it except with your explicit permission, for security purposes, or where the law requires it.</p>
+        </div>
+
+        <div class="reveal prose" id="never" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">What ATNOS never does</h2>
+          <ul class="bullets">
+            <li>Never asks for, receives or stores your password for a connected service.</li>
+            <li>Never publishes, launches or changes publicly visible material without an explicit approval — every such action is prepared as a draft and waits for a person.</li>
+            <li>Never holds advertising spend; billing stays between you and the platform.</li>
+            <li>Never uses your data to train generalised models.</li>
+            <li>Never sells connected data or shares it with advertisers.</li>
+          </ul>
+        </div>
+
+        <div class="reveal" id="revoke" style="margin-top:64px">
+          <h2 class="t-subtitle">Revoking access</h2>
+          <p style="margin-top:16px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Disconnecting inside ATNOS destroys the stored tokens immediately. You can also revoke from the provider's own settings, which cuts access without touching your ATNOS workspace.</p>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Provider</th><th>Where to revoke</th></tr></thead>
+              <tbody>
+                <tr><td>ATNOS</td><td>Settings → Connections → Disconnect</td></tr>
+                <tr><td>Google</td><td><a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a></td></tr>
+                <tr><td>Meta</td><td>Settings &amp; privacy → Settings → Apps and websites</td></tr>
+                <tr><td>HubSpot</td><td>Settings → Integrations → Connected apps</td></tr>
+                <tr><td>Shopify</td><td>Admin → Apps → Uninstall</td></tr>
+                <tr><td>Stripe</td><td>Dashboard → Settings → Authorised applications</td></tr>
+                <tr><td>Slack</td><td>Workspace settings → Manage apps</td></tr>
+                <tr><td>WordPress</td><td>Users → Profile → Application passwords → Revoke</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:24px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">To remove the data as well as the access, follow <a href="data-deletion.html" style="color:hsl(var(--brand))">Data Deletion</a>.</p>
+        </div>
+
+      </div>
+
+      <aside class="side reveal" aria-label="On this page">
+        <h3>On this page</h3>
+        <a href="#how">How authorisation works</a>
+        <a href="#scopes">What each connection accesses</a>
+        <a href="#limited-use">Google API Services policy</a>
+        <a href="#never">What ATNOS never does</a>
+        <a href="#revoke">Revoking access</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <h3>Related</h3>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="data-deletion.html">Data Deletion</a>
+        <a href="security.html">Security</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="assets/site.js?v=4"></script>
+</body>
+</html>

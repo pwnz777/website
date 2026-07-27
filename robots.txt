@@ -1,0 +1,4 @@
+# The marketing site is public on purpose: OAuth verification reviewers and
+# search crawlers both need to reach every page without signing in.
+User-agent: *
+Allow: /

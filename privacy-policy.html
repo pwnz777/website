@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — ATNOS</title>
 <meta name="description" content="What ATNOS collects, why, who it is shared with, how long it is kept, and the rights you hold over it.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=3">
+<link rel="stylesheet" href="assets/site.css?v=4">
 </head>
 <body>
 
@@ -61,6 +62,15 @@
           </ol>
         </div>
 
+        <div class="reveal prose" id="google" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Google user data and Limited Use</h2>
+          <p>ATNOS's use and transfer of information received from Google APIs to any other app adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener" style="color:hsl(var(--brand))">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+          <p><strong>What we access.</strong> Only the scopes required by the features you enable: advertising data from Google Ads, traffic and conversion data from Google Analytics, search performance from Search Console, and listing data from Business Profile. The full per-service breakdown, including what is read and what is written back, is on <a href="oauth.html" style="color:hsl(var(--brand))">Connected access</a>.</p>
+          <p><strong>Why we access it.</strong> To plan, prepare and report on the marketing work inside your own accounts. Nothing that changes publicly visible material is executed without your approval.</p>
+          <p><strong>What we never do with it.</strong> We do not transfer it to third parties except as needed to provide the features you enabled, to comply with applicable law, or as part of a merger or acquisition. We do not use it for advertising. We do not use it to train generalised models. No human reads it except with your explicit permission, for security purposes, or where the law requires it.</p>
+          <p><strong>How long we keep it.</strong> Access and refresh tokens are destroyed immediately on disconnection or deletion. Everything else follows the retention schedule below.</p>
+        </div>
+
         <div class="reveal" id="retention" style="margin-top:64px">
           <h2 class="t-subtitle">Retention schedule</h2>
           <div class="tbl-wrap">
@@ -90,7 +100,10 @@
         <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
         <h3>On this page</h3>
         <a href="#sections">Sections</a>
+        <a href="#google">Google user data</a>
         <a href="#retention">Retention schedule</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="oauth.html">Connected access</a>
       </aside>
     </div>
   </div>
@@ -99,6 +112,6 @@
 </main>
 
 <footer id="ftr"></footer>
-<script src="assets/site.js?v=3"></script>
+<script src="assets/site.js?v=4"></script>
 </body>
 </html>
