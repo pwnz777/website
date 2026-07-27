@@ -189,21 +189,27 @@ function words(el, text, base) {
     setTimeout(() => s.classList.add('in'), RM ? 0 : base + i*45));
 }
 
-/* ── letter-by-letter reveal; `sparks` letters keep a slow lift afterwards ── */
+/* ── letter-by-letter reveal; `sparks` letters keep a slow lift afterwards ──
+   Never pass sparks for text inside .accent-grad: a running transform
+   animation gets composited, and a composited glyph loses the parent's
+   background-clip:text fill, so the letter renders transparent. */
 function letters(el, text, base, sparks = []) {
   el.innerHTML = [...text]
     .map(ch => ch === ' ' ? '<span class="lt sp"> </span>' : `<span class="lt">${ch}</span>`)
     .join('');
   const all = [...el.querySelectorAll('.lt')];
   all.forEach((s,i) => setTimeout(() => s.classList.add('in'), RM ? 0 : base + i*38));
-  if (RM) return;
-  /* wait for the entrance transition, or the animation fights it for `transform` */
-  setTimeout(() => sparks.forEach((idx,n) => {
-    const s = all[idx];
-    if (!s) return;
-    s.style.setProperty('--pd', `${n*1.6}s`);
-    s.classList.add('pulse');
-  }), base + all.length*38 + 700);
+  /* once the entrance has landed, drop the blur so nothing stays promoted */
+  setTimeout(() => {
+    all.forEach(s => s.classList.add('done'));
+    if (RM) return;
+    sparks.forEach((idx,n) => {
+      const s = all[idx];
+      if (!s) return;
+      s.style.setProperty('--pd', `${n*1.6}s`);
+      s.classList.add('pulse');
+    });
+  }, RM ? 0 : base + all.length*38 + 700);
 }
 
 /* ── boot ── */

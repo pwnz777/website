@@ -184,9 +184,15 @@ h1.hero-h .block{display:block}
 .lt.in{opacity:1;transform:none;filter:blur(0);
   transition:opacity .5s var(--ease-in),transform .5s var(--ease-in),filter .5s var(--ease-in)}
 .lt.sp{white-space:pre}
+/* filter:blur(0) is still a filter — drop it once the entrance is over so no
+   glyph stays promoted to its own layer */
+.lt.done{filter:none}
 /* a few glyphs keep breathing after the line has landed */
 .lt.pulse{animation:lift 7s var(--ease) infinite;animation-delay:var(--pd,0s)}
 @keyframes lift{0%,70%,100%{transform:none}78%{transform:translateY(-.075em)}86%{transform:none}}
+/* Guard: a composited glyph cannot show the parent's background-clip:text
+   fill and renders transparent. Keep persistent motion off the gradient line. */
+.accent-grad .lt.pulse{animation:none}
 /* slow highlight drifting across the gradient line — kept short so the line
    never sits on a single hue long enough to lose contrast */
 .accent-grad{background-size:160% 100%;animation:sweep 16s var(--ease) infinite}

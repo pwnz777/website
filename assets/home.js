@@ -4,10 +4,11 @@
    network. Depends on site.js (RM, words, observeReveals).
    ═══════════════════════════════════════════════════════════ */
 
-/* ── hero headline: words on the first line, glyphs on the accent line ──
-   sparks = O, w, e — the letters that keep breathing once the line lands */
-words(document.getElementById('hl1'), 'Every channel.', 120);
-letters(document.getElementById('hl2'), 'One workspace.', 300, [0, 4, 12]);
+/* ── hero headline: both lines reveal glyph by glyph ──
+   The breathing letters (E, c, e) sit on the white line: the accent line is
+   painted through background-clip:text, where a composited glyph goes blank. */
+letters(document.getElementById('hl1'), 'Every channel.', 120, [0, 6, 11]);
+letters(document.getElementById('hl2'), 'One workspace.', 700);
 
 /* ── starfield ── */
 if (!RM) {
