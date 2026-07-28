@@ -37,11 +37,18 @@ Everything works from `file://` too — the shared chrome is injected by JavaScr
 
 ## Languages
 
-English lives at the root, Spanish mirrors it under `es/` with the same filenames — `es/security.html` is the twin of `security.html`. Link targets are therefore shared; only the labels differ.
+English lives at the root; every other locale is a folder of the same name mirroring the root filenames — `es/security.html` and `pt/security.html` are the twins of `security.html`. Link targets are therefore shared; only the labels differ.
+
+| Locale | Folder | `<html lang>` |
+| --- | --- | --- |
+| English | root | `en` |
+| Spanish | `es/` | `es` |
+| Portuguese (Brazil) | `pt/` | `pt-BR` |
 
 - Locale is read from `<html lang>`, never from the URL.
-- Shell copy (header, footer, cookie banner) lives in `STR` in `assets/site.js`; landing copy lives in `HC` in `assets/home.js`. Adding a third locale means adding one key to each.
-- The globe pill in the header and the mobile menu switches to the same page in the other language.
+- Shell copy (header, footer, cookie banner) lives in `STR` in `assets/site.js`; landing copy lives in `HC` in `assets/home.js`.
+- **Adding a locale**: copy a folder, translate it, add one key to `STR`, one to `HC`, one row to `LOCALES`, and the `hreflang` line to every page. Nothing else is locale-aware.
+- The globe pill in the header and the mobile menu opens a menu of all locales, each entry pointing at the same page.
 - `hreflang` tags point at `https://atnos.ai/…`; update them if the domain changes.
 - Vercel serves `/es/` as `/es`, which would make relative links resolve from the root. `site.js` re-points them; see the localiser near the top of the file.
 
