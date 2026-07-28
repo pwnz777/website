@@ -141,18 +141,28 @@ const hint = id => Array.isArray(T[id]) ? (T[id][1] || '') : '';
 
 /* current page as a bare slug — works for /about.html (file://) and /about (Vercel cleanUrls) */
 const slug = p => (p.split('/').pop() || 'index').toLowerCase().replace(/\.html$/, '') || 'index';
+/* A page served at an unpredictable depth — the 404, which Vercel returns for
+   every unknown path — pins its own prefix and identity instead of deriving
+   them from a URL that means nothing. */
+const BASE = typeof ATNOS_BASE === 'string' ? ATNOS_BASE : null;
 /* the locale folder is not part of the page identity: /es/about is still `about` */
-const PAGE = slug(location.pathname.replace(/\/(es|pt)(?=\/|$)/, ''));
+const PAGE = typeof ATNOS_PAGE === 'string' ? ATNOS_PAGE
+  : slug(location.pathname.replace(/\/(es|pt)(?=\/|$)/, ''));
 
 /* Vercel canonicalises /es/ to /es, so on a locale home page the relative
    base is the site root and every relative link would land on its English
    twin. Detect that one case and re-point links into the folder. */
 const DIR = location.pathname.replace(/[^/]*$/, '');
 const INSIDE = !FOLDER || new RegExp(`/${FOLDER}/$`).test(DIR);
-const L = href => !INSIDE && !/^([a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(href) ? `${FOLDER}/${href}` : href;
+const L = href => {
+  if (/^([a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(href)) return href;
+  if (BASE) return BASE + href;
+  return INSIDE ? href : `${FOLDER}/${href}`;
+};
 
 /* the same page in another locale: every folder mirrors the root filenames */
 const linkFor = code => {
+  if (BASE) return code === 'en' ? `/${PAGE}.html` : `/${code}/${PAGE}.html`;
   const up = FOLDER && INSIDE ? '../' : '';
   return code === 'en' ? `${up}${PAGE}.html` : `${up}${code}/${PAGE}.html`;
 };

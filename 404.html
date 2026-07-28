@@ -2,15 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+/* Vercel serves this one file for every unknown path, including paths inside a
+   locale folder, so the page reads its own language off the URL before the
+   shell script looks at <html lang>. */
+(function () {
+  var seg = location.pathname.split('/')[1];
+  var loc = seg === 'es' ? 'es' : seg === 'pt' ? 'pt' : 'en';
+  document.documentElement.lang = loc === 'pt' ? 'pt-BR' : loc;
+  /* the requested path is meaningless here, so pin what the shell should use
+     rather than let it derive a prefix from /es/something/that/never/existed */
+  window.ATNOS_BASE = loc === 'en' ? '/' : '/' + loc + '/';
+  window.ATNOS_PAGE = 'index';
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — ATNOS</title>
 <meta name="description" content="That page does not exist. Everything the platform does is one link away.">
 <meta name="robots" content="noindex">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- absolute on purpose: this file is served at every depth, and relative
+     paths would look for /es/assets/… and leave the page unstyled -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=6">
+<link rel="stylesheet" href="/assets/site.css?v=7">
 </head>
 <body>
 
@@ -28,10 +44,10 @@
   <div class="container">
     <span class="eyebrow fade" data-d="0"><span class="dot"><i></i><b></b></span>404</span>
     <h1 id="nf-h" class="t-section fade" data-d="120">That page does not exist.</h1>
-    <p class="t-body lead fade" data-d="240">The link is wrong, or the page moved. Nothing is broken on your side.</p>
+    <p class="t-body lead fade" data-d="240" id="nf-lead">The link is wrong, or the page moved. Nothing is broken on your side.</p>
     <div class="hero-cta fade" data-d="360">
-      <a href="index.html" class="btn btn-md btn-inverse"><span>Back to the homepage <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-      <a href="contact.html" class="btn btn-md btn-glass"><span>Tell us what you were looking for</span></a>
+      <a href="/index.html" class="btn btn-md btn-inverse" data-nf="home"><span>Back to the homepage <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="/contact.html" class="btn btn-md btn-glass" data-nf="tell"><span>Tell us what you were looking for</span></a>
     </div>
   </div>
 </section>
@@ -39,16 +55,16 @@
 <section class="sec sec-surface">
   <div class="container">
     <div class="sh">
-      <span class="eyebrow-l reveal">Most asked for</span>
-      <h2 class="t-section reveal">Try one of these.</h2>
+      <span class="eyebrow-l reveal" id="nf-eyebrow">Most asked for</span>
+      <h2 class="t-section reveal" id="nf-try">Try one of these.</h2>
     </div>
-    <div class="grid-3">
-      <article class="card reveal"><h3><a href="oauth.html">Connected access</a></h3><p>What ATNOS asks for when you connect a service, and how to revoke it.</p></article>
-      <article class="card reveal"><h3><a href="security.html">Security</a></h3><p>Every control marked implemented or planned.</p></article>
-      <article class="card reveal"><h3><a href="privacy-policy.html">Privacy Policy</a></h3><p>What is collected, why, and how long it is kept.</p></article>
-      <article class="card reveal"><h3><a href="api.html">API</a></h3><p>Endpoints, webhooks and rate limits.</p></article>
-      <article class="card reveal"><h3><a href="status.html">Status</a></h3><p>Availability for every component.</p></article>
-      <article class="card reveal"><h3><a href="support.html">Support</a></h3><p>Answers first, ticket second.</p></article>
+    <div class="grid-3" id="nf-cards">
+      <article class="card reveal"><h3><a href="/oauth.html" data-nf-page="oauth">Connected access</a></h3><p>What ATNOS asks for when you connect a service, and how to revoke it.</p></article>
+      <article class="card reveal"><h3><a href="/security.html" data-nf-page="security">Security</a></h3><p>Every control marked implemented or planned.</p></article>
+      <article class="card reveal"><h3><a href="/privacy-policy.html" data-nf-page="privacy-policy">Privacy Policy</a></h3><p>What is collected, why, and how long it is kept.</p></article>
+      <article class="card reveal"><h3><a href="/api.html" data-nf-page="api">API</a></h3><p>Endpoints, webhooks and rate limits.</p></article>
+      <article class="card reveal"><h3><a href="/status.html" data-nf-page="status">Status</a></h3><p>Availability for every component.</p></article>
+      <article class="card reveal"><h3><a href="/support.html" data-nf-page="support">Support</a></h3><p>Answers first, ticket second.</p></article>
     </div>
   </div>
 </section>
@@ -56,6 +72,71 @@
 </main>
 
 <footer id="ftr"></footer>
-<script src="assets/site.js?v=6"></script>
+
+<script>
+/* Copy for the two other locales. English stays in the markup so a visitor
+   without JavaScript still gets a readable page. */
+(function () {
+  var lang = document.documentElement.lang;
+  var prefix = window.ATNOS_BASE;
+
+  /* links first: they carry the locale for every language, English included */
+  document.querySelectorAll('a[data-nf], a[data-nf-page]').forEach(function (a) {
+    var page = a.dataset.nfPage || (a.dataset.nf === 'home' ? 'index' : 'contact');
+    a.setAttribute('href', prefix + page + '.html');
+  });
+  if (lang === 'en') return;
+
+  var T = {
+    es: {
+      title:'Página no encontrada — ATNOS',
+      desc:'Esa página no existe. Todo lo que hace la plataforma está a un enlace de distancia.',
+      h1:'Esa página no existe.',
+      lead:'El enlace está mal o la página se movió. No es cosa tuya.',
+      home:'Volver al inicio', tell:'Cuéntanos qué buscabas',
+      eyebrow:'Lo más buscado', try:'Prueba con una de estas.',
+      cards:[
+        ['Acceso conectado','Qué pide ATNOS al conectar un servicio y cómo revocarlo.'],
+        ['Seguridad','Cada control marcado como implementado o previsto.'],
+        ['Política de Privacidad','Qué se recoge, para qué y cuánto se conserva.'],
+        ['API','Endpoints, webhooks y límites de tasa.'],
+        ['Estado','Disponibilidad de cada componente.'],
+        ['Soporte','Primero respuestas, después tickets.'],
+      ],
+    },
+    'pt-BR': {
+      title:'Página não encontrada — ATNOS',
+      desc:'Essa página não existe. Tudo o que a plataforma faz está a um link de distância.',
+      h1:'Essa página não existe.',
+      lead:'O link está errado ou a página mudou de lugar. Não é problema seu.',
+      home:'Voltar ao início', tell:'Conte o que você procurava',
+      eyebrow:'Mais procurados', try:'Tente um destes.',
+      cards:[
+        ['Acesso conectado','O que o ATNOS pede ao conectar um serviço e como revogar.'],
+        ['Segurança','Cada controle marcado como implementado ou previsto.'],
+        ['Política de Privacidade','O que é coletado, para quê e por quanto tempo é guardado.'],
+        ['API','Endpoints, webhooks e limites de taxa.'],
+        ['Status','Disponibilidade de cada componente.'],
+        ['Suporte','Respostas primeiro, ticket depois.'],
+      ],
+    },
+  }[lang];
+  if (!T) return;
+
+  document.title = T.title;
+  document.querySelector('meta[name=description]').setAttribute('content', T.desc);
+  document.getElementById('nf-h').textContent = T.h1;
+  document.getElementById('nf-lead').textContent = T.lead;
+  document.getElementById('nf-eyebrow').textContent = T.eyebrow;
+  document.getElementById('nf-try').textContent = T.try;
+  document.querySelector('[data-nf=home] span').childNodes[0].nodeValue = T.home + ' ';
+  document.querySelector('[data-nf=tell] span').textContent = T.tell;
+  document.querySelectorAll('#nf-cards article').forEach(function (card, i) {
+    card.querySelector('h3 a').textContent = T.cards[i][0];
+    card.querySelector('p').textContent = T.cards[i][1];
+  });
+})();
+</script>
+<script src="/assets/site.js?v=7"></script>
 </body>
 </html>
