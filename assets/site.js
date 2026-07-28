@@ -3,13 +3,18 @@
    scroll reveal. Injected on every page so the markup for the
    chrome lives in exactly one place.
 
-   Bilingual: the Spanish site is a mirror under /es/ with the same
-   filenames, so link targets are shared and only labels are per-locale.
-   Locale comes from <html lang>, never from the URL, so a page dropped
-   in the wrong folder shows its own language rather than guessing.
+   Multilingual: English at the root, every other locale a folder of the
+   same name (/es/, /pt/) mirroring the root filenames, so link targets are
+   shared and only labels are per-locale. Locale comes from <html lang>,
+   never from the URL, so a page dropped in the wrong folder shows its own
+   language rather than guessing.
    ═══════════════════════════════════════════════════════════ */
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const LANG = (document.documentElement.lang || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+const DOC_LANG = (document.documentElement.lang || 'en').toLowerCase();
+const LANG = DOC_LANG.startsWith('es') ? 'es' : DOC_LANG.startsWith('pt') ? 'pt' : 'en';
+/* English sits at the root; every other locale is a folder of the same name */
+const FOLDER = LANG === 'en' ? '' : LANG;
+const LOCALES = [['en','English','EN'], ['es','Español','ES'], ['pt','Português','PT']];
 
 /* ── one href table for both locales ── */
 const HREF = {
@@ -69,7 +74,7 @@ const STR = {
       body:'Essential cookies keep the site secure and working. With your permission we also use analytics, functional and marketing cookies. You can change this at any time from Cookie settings in the footer.',
       policy:'Cookie Policy', accept:'Accept all', reject:'Reject non-essential', custom:'Customize',
     },
-    langLabel:'Idioma: cambiar a español', langShort:'ES',
+    langLabel:'Language', langShort:'EN',
   },
   es: {
     product:'Producto', pricing:'Precios', security:'Seguridad', resources:'Recursos',
@@ -98,7 +103,36 @@ const STR = {
       body:'Las cookies esenciales mantienen el sitio seguro y funcionando. Con tu permiso también usamos cookies analíticas, funcionales y de marketing. Puedes cambiarlo cuando quieras desde Preferencias de cookies en el pie de página.',
       policy:'Política de Cookies', accept:'Aceptar todas', reject:'Rechazar las no esenciales', custom:'Personalizar',
     },
-    langLabel:'Language: switch to English', langShort:'EN',
+    langLabel:'Idioma', langShort:'ES',
+  },
+  pt: {
+    product:'Produto', pricing:'Preços', security:'Segurança', resources:'Recursos',
+    about:'Sobre', contact:'Contato',
+    overview:['Visão geral','O que a plataforma faz hoje.'],
+    integrations:['Integrações','Conecte os serviços que você já usa.'],
+    enterprise:['Empresas','Papéis, isolamento, auditoria e suporte.'],
+    docs:['Documentação','Conceitos, configuração e guias do workspace.'],
+    api:['Referência da API','Endpoints, autenticação e webhooks.'],
+    oauth:['Acesso conectado','O que cada conexão pede e como revogá-la.'],
+    support:['Suporte','Respostas e como falar com uma pessoa.'],
+    status:['Status','Disponibilidade ao vivo de cada serviço.'],
+    apiHooks:['Webhooks'], disclosure:['Divulgação responsável'],
+    privacy:['Política de Privacidade'], terms:['Termos de Serviço'], cookies:['Política de Cookies'],
+    deletion:['Exclusão de Dados'], supportCenter:['Central de suporte'], contactUs:['Fale conosco'],
+    systemStatus:['Status do sistema'],
+    colProduct:'Produto', colResources:'Recursos', colDevelopers:'Desenvolvedores',
+    colCompany:'Empresa', colSupport:'Suporte', colLegal:'Jurídico',
+    signIn:'Entrar', startFree:'Começar grátis', openNav:'Abrir navegação', primaryNav:'Principal',
+    blurb:'Plataforma autônoma de marketing com IA. Conecte os serviços que você já usa e opere todo o marketing a partir de um único workspace.',
+    rights:'© 2026 ATNOS Technologies Inc. Todos os direitos reservados.',
+    allPolicies:'Todas as políticas', dataDeletion:'Exclusão de dados', cookieSettings:'Preferências de cookies',
+    operational:'Todos os sistemas operacionais',
+    ck: {
+      region:'Consentimento de cookies', title:'Cookies em atnos.ai',
+      body:'Os cookies essenciais mantêm o site seguro e funcionando. Com a sua permissão, também usamos cookies analíticos, funcionais e de marketing. Você pode mudar isso quando quiser em Preferências de cookies, no rodapé.',
+      policy:'Política de Cookies', accept:'Aceitar todos', reject:'Recusar os não essenciais', custom:'Personalizar',
+    },
+    langLabel:'Idioma', langShort:'PT',
   },
 };
 const T = STR[LANG];
@@ -108,22 +142,25 @@ const hint = id => Array.isArray(T[id]) ? (T[id][1] || '') : '';
 /* current page as a bare slug — works for /about.html (file://) and /about (Vercel cleanUrls) */
 const slug = p => (p.split('/').pop() || 'index').toLowerCase().replace(/\.html$/, '') || 'index';
 /* the locale folder is not part of the page identity: /es/about is still `about` */
-const PAGE = slug(location.pathname.replace(/\/es(?=\/|$)/, ''));
+const PAGE = slug(location.pathname.replace(/\/(es|pt)(?=\/|$)/, ''));
 
-/* Vercel canonicalises /es/ to /es, so on the Spanish home page the relative
+/* Vercel canonicalises /es/ to /es, so on a locale home page the relative
    base is the site root and every relative link would land on its English
    twin. Detect that one case and re-point links into the folder. */
 const DIR = location.pathname.replace(/[^/]*$/, '');
-const NEEDS_ES = LANG === 'es' && !/\/es\/$/.test(DIR);
-const L = href => NEEDS_ES && !/^([a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(href) ? 'es/' + href : href;
+const INSIDE = !FOLDER || new RegExp(`/${FOLDER}/$`).test(DIR);
+const L = href => !INSIDE && !/^([a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(href) ? `${FOLDER}/${href}` : href;
 
-/* the same page in the other language: /es/ mirrors the root filenames */
-const OTHER = LANG === 'es' ? (NEEDS_ES ? `${PAGE}.html` : `../${PAGE}.html`) : `es/${PAGE}.html`;
+/* the same page in another locale: every folder mirrors the root filenames */
+const linkFor = code => {
+  const up = FOLDER && INSIDE ? '../' : '';
+  return code === 'en' ? `${up}${PAGE}.html` : `${up}${code}/${PAGE}.html`;
+};
 const HOME = L('index.html');
 
 /* static links written into the page markup need the same treatment */
 function localiseStaticLinks() {
-  if (!NEEDS_ES) return;
+  if (INSIDE) return;
   document.querySelectorAll('a[href]').forEach(a => {
     const h = a.getAttribute('href');
     if (h !== L(h)) a.setAttribute('href', L(h));
@@ -141,8 +178,18 @@ const LOGO = `<span class="logo-mark" aria-hidden="true"><i></i><b></b>
 
 const GLOBE = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
   <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18"/></svg>`;
-const langBtn = cls => `<a href="${OTHER}" class="${cls}" lang="${LANG === 'es' ? 'en' : 'es'}"
-  aria-label="${T.langLabel}" title="${T.langLabel}"><span>${GLOBE}${T.langShort}</span></a>`;
+const CHEV = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="opacity:.55" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>`;
+
+/* Three locales are past the point where a toggle works, so the pill opens a
+   menu — every entry goes to the same page, not to that language's home. */
+const langMenu = () => `<span class="has-flyout lang-wrap">
+  <button type="button" class="lang-pill" aria-haspopup="true" aria-expanded="false" aria-label="${T.langLabel}">
+    <span>${GLOBE}${T.langShort}${CHEV}</span>
+  </button>
+  <span class="flyout lang-flyout">
+    ${LOCALES.map(([code,name,short]) => `<a href="${linkFor(code)}" lang="${code}"
+      ${code === LANG ? 'aria-current="true"' : ''}><span class="fl-t">${name}</span><span class="fl-d">${short}</span></a>`).join('')}
+  </span></span>`;
 
 /* ── header ── */
 function buildHeader() {
@@ -167,7 +214,7 @@ function buildHeader() {
     <div class="nav-links">
       ${NAV.map(link).join('')}
       <span class="nav-cta">
-        ${langBtn('lang-pill')}
+        ${langMenu()}
         <a href="${L(HREF.contact)}" class="btn btn-sm btn-ghost-inv"><span>${T.signIn}</span></a>
         <a href="${L(HREF.contact)}" class="btn btn-sm btn-inverse"><span>${T.startFree}</span></a>
       </span>
@@ -181,11 +228,29 @@ function buildHeader() {
       ${NAV.flatMap(it => it.flyout ? it.flyout.map(id => [label(id), HREF[id]]) : [[label(it.id), it.href]])
            .map(([t,h]) => `<a href="${L(h)}">${t}</a>`).join('')}
       <div class="mm-cta">
-        ${langBtn('btn btn-sm btn-glass')}
+        ${langMenu()}
         <a href="${L(HREF.contact)}" class="btn btn-sm btn-inverse" style="flex:1"><span>${T.startFree}</span></a>
       </div>
     </div>
   </div>`;
+
+  /* the language pill is a button, so it needs a click as well as the hover
+     the CSS gives it — otherwise it is unusable on touch */
+  host.querySelectorAll('.lang-wrap').forEach(w => {
+    const btn = w.querySelector('.lang-pill'), menu = w.querySelector('.lang-flyout');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    addEventListener('keydown', e => {
+      if (e.key !== 'Escape' || !menu.classList.contains('open')) return;
+      menu.classList.remove('open'); btn.setAttribute('aria-expanded', false); btn.focus();
+    });
+    addEventListener('click', e => {
+      if (w.contains(e.target)) return;
+      menu.classList.remove('open'); btn.setAttribute('aria-expanded', false);
+    });
+  });
 
   const burger = document.getElementById('burger'), mm = document.getElementById('mmenu');
   const setMenu = open => { mm.classList.toggle('open', open); burger.setAttribute('aria-expanded', open); };

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API — ATNOS</title>
+<meta name="description" content="Uma API REST para tudo o que o workspace faz. URLs de recurso previsíveis, corpos JSON, verbos HTTP padrão e códigos de status convencionais.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://atnos.ai/api">
+<link rel="alternate" hreflang="es" href="https://atnos.ai/es/api">
+<link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/api">
+<link rel="alternate" hreflang="x-default" href="https://atnos.ai/api">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=6">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Ir para o conteúdo</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="api-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Início</a> <span>/</span> <a href="developers.html">Desenvolvedores</a> <span>/</span> <span>API</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>API</span>
+    <h1 id="api-h" class="t-section fade" data-d="140">Uma API REST para tudo o que o workspace faz.</h1>
+    <p class="t-body lead fade" data-d="260">URLs de recurso previsíveis, corpos JSON, verbos HTTP padrão e códigos de status convencionais. URL base <code style="background:rgb(255 255 255/.08);border-color:rgb(255 255 255/.14);color:#fff">https://api.atnos.ai</code>. Somente HTTPS: texto puro é recusado em vez de redirecionado, para um cliente mal configurado falhar alto em vez de vazar uma chave.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div>
+        <div class="reveal" id="quickstart">
+          <h2 class="t-subtitle">Requisição e resposta</h2>
+          <div class="code">
+            <div class="code-h"><span>requisição</span></div>
+<pre>curl https://api.atnos.ai/v1/drafts \
+  -H <span class="s">"Authorization: Bearer $ATNOS_API_KEY"</span> \
+  -H <span class="s">"ATNOS-Workspace: ws_8f21c"</span> \
+  -G -d <span class="s">"status=awaiting_approval"</span></pre>
+          </div>
+          <div class="code" style="margin-top:12px">
+            <div class="code-h"><span>200 OK</span></div>
+<pre>{
+  <span class="k">"object"</span>: <span class="s">"list"</span>,
+  <span class="k">"has_more"</span>: false,
+  <span class="k">"data"</span>: [
+    {
+      <span class="k">"id"</span>: <span class="s">"drf_2f91ab"</span>,
+      <span class="k">"type"</span>: <span class="s">"campaign"</span>,
+      <span class="k">"agent"</span>: <span class="s">"advertising"</span>,
+      <span class="k">"status"</span>: <span class="s">"awaiting_approval"</span>,
+      <span class="k">"created_at"</span>: <span class="s">"2026-07-24T09:14:22Z"</span>,
+      <span class="k">"summary"</span>: <span class="s">"Campanha de busca — 4 grupos de anúncios, 18 materiais"</span>
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+
+        <div class="reveal" id="endpoints" style="margin-top:64px">
+          <h2 class="t-subtitle">Endpoints</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Método</th><th>Caminho</th><th>Descrição</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">GET</td><td class="mono">/v1/workspaces</td><td>Lista os workspaces disponíveis para a credencial.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/workspaces</td><td>Cria um workspace e o inicializa a partir de um briefing.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/connections</td><td>Lista os serviços conectados e os escopos concedidos.</td></tr>
+                <tr><td class="mono">DELETE</td><td class="mono">/v1/connections/:id</td><td>Revoga uma conexão e destrói as credenciais guardadas.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/drafts</td><td>Lista os rascunhos aguardando aprovação, filtrados por agente ou tipo.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/drafts/:id/approve</td><td>Aprova um rascunho e o libera para execução.</td></tr>
+                <tr><td class="mono">POST</td><td class="mono">/v1/drafts/:id/reject</td><td>Rejeita um rascunho, com motivo opcional.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/contacts</td><td>Consulta contatos com estágio do ciclo e atribuição de origem.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/reports/:id</td><td>Recupera um relatório gerado em JSON ou PDF.</td></tr>
+                <tr><td class="mono">GET</td><td class="mono">/v1/audit</td><td>Log de auditoria imutável e paginado do workspace.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="webhooks" style="margin-top:64px">
+          <h2 class="t-subtitle">Webhooks</h2>
+          <p style="margin-top:16px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Cada entrega leva uma assinatura HMAC-SHA256 em <code>ATNOS-Signature</code>. Verifique antes de confiar no conteúdo — um endpoint de webhook sem verificação é uma API de escrita aberta. Entregas que falham são reenviadas com backoff exponencial por 24 horas.</p>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Evento</th><th>Significado</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">draft.created</td><td>Um agente preparou trabalho que precisa de uma decisão.</td></tr>
+                <tr><td class="mono">draft.approved</td><td>Um rascunho foi aprovado e liberado para execução.</td></tr>
+                <tr><td class="mono">draft.rejected</td><td>Um rascunho foi rejeitado, com o motivo se houver.</td></tr>
+                <tr><td class="mono">connection.authorised</td><td>Um serviço foi conectado ao workspace.</td></tr>
+                <tr><td class="mono">connection.revoked</td><td>Uma conexão foi removida, de qualquer um dos lados.</td></tr>
+                <tr><td class="mono">report.generated</td><td>Um relatório programado está pronto para ser recuperado.</td></tr>
+                <tr><td class="mono">agent.error</td><td>Um agente não conseguiu concluir o trabalho e parou.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reveal" id="limits" style="margin-top:64px">
+          <h2 class="t-subtitle">Limites de taxa</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Plano</th><th>Sustentado</th><th>Pico</th></tr></thead>
+              <tbody>
+                <tr><td>Scale</td><td>1.000 req/min por workspace</td><td>2.000</td></tr>
+                <tr><td>Enterprise</td><td>Negociado</td><td>Negociado</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note warn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+            <p><strong style="color:hsl(var(--ink))">Provisório.</strong> Os limites definitivos serão publicados antes da disponibilidade geral.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side reveal" aria-label="Nesta página">
+        <h3>Nesta página</h3>
+        <a href="#quickstart">Requisição e resposta</a>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#webhooks">Webhooks</a>
+        <a href="#limits">Limites de taxa</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <a href="developers.html" class="btn btn-sm btn-outline" style="width:100%"><span>Guia para desenvolvedores</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="../assets/site.js?v=6"></script>
+</body>
+</html>

@@ -94,11 +94,22 @@ header.site.solid{background:hsl(var(--ink-900)/.7);backdrop-filter:blur(24px);b
 .lang-pill{display:inline-flex;align-items:center;justify-content:center;height:36px;
   padding:0 12px;border-radius:999px;border:1px solid rgb(255 255 255/.14);background:rgb(255 255 255/.05);
   font-size:13px;font-weight:600;letter-spacing:.06em;color:rgb(255 255 255/.75);
+  font-family:var(--sans);cursor:pointer;
   transition:background-color .3s,border-color .3s,color .3s}
 .lang-pill:hover{background:rgb(255 255 255/.1);border-color:rgb(255 255 255/.28);color:#fff}
 .lang-pill span{display:inline-flex;align-items:center;gap:6px}
 .lang-pill svg{opacity:.8}
-.mobile-menu .mm-cta .btn-glass span{gap:6px}
+.lang-wrap{display:inline-flex}
+.lang-flyout{left:auto;right:0;min-width:180px}
+.lang-flyout .fl-t{font-size:14px}
+.lang-flyout .fl-d{display:inline;margin-left:8px;letter-spacing:.06em}
+.lang-flyout a{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.lang-flyout a[aria-current]{background:rgb(255 255 255/.07)}
+.lang-flyout a[aria-current] .fl-t{color:#fff}
+/* the pill is a button, so the menu also opens on click for touch */
+.flyout.open{opacity:1;visibility:visible;transform:none}
+.mobile-menu .mm-cta .lang-wrap{flex:0 0 auto}
+.mobile-menu .lang-flyout{bottom:calc(100% + 10px);top:auto;left:0;right:auto}
 .burger{margin-left:auto;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;
   border:1px solid rgb(255 255 255/.12);color:rgb(255 255 255/.8);background:none;cursor:pointer;transition:border-color .3s,color .3s}
 .burger:hover{border-color:rgb(255 255 255/.25);color:#fff}

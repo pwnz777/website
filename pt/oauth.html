@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acesso conectado — ATNOS</title>
+<meta name="description" content="O que o ATNOS pede ao conectar um serviço, por que cada permissão é necessária, o que ele escreve de volta e como revogar o acesso a qualquer momento.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://atnos.ai/oauth">
+<link rel="alternate" hreflang="es" href="https://atnos.ai/es/oauth">
+<link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/oauth">
+<link rel="alternate" hreflang="x-default" href="https://atnos.ai/oauth">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=6">
+</head>
+<body>
+
+<a href="#main" class="btn" style="position:absolute;left:-9999px" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:100;background:hsl(var(--ink));color:#fff;height:44px;padding:0 20px'" onblur="this.style.cssText='position:absolute;left:-9999px'"><span>Ir para o conteúdo</span></a>
+
+<header id="hdr"></header>
+
+<main id="main">
+
+<section class="phero" aria-labelledby="oa-h">
+  <div class="bg" aria-hidden="true">
+    <div class="topglow"></div>
+    <div class="bloom b1"></div><div class="bloom b2"></div>
+    <div class="grid-o"></div>
+    <div class="noise"></div>
+  </div>
+  <div class="container">
+    <p class="crumbs fade" data-d="0"><a href="index.html">Início</a> <span>/</span> <span>Acesso conectado</span></p>
+    <span class="eyebrow fade" data-d="60"><span class="dot"><i></i><b></b></span>Acesso conectado</span>
+    <h1 id="oa-h" class="t-section fade" data-d="140">O que o ATNOS pede, e por quê.</h1>
+    <p class="t-body lead fade" data-d="260">O ATNOS age dentro de contas que são suas. Cada conexão é autorizada na tela de consentimento do próprio provedor, restrita às permissões mínimas que os recursos ativados exigem, e revogável dos dois lados a qualquer momento.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="cols">
+      <div>
+
+        <div class="reveal prose" id="how" style="max-width:none">
+          <h2 class="t-subtitle">Como funciona a autorização</h2>
+          <ul class="bullets">
+            <li><strong>Código de autorização com PKCE.</strong> O ATNOS nunca solicita, recebe nem armazena senhas de um serviço conectado.</li>
+            <li><strong>Escopos incrementais.</strong> As permissões são pedidas no momento em que o recurso é conectado, não de antemão, e só o conjunto mínimo que aquele recurso precisa.</li>
+            <li><strong>Refresh tokens rotativos.</strong> Rotacionam a cada uso, com detecção de reuso; um token reutilizado invalida a cadeia e alerta o proprietário do workspace.</li>
+            <li><strong>Revogável dos dois lados.</strong> Desconecte no ATNOS ou revogue no provedor. Você nunca precisa da nossa colaboração para cortar o acesso.</li>
+            <li><strong>Tokens com envelope encryption.</strong> Chaves de dados por tenant envolvidas por uma chave mestra em serviço gerenciado, guardadas separadamente dos dados da aplicação e destruídas na hora ao desconectar.</li>
+          </ul>
+        </div>
+
+        <div class="reveal" id="scopes" style="margin-top:64px">
+          <h2 class="t-subtitle">A que cada conexão acessa</h2>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Serviço</th><th>Lê</th><th>Escreve</th><th>Escopo típico</th></tr></thead>
+              <tbody>
+                <tr><td>Google Ads</td><td>Estrutura de campanhas, materiais e investimento</td><td>Rascunhos de campanha, pausados até você lançar</td><td class="mono">adwords</td></tr>
+                <tr><td>Google Analytics</td><td>Sessões, eventos e conversões</td><td>Nada — somente leitura</td><td class="mono">analytics.readonly</td></tr>
+                <tr><td>Search Console</td><td>Consultas, impressões e posições</td><td>Nada — somente leitura</td><td class="mono">webmasters.readonly</td></tr>
+                <tr><td>Business Profile</td><td>Fichas locais e avaliações</td><td>Edições de ficha que você aprovar</td><td class="mono">business.manage</td></tr>
+                <tr><td>Meta</td><td>Campanhas, públicos e criativos</td><td>Rascunhos de campanha, pausados até você lançar</td><td class="mono">ads_read, ads_management</td></tr>
+                <tr><td>HubSpot</td><td>Contatos, negócios e estágios do ciclo</td><td>Atualizações de contato e estágio que você aprovar</td><td class="mono">crm.objects.contacts.read</td></tr>
+                <tr><td>Shopify</td><td>Produtos, pedidos e clientes</td><td>Nada — somente leitura</td><td class="mono">read_products, read_orders</td></tr>
+                <tr><td>WordPress</td><td>Páginas, posts e metadados</td><td>Rascunhos no seu CMS, publicados só com aprovação</td><td class="mono">credenciais do site</td></tr>
+                <tr><td>Stripe</td><td>Assinaturas e registros de receita</td><td>Nada — somente leitura</td><td class="mono">chave restrita de leitura</td></tr>
+                <tr><td>Slack</td><td>Diretório de canais e usuários</td><td>Pedidos de aprovação e notificações</td><td class="mono">chat:write</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note warn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--warning))" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.7 3.9a2 2 0 00-3.4 0z"/></svg>
+            <p><strong style="color:hsl(var(--ink))">Confira a coluna de escopo antes de enviar para verificação.</strong> Os identificadores acima descrevem o acesso que cada recurso precisa. Eles devem bater exatamente com o que o seu cliente OAuth pede — uma divergência entre esta página e a tela de consentimento reprova a revisão.</p>
+          </div>
+        </div>
+
+        <div class="reveal prose" id="limited-use" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">Política de Dados do Usuário dos Serviços de API do Google</h2>
+          <p>O uso e a transferência pelo ATNOS de informações recebidas das APIs do Google para qualquer outro aplicativo seguem a <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado.</p>
+          <p>Concretamente: os dados recebidos das APIs do Google são usados apenas para fornecer e melhorar os recursos que você ativou no seu workspace. Não são transferidos a terceiros, exceto quando necessário para fornecer esses recursos, para cumprir a lei aplicável ou como parte de uma fusão ou aquisição. Não são usados para publicidade nem para treinar modelos generalistas. Nenhuma pessoa os lê, exceto com a sua permissão explícita, por motivos de segurança ou quando a lei exigir.</p>
+        </div>
+
+        <div class="reveal prose" id="never" style="margin-top:64px;max-width:none">
+          <h2 class="t-subtitle">O que o ATNOS nunca faz</h2>
+          <ul class="bullets">
+            <li>Nunca pede, recebe nem armazena a sua senha de um serviço conectado.</li>
+            <li>Nunca publica, lança ou altera material visível ao público sem aprovação explícita — tudo isso é preparado como rascunho e espera por uma pessoa.</li>
+            <li>Nunca retém investimento de mídia; a cobrança fica entre você e a plataforma.</li>
+            <li>Nunca usa os seus dados para treinar modelos generalistas.</li>
+            <li>Nunca vende dados conectados nem os compartilha com anunciantes.</li>
+          </ul>
+        </div>
+
+        <div class="reveal" id="revoke" style="margin-top:64px">
+          <h2 class="t-subtitle">Revogar o acesso</h2>
+          <p style="margin-top:16px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Desconectar dentro do ATNOS destrói os tokens guardados na hora. Você também pode revogar nas configurações do próprio provedor, o que corta o acesso sem mexer no seu workspace.</p>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Provedor</th><th>Onde revogar</th></tr></thead>
+              <tbody>
+                <tr><td>ATNOS</td><td>Configurações → Conexões → Desconectar</td></tr>
+                <tr><td>Google</td><td><a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a></td></tr>
+                <tr><td>Meta</td><td>Configurações e privacidade → Configurações → Apps e sites</td></tr>
+                <tr><td>HubSpot</td><td>Configurações → Integrações → Aplicativos conectados</td></tr>
+                <tr><td>Shopify</td><td>Admin → Aplicativos → Desinstalar</td></tr>
+                <tr><td>Stripe</td><td>Painel → Configurações → Aplicativos autorizados</td></tr>
+                <tr><td>Slack</td><td>Configurações do workspace → Gerenciar aplicativos</td></tr>
+                <tr><td>WordPress</td><td>Usuários → Perfil → Senhas de aplicativo → Revogar</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:24px;font-size:1.0625rem;line-height:1.75;color:hsl(var(--muted));max-width:44rem">Para apagar também os dados, siga <a href="data-deletion.html" style="color:hsl(var(--brand))">Exclusão de Dados</a>.</p>
+        </div>
+
+      </div>
+
+      <aside class="side reveal" aria-label="Nesta página">
+        <h3>Nesta página</h3>
+        <a href="#how">Como funciona a autorização</a>
+        <a href="#scopes">A que cada conexão acessa</a>
+        <a href="#limited-use">Política de API do Google</a>
+        <a href="#never">O que nunca faz</a>
+        <a href="#revoke">Revogar o acesso</a>
+        <div style="height:1px;background:hsl(var(--line));margin:16px 0"></div>
+        <h3>Relacionado</h3>
+        <a href="privacy-policy.html">Política de Privacidade</a>
+        <a href="data-deletion.html">Exclusão de Dados</a>
+        <a href="security.html">Segurança</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="ftr"></footer>
+<script src="../assets/site.js?v=6"></script>
+</body>
+</html>
