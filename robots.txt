@@ -2,3 +2,5 @@
 # search crawlers both need to reach every page without signing in.
 User-agent: *
 Allow: /
+
+Sitemap: https://atnos.ai/sitemap.xml

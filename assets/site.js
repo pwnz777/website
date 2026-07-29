@@ -206,8 +206,13 @@ function buildHeader() {
   const host = document.getElementById('hdr');
   if (!host) return;
   const hit = h => slug(h.split('#')[0]) === PAGE;
+  /* Enterprise points at security.html, so on that page both Product and
+     Security would claim to be current. A top-level match wins outright;
+     a flyout match only counts when nothing else claims the page. */
+  const exact = NAV.some(it => hit(it.href));
   const link = it => {
-    const active = hit(it.href) || (it.flyout || []).some(id => hit(HREF[id])) ? ' aria-current="page"' : '';
+    const current = hit(it.href) || (!exact && (it.flyout || []).some(id => hit(HREF[id])));
+    const active = current ? ' aria-current="page"' : '';
     if (!it.flyout) return `<a href="${L(it.href)}" class="nav-link"${active}>${label(it.id)}</a>`;
     return `<span class="has-flyout">
       <a href="${L(it.href)}" class="nav-link"${active}>${label(it.id)}
@@ -260,6 +265,20 @@ function buildHeader() {
       if (w.contains(e.target)) return;
       menu.classList.remove('open'); btn.setAttribute('aria-expanded', false);
     });
+  });
+
+  /* The nav flyouts open on :hover and :focus-within, and focus stays inside
+     the wrapper, so Escape needs a class that outranks those rules — moving
+     focus alone would leave the menu open. */
+  host.querySelectorAll('.has-flyout:not(.lang-wrap)').forEach(w => {
+    w.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      w.classList.add('shut');
+      w.querySelector('.nav-link').focus();
+    });
+    const reopen = () => w.classList.remove('shut');
+    w.addEventListener('pointerenter', reopen);
+    w.addEventListener('focusout', e => { if (!w.contains(e.relatedTarget)) reopen(); });
   });
 
   const burger = document.getElementById('burger'), mm = document.getElementById('mmenu');

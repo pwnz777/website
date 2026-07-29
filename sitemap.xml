@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://atnos.ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/about"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/about"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/about"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/security</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/security"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/security"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/security"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/security"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/contact"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/contact"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/support"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/support"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/support"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/status</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/status"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/status"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/status"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/status"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/developers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/developers"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/developers"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/developers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/developers"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/api</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/api"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/api"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/api"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/api"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/oauth</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/oauth"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/oauth"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/oauth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/oauth"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/pricing"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/pricing"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/pricing"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/privacy-policy"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/terms-of-service</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/terms-of-service"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/cookie-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/cookie-policy"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/data-deletion</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/data-deletion"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/about"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/about"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/about"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/security</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/security"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/security"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/security"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/security"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/contact"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/contact"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/support"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/support"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/support"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/status</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/status"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/status"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/status"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/status"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/developers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/developers"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/developers"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/developers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/developers"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/api</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/api"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/api"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/api"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/api"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/oauth</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/oauth"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/oauth"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/oauth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/oauth"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/pricing"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/pricing"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/pricing"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/privacy-policy"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/terms-of-service</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/terms-of-service"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/cookie-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/cookie-policy"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/es/data-deletion</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/data-deletion"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/about"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/about"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/about"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/security</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/security"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/security"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/security"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/security"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/contact"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/contact"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/support"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/support"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/support"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/status</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/status"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/status"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/status"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/status"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/developers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/developers"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/developers"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/developers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/developers"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/api</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/api"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/api"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/api"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/api"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/oauth</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/oauth"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/oauth"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/oauth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/oauth"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/pricing"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/pricing"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/pricing"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/privacy-policy"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/terms-of-service</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/terms-of-service"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/cookie-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/cookie-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/cookie-policy"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+  <url>
+    <loc>https://atnos.ai/pt/data-deletion</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://atnos.ai/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://atnos.ai/es/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://atnos.ai/pt/data-deletion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://atnos.ai/data-deletion"/>
+    <lastmod>2026-07-29</lastmod>
+  </url>
+</urlset>
